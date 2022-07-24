@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <script>
+      window.onload = function () {
+        var receiver = document.getElementById("receiver").contentWindow
+        var btn = document.getElementById("sendMessage")
+        btn.addEventListener("click", function (e) {
+          e.preventDefault()
+
+          const data = {
+            avatarThunb:
+              "https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_13d499b0fffb8bf330538e6b0c072e2d.jpeg?from=4010531038",
+            content: "法国",
+            displayId: "871562308",
+            method: "WebcastChatMessage",
+            nickname: "💋遇见。",
+            timestamp: 1657523000089,
+          }
+
+          receiver.postMessage(data, "*")
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <iframe
+      src="http://localhost:3001/?id=france"
+      width="500"
+      height="993"
+      style="border: none"
+      id="receiver"
+    ></iframe>
+    <button id="sendMessage">发送消息</button>
+  </body>
+</html>

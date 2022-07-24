@@ -1,6 +1,38 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import "./App.css"
 import axios from "axios"
+import ReactAudioPlayer from "react-audio-player"
+
+const useAudio = (url: string) => {
+  const [audio] = useState(new Audio(url))
+  const [playing, setPlaying] = useState(false)
+
+  const toggle = () => setPlaying(!playing)
+
+  useEffect(() => {
+    playing ? audio.play() : audio.pause()
+  }, [playing])
+
+  useEffect(() => {
+    audio.addEventListener("ended", () => setPlaying(false))
+    return () => {
+      audio.removeEventListener("ended", () => setPlaying(false))
+    }
+  }, [])
+
+  return [playing, toggle, audio]
+}
+
+export const useWindowEvent = (event: any, callback: any) => {
+  useEffect(() => {
+    window.addEventListener(event, callback)
+    return () => window.removeEventListener(event, callback)
+  }, [event, callback])
+}
+
+export const useGlobalMessage = (callback: any) => {
+  return useWindowEvent("message", callback)
+}
 
 function App() {
   const id = window.location.search.match(/\?id=(.+)/)
@@ -8,6 +40,24 @@ function App() {
   const [step, setStep] = useState(0)
   const [count, setCount] = useState(5)
   const [data, setData] = useState<any>(null)
+  const [playing, toggle, audio] = useAudio(`http://localhost:8888/djs.mp3`)
+
+  const receiveMessage = useCallback(
+    (event: any) => {
+      if (event.data.method === "WebcastChatMessage") {
+        const ans = event.data.content
+        console.log(data)
+        if (ans === data.notionName) {
+          // 回答正确
+          alert("回答正确")
+          ;(audio as any).pause()
+        }
+      }
+    },
+    [data]
+  )
+
+  useGlobalMessage(receiveMessage)
 
   useEffect(() => {
     axios({
@@ -24,10 +74,12 @@ function App() {
     if (data && count) {
       interval = setInterval(() => {
         setCount(count - 1)
+        ;(audio as any).play()
       }, 1000)
     } else {
       if (count === 0) {
         setStep(1)
+        ;(audio as any).pause()
       }
       clearInterval(interval)
     }
@@ -48,6 +100,12 @@ function App() {
               </div>
             )}
           </div>
+          <ReactAudioPlayer
+            src="http://localhost:8888/djs.mp3"
+            autoPlay
+            controls
+            style={{ display: "none" }}
+          />
 
           <div className="field-large">
             <div className="lineup">
