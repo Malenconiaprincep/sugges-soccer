@@ -1,0 +1,346 @@
+@font-face {
+  font-family: din pro medium;
+  font-style: normal;
+  font-weight: 400;
+  src: local("DIN Pro Medium"), url(./DINPro-CondMedium.woff) format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: din pro condensed regular;
+  font-style: normal;
+  font-weight: 400;
+  src: local("DIN Pro Condensed Regular"),
+    url(./DINPro-CondMedium.woff) format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: din pro condensed bold;
+  font-style: normal;
+  font-weight: 400;
+  src: local("DIN Pro Condensed Bold"),
+    url(./DINPro-CondBold.woff) format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: din pro condensed medium;
+  font-style: normal;
+  font-weight: 400;
+  src: local("DIN Pro Condensed Medium"), url(./DINPro-Cond.woff) format("woff");
+  font-display: swap;
+}
+
+.card-22-create-chemstyleimg {
+  position: absolute;
+  left: 50%;
+  margin-left: -7px;
+  bottom: 13px;
+}
+.card-22-create-chemstyleimg img {
+  width: 14px;
+  height: 14px;
+}
+.card-22-create {
+  font-family: "DIN Pro Condensed Bold";
+  position: relative;
+  width: 450px;
+  height: 650px;
+  transform-origin: top left;
+  transform: scale(0.7);
+  text-transform: uppercase;
+  line-height: normal !important;
+}
+.card-22-create-face-alt {
+  position: absolute;
+  top: 40px;
+  overflow: hidden;
+  right: 13px;
+  width: 159px;
+  height: 187px;
+  z-index: 9;
+}
+.card-22-create-face-alt img {
+  width: 159px;
+  height: 187px;
+}
+.card-22-create-face {
+  position: absolute;
+  right: 51px;
+  top: 72px;
+  overflow: hidden;
+  width: 265px;
+  height: 265px;
+}
+.card-22-create-face-inner {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.card-22-create-face-inner img {
+  height: 265px;
+}
+.card-22-create-badge {
+  position: absolute;
+  top: 260px;
+  left: 92px;
+  z-index: 11;
+}
+.card-22-create-badge img {
+  max-height: 72px;
+  max-width: 72px;
+}
+.card-22-create-flag {
+  position: absolute;
+  top: 206px;
+  left: 92px;
+  z-index: 11;
+}
+.card-22-create-flag img {
+  height: 43px;
+}
+.card-22-create-name {
+  font-family: "DIN Pro Condensed Bold";
+  font-size: 48px;
+  position: absolute;
+  top: 335px;
+  left: 54px;
+  width: 344px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  z-index: 11;
+}
+.card-22-create-rating {
+  font-family: "DIN Pro Condensed Regular";
+  font-size: 76px;
+  position: absolute;
+  top: 75px;
+  left: 86px;
+  width: 85px;
+  text-align: center;
+  z-index: 11;
+}
+.card-22-create-position {
+  font-family: "DIN Pro Condensed Regular";
+  font-size: 34px;
+  position: absolute;
+  top: 151px;
+  left: 86px;
+  width: 85px;
+  text-align: center;
+  z-index: 11;
+}
+
+.card-22-create .att1 {
+  left: 27px;
+  width: 55px;
+  text-align: left;
+  font-size: 15px;
+}
+.card-22-create .att2 {
+  left: 27px;
+  width: 55px;
+  text-align: left;
+  font-size: 15px;
+}
+.card-22-create .att3 {
+  left: 27px;
+  width: 55px;
+  text-align: left;
+  font-size: 15px;
+}
+.card-22-create .att4 {
+  right: 16px;
+  width: 55px;
+  text-align: left;
+  font-size: 15px;
+}
+.card-22-create .att5 {
+  right: 16px;
+  width: 55px;
+  text-align: left;
+  font-size: 15px;
+}
+.card-22-create .att6 {
+  right: 16px;
+  width: 55px;
+  text-align: left;
+  font-size: 15px;
+}
+.card-22-create .att1 {
+  position: absolute;
+  top: 156px;
+}
+.card-22-create .att4 {
+  position: absolute;
+  top: 156px;
+}
+.card-22-create .att2 {
+  position: absolute;
+  top: 179px;
+}
+.card-22-create .att5 {
+  position: absolute;
+  top: 179px;
+}
+.card-22-create .att3 {
+  position: absolute;
+  top: 201px;
+}
+.card-22-create .att6 {
+  position: absolute;
+  top: 201px;
+}
+.card-22-create-attnum {
+  font-size: 44px;
+}
+.card-22-create-attlabel {
+  font-family: "DIN Pro Condensed Medium";
+  font-size: 44px;
+  top: 1px;
+}
+.card-22-create-atts {
+  font-family: "DIN Pro Condensed Bold";
+  position: absolute;
+  top: 390px;
+  left: 93px;
+  z-index: 11;
+}
+.card-22-create-atts1 {
+  position: absolute;
+  top: 2px;
+}
+.card-22-create-atts2 {
+  position: absolute;
+  top: 43px;
+}
+.card-22-create-atts3 {
+  position: absolute;
+  top: 85px;
+}
+.card-22-create-attnum1,
+.card-22-create-attnum2,
+.card-22-create-attnum3 {
+  position: absolute;
+}
+.card-22-create-attlabel1,
+.card-22-create-attlabel2,
+.card-22-create-attlabel3 {
+  position: absolute;
+  left: 42px;
+}
+.card-22-create-attnum4,
+.card-22-create-attnum5,
+.card-22-create-attnum6 {
+  position: absolute;
+  left: 176px;
+}
+.card-22-create-attlabel4,
+.card-22-create-attlabel5,
+.card-22-create-attlabel6 {
+  position: absolute;
+  left: 220px;
+}
+
+.card-22-create-headeroverlay {
+  width: 94px;
+  height: 453px;
+  position: absolute;
+  left: 81px;
+  top: 88px;
+  opacity: 0.7;
+  z-index: 10;
+  display: none;
+}
+.card-22-create-split {
+  z-index: 11;
+}
+.card-22-create-name-split {
+  height: 1px;
+  width: 270px;
+  left: 92px;
+  border-bottom: 1px solid;
+  position: absolute;
+  top: 390px;
+}
+.card-22-create-flag-split {
+  height: 60px;
+  width: 53px;
+  left: 100px;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  position: absolute;
+  top: 198px;
+}
+.card-22-create-atts-split {
+  height: 114px;
+  width: 1px;
+  left: 224px;
+  border-left: 1px solid;
+  position: absolute;
+  top: 415px;
+}
+.card-22-create-chem-split {
+  height: 1px;
+  width: 45px;
+  left: 201px;
+  border-bottom: 1px solid;
+  position: absolute;
+  top: 543px;
+}
+.card-22-create-gold-nr .card-22-create-split {
+  border-color: #eee5a3;
+}
+.card-22-create-gold-nr .card-22-create-attlabel {
+  color: #574a2b;
+}
+
+.card-22-create-gold .card-22-create-split {
+  border-color: #9b8133;
+}
+.card-22-create-gold .card-22-create-attlabel {
+  color: #645215;
+}
+.card-22-create-gold {
+  background: url(./goldrare.webp);
+  color: #46390c;
+  background-repeat: no-repeat;
+  background-size: 465px 650px;
+  background-position: center;
+}
+.card-22-create-silver .card-22-create-split {
+  border-color: #9e9fa0;
+}
+.card-22-create-silver {
+  background: url(./silverrare.png);
+  color: #26292a;
+  background-repeat: no-repeat;
+  background-size: 465px 650px;
+  background-position: center;
+}
+.card-22-create-bronze .card-22-create-split {
+  border-color: #976937;
+}
+.card-22-create-bronze {
+  background: url(./bronzerare.png);
+  color: #3a2717;
+  background-repeat: no-repeat;
+  background-size: 465px 650px;
+  background-position: center;
+}
+.card-22-create-goldif .card-22-create-split {
+  border-color: #705f30;
+}
+.card-22-create-goldif .card-22-create-headeroverlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 13, 12, 0) 8%,
+    rgba(15, 13, 12, 1) 29%,
+    rgba(15, 13, 12, 1) 50%,
+    rgba(15, 13, 12, 1) 81%,
+    rgba(15, 13, 12, 0) 100%
+  );
+  display: block;
+}
