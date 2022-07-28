@@ -310,6 +310,15 @@
   background-size: 465px 650px;
   background-position: center;
 }
+
+.card-22-create-icon {
+  background: url(./icon.png);
+  color: #46390c;
+  background-repeat: no-repeat;
+  background-size: 465px 650px;
+  background-position: center;
+}
+
 .card-22-create-silver .card-22-create-split {
   border-color: #9e9fa0;
 }

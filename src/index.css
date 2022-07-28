@@ -14,7 +14,7 @@ code {
 }
 
 .App {
-  width: 500px;
+  width: 600px;
   height: 993px;
   margin: 0 auto;
   background: #212529;
@@ -22,11 +22,11 @@ code {
 }
 
 .block-two-third {
-  width: 470px;
+  width: 574px;
   vertical-align: top;
   margin: 0 auto;
   position: absolute;
-  bottom: 150px;
+  bottom: 230px;
   left: 15px;
 }
 
@@ -64,6 +64,7 @@ code {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-left: 15px;
 }
 
 .field-name {
@@ -120,4 +121,24 @@ code {
 
 .answer img {
   padding-right: 15px;
+}
+
+.right {
+  width: 50px;
+  height: 50px;
+  background: url("./right.png") no-repeat center top;
+  background-size: cover;
+  position: relative;
+}
+
+.modal-show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal-show p {
+  margin-top: 30px;
+  font-size: 30px;
 }

@@ -1,7 +1,22 @@
 import React, { useCallback, useEffect, useState } from "react"
+import { Modal } from "antd"
+import "antd/dist/antd.css"
 import "./App.css"
 import axios from "axios"
 import ReactAudioPlayer from "react-audio-player"
+
+const questions = [
+  "Argentina",
+  "Belgium",
+  "brazil",
+  "england",
+  "france",
+  "germany",
+  "Mexi",
+  "Netherlands",
+  "portugal",
+  "spain",
+]
 
 const useAudio = (url: string) => {
   const [audio] = useState(new Audio(url))
@@ -34,23 +49,47 @@ export const useGlobalMessage = (callback: any) => {
   return useWindowEvent("message", callback)
 }
 
+function getMatchKey(questions: string[]) {
+  if (questions) {
+    const randomIndex = Math.ceil(Math.random() * 10)
+    const matchKey = questions.slice(randomIndex)[0]
+    return matchKey
+  }
+  return ""
+}
+
+const countValue = 25
+
 function App() {
-  const id = window.location.search.match(/\?id=(.+)/)
-  const matchId = id && id[1]
   const [step, setStep] = useState(0)
-  const [count, setCount] = useState(5)
+  const [count, setCount] = useState(countValue)
   const [data, setData] = useState<any>(null)
-  const [playing, toggle, audio] = useAudio(`http://localhost:8888/djs.mp3`)
+  // const [playing, toggle, audio] = useAudio(`/data/djs.mp3`)
+  const value = getMatchKey(questions)
+  const [matchKey, setMatchKey] = useState(value)
+  const [visible, setVisible] = useState(false)
+  const [answer, setAnswer] = useState(null)
 
   const receiveMessage = useCallback(
     (event: any) => {
-      if (event.data.method === "WebcastChatMessage") {
-        const ans = event.data.content
-        console.log(data)
-        if (ans === data.notionName) {
-          // 回答正确
-          alert("回答正确")
-          ;(audio as any).pause()
+      for (let i = 0; i < event.data.length; i++) {
+        let item = event.data[i]
+        if (item && item.method === "WebcastChatMessage") {
+          const ans = item.content
+          if (ans === data.notionName) {
+            // 回答正确
+            setAnswer(item.nickname)
+            setVisible(true)
+
+            setTimeout(() => {
+              // ;(audio as any).pause()
+              setVisible(false)
+              setCount(0)
+              setStep(1)
+              console.log(item.nickname)
+            }, 3000)
+            break
+          }
         }
       }
     },
@@ -62,24 +101,29 @@ function App() {
   useEffect(() => {
     axios({
       method: "get",
-      url: `http://localhost:8888/${matchId}.json`,
+      url: `/data/${matchKey}.json`,
       responseType: "stream",
     }).then(function (response) {
       setData(response.data)
     })
-  }, [matchId])
+  }, [matchKey])
 
   useEffect(() => {
     let interval: any = null
     if (data && count) {
       interval = setInterval(() => {
         setCount(count - 1)
-        ;(audio as any).play()
+        // ;(audio as any).play()
       }, 1000)
     } else {
       if (count === 0) {
         setStep(1)
-        ;(audio as any).pause()
+        setTimeout(() => {
+          setStep(0)
+          setCount(countValue)
+          setMatchKey(getMatchKey(questions))
+        }, 10000)
+        // ;(audio as any).pause()
       }
       clearInterval(interval)
     }
@@ -100,12 +144,12 @@ function App() {
               </div>
             )}
           </div>
-          <ReactAudioPlayer
+          {/* <ReactAudioPlayer
             src="http://localhost:8888/djs.mp3"
             autoPlay
             controls
             style={{ display: "none" }}
-          />
+          /> */}
 
           <div className="field-large">
             <div className="lineup">
@@ -145,6 +189,14 @@ function App() {
             </div>
           </div>
         </div>
+        <Modal visible={visible} footer={null} closable={false} centered={true}>
+          <div className="modal-show">
+            <div className="right"></div>
+            <p>
+              恭喜<span style={{ color: "red" }}>{answer}</span>回答正确
+            </p>
+          </div>
+        </Modal>
       </div>
     )
   )

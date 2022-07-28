@@ -1,0 +1,106 @@
+{
+  "notionLogo": "https://cdn.sofifa.net/teams/1370/120.png",
+  "notionName": "巴西",
+  "players": [
+    {
+      "left": "0.8%",
+      "top": "7.5%",
+      "img": "https://cdn.sofifa.net/players/230/384/22_60.png",
+      "href": "/player/230384/nuno-ailton-padrenda-mendes/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Padrenda Mendes",
+      "teamlogo": "https://cdn.sofifa.net/teams/1035/60.png"
+    },
+    {
+      "left": "35.956%",
+      "top": "-2.5%",
+      "img": "https://cdn.sofifa.net/players/230/430/22_60.png",
+      "href": "/player/230430/marvin-oswaldo-rangel-azevedo/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Rangel Azevedo",
+      "teamlogo": "https://cdn.sofifa.net/teams/1043/60.png"
+    },
+    {
+      "left": "71.2%",
+      "top": "7.39%",
+      "img": "https://cdn.sofifa.net/players/230/481/22_60.png",
+      "href": "/player/230481/ronaldo-jailson-cabrais-petri/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Cabrais Petri",
+      "teamlogo": "https://cdn.sofifa.net/teams/1370/60.png"
+    },
+    {
+      "left": "21.92%",
+      "top": "32.39%",
+      "img": "https://cdn.sofifa.net/players/230/347/22_60.png",
+      "href": "/player/230347/welington-kaue-dano-nascimento/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Dano Nascimento",
+      "teamlogo": "https://cdn.sofifa.net/teams/1035/60.png"
+    },
+    {
+      "left": "49.1208%",
+      "top": "32.77%",
+      "img": "https://cdn.sofifa.net/players/230/234/22_60.png",
+      "href": "/player/230234/everton-jorge-andrade-zanon/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Andrade Zanon",
+      "teamlogo": "https://cdn.sofifa.net/teams/567/60.png"
+    },
+    {
+      "left": "36.044%",
+      "top": "49.21%",
+      "img": "https://cdn.sofifa.net/players/230/258/22_60.png",
+      "href": "/player/230258/rosberto-j-dourado-santos/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Dourado Santos",
+      "teamlogo": "https://cdn.sofifa.net/teams/1041/60.png"
+    },
+    {
+      "left": "0.8%",
+      "top": "62.87%",
+      "img": "https://cdn.sofifa.net/players/230/256/22_60.png",
+      "href": "/player/230256/adryan-juliano-zonta-torres/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Zonta Torres",
+      "teamlogo": "https://cdn.sofifa.net/teams/1370/60.png"
+    },
+    {
+      "left": "23.0024%",
+      "top": "69.79%",
+      "img": "https://cdn.sofifa.net/players/230/225/22_60.png",
+      "href": "/player/230225/juan-everton-mestres-de-mesquita/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Mestres de Mesquita",
+      "teamlogo": "https://cdn.sofifa.net/teams/1035/60.png"
+    },
+    {
+      "left": "49.2704%",
+      "top": "69.57%",
+      "img": "https://cdn.sofifa.net/players/230/375/22_60.png",
+      "href": "/player/230375/josue-durval-chiamulera-vaz/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Chiamulera Vaz",
+      "teamlogo": "https://cdn.sofifa.net/teams/1370/60.png"
+    },
+    {
+      "left": "71.5344%",
+      "top": "62.5%",
+      "img": "https://cdn.sofifa.net/players/230/201/22_60.png",
+      "href": "/player/230201/maikel-renan-catarino-fagundes/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Catarino Fagundes",
+      "teamlogo": "https://cdn.sofifa.net/teams/1041/60.png"
+    },
+    {
+      "left": "36%",
+      "top": "83.25%",
+      "img": "https://cdn.sofifa.net/players/230/168/22_60.png",
+      "href": "/player/230168/raphael-william-anjos-rochedo/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Anjos Rochedo",
+      "teamlogo": "https://cdn.sofifa.net/teams/1370/60.png"
+    }
+  ],
+  "teamname": "brazil"
+}

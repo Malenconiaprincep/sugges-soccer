@@ -58,7 +58,7 @@
   color: white;
 }
 .count-down::after {
-  --t: 5;
+  --t: 25;
   --dur: 1;
   counter-reset: time var(--t);
   content: counter(time, stop);
