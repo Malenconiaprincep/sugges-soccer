@@ -149,6 +149,7 @@ function App() {
       <div className="App">
         <div className="title">
           看图猜球队
+          <span style={{ fontSize: "16px" }}>(弹幕下输入中文即可)</span>
         </div>
         <div className="block-two-third">
           {/* <button onClick={() => setStep(1)}>显示答案</button> */}
