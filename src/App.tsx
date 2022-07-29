@@ -9,13 +9,27 @@ const questions = [
   "Argentina",
   "Belgium",
   "brazil",
+  "canada",
+  "china",
+  "czech",
+  "denmark",
   "england",
   "france",
   "germany",
+  "greece",
+  "iceland",
+  "italy",
   "Mexi",
   "Netherlands",
+  "norway",
+  "poland",
   "portugal",
+  "romania",
   "spain",
+  "states",
+  "sweden",
+  "ukraine",
+  "wales",
 ]
 
 const useAudio = (url: string) => {
@@ -51,14 +65,14 @@ export const useGlobalMessage = (callback: any) => {
 
 function getMatchKey(questions: string[]) {
   if (questions) {
-    const randomIndex = Math.ceil(Math.random() * 10)
-    const matchKey = questions.slice(randomIndex)[0]
+    const randomIndex = Math.floor(Math.random() * questions.length)
+    const matchKey = questions[randomIndex]
     return matchKey
   }
   return ""
 }
 
-const countValue = 25
+const countValue = 5
 
 function App() {
   const [step, setStep] = useState(0)
@@ -101,7 +115,7 @@ function App() {
   useEffect(() => {
     axios({
       method: "get",
-      url: `/data/${matchKey}.json`,
+      url: `/data/${matchKey}/${matchKey}.json`,
       responseType: "stream",
     }).then(function (response) {
       setData(response.data)
@@ -136,7 +150,7 @@ function App() {
         <div className="block-two-third">
           {/* <button onClick={() => setStep(1)}>显示答案</button> */}
           <div style={{ height: "120px" }}>
-            {step === 0 && <div className="count-down"></div>}
+            {step === 0 && <div className="count-down">{count}</div>}
             {step === 1 && (
               <div className="answer">
                 <img src={data.notionLogo} />

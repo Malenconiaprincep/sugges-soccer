@@ -14,7 +14,7 @@ code {
 }
 
 .App {
-  width: 600px;
+  width: 570px;
   height: 993px;
   margin: 0 auto;
   background: #212529;
@@ -22,12 +22,9 @@ code {
 }
 
 .block-two-third {
-  width: 574px;
+  width: 554px;
   vertical-align: top;
   margin: 0 auto;
-  position: absolute;
-  bottom: 230px;
-  left: 15px;
 }
 
 .field-large {
@@ -80,7 +77,7 @@ code {
   text-align: center;
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  padding: 0 20px;
 }
 
 .field-name img {
@@ -121,6 +118,7 @@ code {
 
 .answer img {
   padding-right: 15px;
+  width: 120px;
 }
 
 .right {
