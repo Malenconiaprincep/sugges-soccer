@@ -147,6 +147,9 @@ function App() {
   return (
     data && (
       <div className="App">
+        <div className="title">
+          看图猜球队
+        </div>
         <div className="block-two-third">
           {/* <button onClick={() => setStep(1)}>显示答案</button> */}
           <div style={{ height: "120px" }}>
