@@ -72,7 +72,7 @@ function getMatchKey(questions: string[]) {
   return ""
 }
 
-const countValue = 5
+const countValue = 30
 
 function App() {
   const [step, setStep] = useState(0)
