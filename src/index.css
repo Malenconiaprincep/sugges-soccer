@@ -30,7 +30,7 @@ code {
 .App {
   width: 550px;
   height: 993px;
-  margin: 0 auto;
+  margin: 40px 30px;
   background: #212529;
   position: relative;
 }

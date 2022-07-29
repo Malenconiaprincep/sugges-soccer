@@ -63,51 +63,73 @@ export const useGlobalMessage = (callback: any) => {
   return useWindowEvent("message", callback)
 }
 
-function getMatchKey(questions: string[]) {
+function getMatchKey(questions: string[], startIndex: number) {
   if (questions) {
-    const randomIndex = Math.floor(Math.random() * questions.length)
-    const matchKey = questions[randomIndex]
-    return matchKey
+    if (questions[startIndex]) {
+      const value = questions[startIndex]
+      startIndex++
+      return value
+    } else {
+      startIndex = 0
+      return questions[startIndex]
+    }
   }
   return ""
 }
 
-const countValue = 30
+const countValue = 25
 
 function App() {
   const [step, setStep] = useState(0)
   const [count, setCount] = useState(countValue)
   const [data, setData] = useState<any>(null)
   // const [playing, toggle, audio] = useAudio(`/data/djs.mp3`)
-  const value = getMatchKey(questions)
-  const [matchKey, setMatchKey] = useState(value)
   const [visible, setVisible] = useState(false)
   const [answer, setAnswer] = useState(null)
+  const [startIndex, setStartIndex] = useState(0)
+
+  const getMatchKey = useCallback(
+    (questions: string[], startIndex: number) => {
+      if (questions) {
+        if (questions[startIndex]) {
+          const value = questions[startIndex]
+          startIndex++
+          return value
+        } else {
+          startIndex = 0
+          return questions[startIndex]
+        }
+      }
+      return ""
+    },
+    [startIndex]
+  )
+
+  const matchKey = getMatchKey(questions, startIndex)
 
   const receiveMessage = useCallback(
     (event: any) => {
+      if (step === 1) return
       for (let i = 0; i < event.data.length; i++) {
         let item = event.data[i]
         if (item && item.method === "WebcastChatMessage") {
           const ans = item.content
-          if (ans === data.notionName) {
+          if (true) {
             // 回答正确
             setAnswer(item.nickname)
             setVisible(true)
+            setCount(0)
 
             setTimeout(() => {
               // ;(audio as any).pause()
               setVisible(false)
-              setCount(0)
-              setStep(1)
-              console.log(item.nickname)
             }, 3000)
             break
           }
         }
       }
     },
-    [data]
+    [data, visible, step]
   )
 
   useGlobalMessage(receiveMessage)
@@ -135,8 +157,8 @@ function App() {
         setTimeout(() => {
           setStep(0)
           setCount(countValue)
-          setMatchKey(getMatchKey(questions))
-        }, 10000)
+          setStartIndex((startIndex) => startIndex + 1)
+        }, 8000)
         // ;(audio as any).pause()
       }
       clearInterval(interval)
@@ -147,10 +169,6 @@ function App() {
   return (
     data && (
       <div className="App">
-        <div className="title">
-          看图猜球队
-          <span style={{ fontSize: "16px" }}>(弹幕下输入中文即可)</span>
-        </div>
         <div className="block-two-third">
           {/* <button onClick={() => setStep(1)}>显示答案</button> */}
           <div style={{ height: "120px" }}>
@@ -207,6 +225,9 @@ function App() {
             </div>
           </div>
         </div>
+        {/* <div className="title">
+          <span style={{ fontSize: "20px" }}>(未成年禁止打赏)</span>
+        </div> */}
         <Modal visible={visible} footer={null} closable={false} centered={true}>
           <div className="modal-show">
             <div className="right"></div>
