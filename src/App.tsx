@@ -6,30 +6,31 @@ import axios from "axios"
 import ReactAudioPlayer from "react-audio-player"
 
 const questions = [
-  "Argentina",
-  "Belgium",
-  "brazil",
-  "canada",
-  "china",
-  "czech",
-  "denmark",
-  "england",
+  // "Argentina",
+  // "Belgium",
+  // "brazil",
+  // "canada",
+  // "china",
+  // "czech",
+  // "denmark",
+  // "england",
   "france",
-  "germany",
-  "greece",
-  "iceland",
-  "italy",
-  "Mexi",
-  "Netherlands",
-  "norway",
-  "poland",
-  "portugal",
-  "romania",
-  "spain",
-  "states",
-  "sweden",
-  "ukraine",
-  "wales",
+  // "germany",
+  // "greece",
+  // "iceland",
+  // "italy",
+  // "Mexi",
+  // "Netherlands",
+  // "norway",
+  // "poland",
+  // "portugal",
+  // "romania",
+  // "spain",
+  // "states",
+  // "sweden",
+  // "ukraine",
+  // "wales",
+  "barcelona",
 ]
 
 const useAudio = (url: string) => {
@@ -77,7 +78,7 @@ function getMatchKey(questions: string[], startIndex: number) {
   return ""
 }
 
-const countValue = 25
+const countValue = 5
 
 function App() {
   const [step, setStep] = useState(0)
@@ -114,7 +115,7 @@ function App() {
         let item = event.data[i]
         if (item && item.method === "WebcastChatMessage") {
           const ans = item.content
-          if (true) {
+          if (ans === item.notionName) {
             // 回答正确
             setAnswer(item.nickname)
             setVisible(true)
@@ -157,8 +158,12 @@ function App() {
         setTimeout(() => {
           setStep(0)
           setCount(countValue)
-          setStartIndex((startIndex) => startIndex + 1)
-        }, 8000)
+          if (startIndex === questions.length) {
+            setStartIndex(0)
+          } else {
+            setStartIndex((startIndex) => startIndex + 1)
+          }
+        }, 80000)
         // ;(audio as any).pause()
       }
       clearInterval(interval)
@@ -171,7 +176,9 @@ function App() {
       <div className="App">
         <div className="block-two-third">
           {/* <button onClick={() => setStep(1)}>显示答案</button> */}
-          <div style={{ height: "120px" }}>
+          <div
+            style={{ height: "80px", marginTop: "40px", marginBottom: "40px" }}
+          >
             {step === 0 && <div className="count-down">{count}</div>}
             {step === 1 && (
               <div className="answer">
