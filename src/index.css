@@ -30,9 +30,10 @@ code {
 .App {
   width: 390px;
   height: 993px;
-  margin: 40px 30px;
+  /* margin: 40px 30px; */
   background: #212529;
   position: relative;
+  margin: 0 auto;
 }
 
 .block-two-third {
@@ -65,7 +66,7 @@ code {
 
 .field-teamlogo {
   /* width: 3.5rem; */
-  height: 3.5rem;
+  height: 3rem;
 
   /* transform: scale(1.08); */
 }
@@ -92,14 +93,16 @@ code {
   text-align: center;
   display: flex;
   align-items: center;
-  padding: 0 20px 0 10px;
+  padding: 0 20px 0 15px;
 }
 
 .field-name img {
-  width: 2rem;
-  height: 2rem;
+  /* width: 2rem; */
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   position: absolute;
-  left: -1.5rem;
+  left: -1rem;
 }
 
 .animated {
@@ -153,5 +156,9 @@ code {
 
 .modal-show p {
   margin-top: 30px;
-  font-size: 30px;
+  font-size: 20px;
+}
+
+.congra {
+  font-size: 20px;
 }

@@ -91,6 +91,18 @@
   max-height: 72px;
   max-width: 72px;
 }
+
+.card-22-create-badge2 {
+  position: absolute;
+  top: 210px;
+  left: 82px;
+  z-index: 11;
+}
+.card-22-create-badge2 img {
+  max-height: 100px;
+  max-width: 100px;
+}
+
 .card-22-create-flag {
   position: absolute;
   top: 206px;

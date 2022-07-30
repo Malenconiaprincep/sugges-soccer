@@ -81,3 +81,8 @@
     transform: scale(0.4);
   }
 }
+
+.ant-modal-content {
+  width: 340px;
+  margin: 0 auto;
+}

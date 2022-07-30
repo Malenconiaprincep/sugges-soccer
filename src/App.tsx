@@ -6,32 +6,114 @@ import axios from "axios"
 import ReactAudioPlayer from "react-audio-player"
 
 const questions = [
-  // "Argentina",
-  // "Belgium",
-  // "brazil",
-  // "canada",
-  // "china",
-  // "czech",
-  // "denmark",
-  // "england",
+  "iceland",
   "france",
-  // "germany",
-  // "greece",
-  // "iceland",
-  // "italy",
-  // "Mexi",
-  // "Netherlands",
-  // "norway",
-  // "poland",
-  // "portugal",
-  // "romania",
-  // "spain",
-  // "states",
-  // "sweden",
-  // "ukraine",
-  // "wales",
+  "germany",
+  "Netherlands",
+  "brazil",
+  "Belgium",
+  "Argentina",
+  "england",
+  "spain",
+  "portugal",
+  "Mexi",
+  "italy",
+
+  "poland",
+  "iceland",
+  "canada",
+
+  "greece",
+
+  "sweden",
+  "norway",
+  "china",
+  "czech",
   "barcelona",
+  "mancity",
+  "manchester united",
+  "arsenal",
+  "liverpool",
+  "tottenham",
+  "Dortmund",
+  "chelse",
+  "bayern",
+  "real madrid",
+  "germain",
+  "demadrid",
+  "inter",
+  "juventus",
+  "milan",
+  "sevilla",
+  "atalanta",
+  "leicester",
+  "sociedad",
+  "villarreal",
+  "west ham",
+  "leverkusen",
+  "lazio",
+  "roma",
+  "bilbao",
+  "betis",
+  "ajax",
+  "aston",
+  "everton",
+  "lyonnais",
+  "benfica",
+  "porto",
+  "hoffenheim",
+  "wolfsburg",
+  "espanyol",
+  "leeds",
+  "wanderers",
+  "fiorentina",
+  "frankfurt",
+  "lille",
+  "juniors",
+  "brugge",
+  "udinese",
+  "galatasaray",
+  "fulham",
+  "mallorca",
+  "bordeaux",
+  "celtic",
+
+  "states",
+  "wales",
+  "denmark",
+  "romania",
+  "ukraine",
 ]
+
+questions.sort((a, b) => {
+  return Math.random() > 0.5 ? -1 : 1 // 如果a<b不交换，否则交换，即升序排列；如果a>b不交换，否则交换，即将序排列
+})
+
+console.log(questions)
+
+function preload(questions: any) {
+  for (let i = 0; i < questions.length; i++) {
+    axios({
+      method: "get",
+      url: `/data/${questions[i]}/${questions[i]}.json`,
+      responseType: "stream",
+    }).then(function (response) {
+      const notionlogo = response.data.notionLogo
+      const playerimgs = response.data.players.map((item: any) => item.img)
+      const teamlogos = response.data.players.map((item: any) => item.teamlogo)
+
+      const imgs = [notionlogo, ...playerimgs, ...teamlogos]
+
+      for (let i = 0; i < imgs.length; i++) {
+        const image = new Image()
+        image.src = imgs[i]
+      }
+      console.log(imgs)
+    })
+  }
+}
+
+preload(questions)
 
 const useAudio = (url: string) => {
   const [audio] = useState(new Audio(url))
@@ -78,7 +160,8 @@ function getMatchKey(questions: string[], startIndex: number) {
   return ""
 }
 
-const countValue = 5
+const countValue = 25
+const waitSuccess = 8
 
 function App() {
   const [step, setStep] = useState(0)
@@ -156,14 +239,14 @@ function App() {
       if (count === 0) {
         setStep(1)
         setTimeout(() => {
-          setStep(0)
-          setCount(countValue)
           if (startIndex === questions.length) {
             setStartIndex(0)
           } else {
             setStartIndex((startIndex) => startIndex + 1)
           }
-        }, 80000)
+          setStep(0)
+          setCount(countValue)
+        }, waitSuccess * 1000)
         // ;(audio as any).pause()
       }
       clearInterval(interval)
@@ -176,9 +259,7 @@ function App() {
       <div className="App">
         <div className="block-two-third">
           {/* <button onClick={() => setStep(1)}>显示答案</button> */}
-          <div
-            style={{ height: "80px", marginTop: "40px", marginBottom: "40px" }}
-          >
+          <div style={{ height: "80px", marginBottom: "20px" }}>
             {step === 0 && <div className="count-down">{count}</div>}
             {step === 1 && (
               <div className="answer">
@@ -238,7 +319,7 @@ function App() {
         <Modal visible={visible} footer={null} closable={false} centered={true}>
           <div className="modal-show">
             <div className="right"></div>
-            <p>
+            <p className="congra">
               恭喜<span style={{ color: "red" }}>{answer}</span>回答正确
             </p>
           </div>
