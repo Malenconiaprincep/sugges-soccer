@@ -205,11 +205,6 @@ function App() {
   const [step, setStep] = useState(0)
   const { count, setCount } = useDjs(countValue)
   const [data, setData] = useState<any>(null)
-  const [audioSrc, setAudio] = useState("")
-  const [play, setPlay] = useState(false)
-
-  const audioRef = useRef()
-
   const [visible, setVisible] = useState(false)
   const [answer, setAnswer] = useState<string>("")
   const [startIndex, setStartIndex] = useState(0)
@@ -241,22 +236,13 @@ function App() {
         if (item && item.method === "WebcastChatMessage") {
           const ans = item.content
           if (ans === data.notionName || true) {
-            axios({
-              method: "get",
-              url: `${host}:7777/?name=${item.nickname}`,
-              responseType: "stream",
-            }).then(function (response) {
-              // 回答正确
-              setAnswer(item.nickname)
-              setVisible(true)
-              setCount(0)
-              // 播放
-              setAudio(`${host}:8888/${response.data.url}`)
-              setPlay(true)
+            // 回答正确
+            setAnswer(item.nickname)
+            setVisible(true)
+            setCount(0)
 
-              const audio = document.querySelector("audio")
-              ;(audio as any).play()
-            })
+            const audio = document.querySelector("audio")
+            ;(audio as any).play()
 
             setTimeout(() => {
               const audio = document.querySelector("audio")
@@ -265,7 +251,7 @@ function App() {
               ;(audio as any).src = ""
 
               setVisible(false)
-            }, 3000)
+            }, 6000)
             break
           }
         }
@@ -275,13 +261,6 @@ function App() {
   )
 
   useGlobalMessage(receiveMessage)
-
-  useEffect(() => {
-    if (play && audioSrc) {
-      setAudio(audioSrc)
-      setPlay(false)
-    }
-  }, [audioSrc, play])
 
   useEffect(() => {
     axios({

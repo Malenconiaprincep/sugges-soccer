@@ -22,11 +22,11 @@ const Demo = (props: any) => {
 
   useEffect(() => {
     if (!answer) return
-    const random = Math.random()
-    console.log(random)
+    console.log(answer)
+
     axios({
       method: "get",
-      url: `http://localhost:7777/?name=${answer}${random}`,
+      url: `http://localhost:7777/?name=${encodeURIComponent(answer)}`,
       responseType: "stream",
     }).then(function (response) {
       // 回答正确
