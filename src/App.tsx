@@ -1,12 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { Modal } from "antd"
 import "antd/dist/antd.css"
 import "./App.css"
 import axios from "axios"
 import ReactAudioPlayer from "react-audio-player"
+import useDjs from "./hooks/usedjs"
+import Demo from "./demo"
 
-const questions = [
-  "iceland",
+const teams = [
   "france",
   "germany",
   "Netherlands",
@@ -18,72 +19,140 @@ const questions = [
   "portugal",
   "Mexi",
   "italy",
-
+  "states",
+  "wales",
+  "denmark",
   "poland",
   "iceland",
   "canada",
-
+  "romania",
   "greece",
-
+  "ukraine",
   "sweden",
   "norway",
   "china",
   "czech",
-  "barcelona",
-  "mancity",
-  "manchester united",
-  "arsenal",
-  "liverpool",
-  "tottenham",
-  "Dortmund",
-  "chelse",
-  "bayern",
-  "real madrid",
-  "germain",
-  "demadrid",
-  "inter",
-  "juventus",
-  "milan",
-  "sevilla",
-  "atalanta",
-  "leicester",
-  "sociedad",
-  "villarreal",
-  "west ham",
-  "leverkusen",
-  "lazio",
-  "roma",
-  "bilbao",
-  "betis",
-  "ajax",
-  "aston",
-  "everton",
-  "lyonnais",
-  "benfica",
-  "porto",
-  "hoffenheim",
-  "wolfsburg",
-  "espanyol",
-  "leeds",
-  "wanderers",
-  "fiorentina",
-  "frankfurt",
-  "lille",
-  "juniors",
-  "brugge",
-  "udinese",
-  "galatasaray",
-  "fulham",
-  "mallorca",
-  "bordeaux",
-  "celtic",
-
-  "states",
-  "wales",
-  "denmark",
-  "romania",
-  "ukraine",
+  "austria",
+  "scotland",
+  "ireland",
+  "hungary",
+  "finland",
+  "northern ireland",
+  "australia",
+  "zealand",
 ]
+
+const clubs = [
+  "barcelona",
+  // "mancity",
+  // "manchester united",
+  // "arsenal",
+  // "liverpool",
+  // "tottenham",
+  // "Dortmund",
+  // "chelse",
+  // "bayern",
+  // "real madrid",
+  // "germain",
+  // "demadrid",
+  // "inter",
+  // "juventus",
+  // "milan",
+  // "sevilla",
+  // "atalanta",
+  // "leicester",
+  // "sociedad",
+  // "villarreal",
+  // "west ham",
+  // "leverkusen",
+  // "lazio",
+  // "roma",
+  // "bilbao",
+  // "betis",
+  // "ajax",
+  // "aston",
+  // "everton",
+  // "lyonnais",
+  // "benfica",
+  // "porto",
+  // "hoffenheim",
+  // "wolfsburg",
+  // "espanyol",
+  // "leeds",
+  // "wanderers",
+  // "fiorentina",
+  // "frankfurt",
+  // "lille",
+  // "juniors",
+  // "brugge",
+  // "udinese",
+  // "galatasaray",
+  // "fulham",
+  // "mallorca",
+  // "bordeaux",
+  // "celtic",
+  // "plate",
+  // "napoli",
+  // "sampdoria",
+  // "leipzig",
+  // "nottingham",
+  // "psv",
+  // "marseille",
+  // "schalke",
+  // "empoli",
+  // "feyenoord",
+  // "brentford",
+  // "norwich",
+  // "watford",
+  // "southampton",
+  // "sunderland",
+  // "freiburg",
+  // "monaco",
+  // "valencia",
+  // "crystal",
+  // "rennais",
+  // "Flamengo",
+  // "olympiacos",
+  // "levante",
+  // "getafe",
+  // "nice",
+  // "osasuna",
+  // "celta",
+  // "mineiro",
+  // "torino",
+  // "racing",
+  // "montpellier",
+  // "fenerbahce",
+  // "strasbourg",
+  // "boca",
+  // "sassuolo",
+  // "Palmeiras",
+  // "bologna",
+  // "verona",
+  // "sparta",
+  // "stuttgart",
+  // "augsburg",
+  // "elche",
+  // "vallecano",
+  // "sheffield",
+  // "Corinthians",
+  // "berlin",
+  // "santos",
+  // "cagliari",
+  // "paulo",
+  // "celtic",
+  // "angeles",
+  // "alkmaar",
+  // "brestois",
+  // "reims",
+  // "bournemouth",
+  // "istanbul",
+  "shandong",
+]
+
+const questions = [...clubs]
+
+const host = "http://localhost"
 
 questions.sort((a, b) => {
   return Math.random() > 0.5 ? -1 : 1 // 如果a<b不交换，否则交换，即升序排列；如果a>b不交换，否则交换，即将序排列
@@ -115,26 +184,6 @@ function preload(questions: any) {
 
 preload(questions)
 
-const useAudio = (url: string) => {
-  const [audio] = useState(new Audio(url))
-  const [playing, setPlaying] = useState(false)
-
-  const toggle = () => setPlaying(!playing)
-
-  useEffect(() => {
-    playing ? audio.play() : audio.pause()
-  }, [playing])
-
-  useEffect(() => {
-    audio.addEventListener("ended", () => setPlaying(false))
-    return () => {
-      audio.removeEventListener("ended", () => setPlaying(false))
-    }
-  }, [])
-
-  return [playing, toggle, audio]
-}
-
 export const useWindowEvent = (event: any, callback: any) => {
   useEffect(() => {
     window.addEventListener(event, callback)
@@ -146,30 +195,23 @@ export const useGlobalMessage = (callback: any) => {
   return useWindowEvent("message", callback)
 }
 
-function getMatchKey(questions: string[], startIndex: number) {
-  if (questions) {
-    if (questions[startIndex]) {
-      const value = questions[startIndex]
-      startIndex++
-      return value
-    } else {
-      startIndex = 0
-      return questions[startIndex]
-    }
-  }
-  return ""
-}
+// const countValue = 25
+// const waitSuccess = 8
 
-const countValue = 25
-const waitSuccess = 8
+const countValue = 5
+const waitSuccess = 10
 
 function App() {
   const [step, setStep] = useState(0)
-  const [count, setCount] = useState(countValue)
+  const { count, setCount } = useDjs(countValue)
   const [data, setData] = useState<any>(null)
-  // const [playing, toggle, audio] = useAudio(`/data/djs.mp3`)
+  const [audioSrc, setAudio] = useState("")
+  const [play, setPlay] = useState(false)
+
+  const audioRef = useRef()
+
   const [visible, setVisible] = useState(false)
-  const [answer, setAnswer] = useState(null)
+  const [answer, setAnswer] = useState<string>("")
   const [startIndex, setStartIndex] = useState(0)
 
   const getMatchKey = useCallback(
@@ -198,14 +240,30 @@ function App() {
         let item = event.data[i]
         if (item && item.method === "WebcastChatMessage") {
           const ans = item.content
-          if (ans === item.notionName) {
-            // 回答正确
-            setAnswer(item.nickname)
-            setVisible(true)
-            setCount(0)
+          if (ans === data.notionName || true) {
+            axios({
+              method: "get",
+              url: `${host}:7777/?name=${item.nickname}`,
+              responseType: "stream",
+            }).then(function (response) {
+              // 回答正确
+              setAnswer(item.nickname)
+              setVisible(true)
+              setCount(0)
+              // 播放
+              setAudio(`${host}:8888/${response.data.url}`)
+              setPlay(true)
+
+              const audio = document.querySelector("audio")
+              ;(audio as any).play()
+            })
 
             setTimeout(() => {
-              // ;(audio as any).pause()
+              const audio = document.querySelector("audio")
+              ;(audio as any).pause()
+              ;(audio as any).currentTime = 0
+              ;(audio as any).src = ""
+
               setVisible(false)
             }, 3000)
             break
@@ -219,6 +277,13 @@ function App() {
   useGlobalMessage(receiveMessage)
 
   useEffect(() => {
+    if (play && audioSrc) {
+      setAudio(audioSrc)
+      setPlay(false)
+    }
+  }, [audioSrc, play])
+
+  useEffect(() => {
     axios({
       method: "get",
       url: `/data/${matchKey}/${matchKey}.json`,
@@ -229,30 +294,22 @@ function App() {
   }, [matchKey])
 
   useEffect(() => {
-    let interval: any = null
-    if (data && count) {
-      interval = setInterval(() => {
-        setCount(count - 1)
-        // ;(audio as any).play()
-      }, 1000)
-    } else {
-      if (count === 0) {
-        setStep(1)
-        setTimeout(() => {
-          if (startIndex === questions.length) {
-            setStartIndex(0)
-          } else {
-            setStartIndex((startIndex) => startIndex + 1)
-          }
-          setStep(0)
-          setCount(countValue)
-        }, waitSuccess * 1000)
-        // ;(audio as any).pause()
-      }
-      clearInterval(interval)
+    if (count === 0) {
+      // 出答案
+      setStep(1)
+      setTimeout(() => {
+        // 等一段时间下一题
+        if (startIndex === questions.length) {
+          setStartIndex(0)
+        } else {
+          setStartIndex((startIndex) => startIndex + 1)
+        }
+        setStep(0)
+        setCount(countValue)
+      }, waitSuccess * 1000)
+      // ;(audio as any).pause()
     }
-    return () => clearInterval(interval)
-  }, [count, data])
+  }, [count])
 
   return (
     data && (
@@ -268,13 +325,6 @@ function App() {
               </div>
             )}
           </div>
-          {/* <ReactAudioPlayer
-            src="http://localhost:8888/djs.mp3"
-            autoPlay
-            controls
-            style={{ display: "none" }}
-          /> */}
-
           <div className="field-large">
             <div className="lineup">
               {data.players.map((item: any) => {
@@ -324,6 +374,7 @@ function App() {
             </p>
           </div>
         </Modal>
+        <Demo answer={answer} />
       </div>
     )
   )
