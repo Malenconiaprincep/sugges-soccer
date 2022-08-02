@@ -240,10 +240,6 @@ function App() {
             setAnswer(item.nickname)
             setVisible(true)
             setCount(0)
-
-            const audio = document.querySelector("audio")
-            ;(audio as any).play()
-
             setTimeout(() => {
               const audio = document.querySelector("audio")
               ;(audio as any).pause()
@@ -251,6 +247,7 @@ function App() {
               ;(audio as any).src = ""
 
               setVisible(false)
+              setAnswer("")
             }, 6000)
             break
           }

@@ -8,6 +8,9 @@ import {
 import ReactAudioPlayer from "react-audio-player"
 import axios from "axios"
 
+const newReg =
+  /[`~!@#$%^&*()+=|{}':;',/\/\[\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|[\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g
+
 const Demo = (props: any) => {
   const answer = props.answer
   const [src, setSrc] = useState("")
@@ -15,7 +18,10 @@ const Demo = (props: any) => {
 
   useEffect(() => {
     if (play && src) {
-      setSrc(src)
+      const audio = document.querySelector("audio")
+      try {
+        ;(audio as any).play()
+      } catch (e) {}
       setPlay(false)
     }
   }, [src, play])
@@ -26,15 +32,24 @@ const Demo = (props: any) => {
 
     axios({
       method: "get",
-      url: `http://localhost:7777/?name=${encodeURIComponent(answer)}`,
+      url: `http://localhost:7777/?name=${answer.replace(
+        newReg,
+        ""
+      )}${Math.random()}`,
       responseType: "stream",
     }).then(function (response) {
+      debugger
       // 回答正确
       // 播放
-      setSrc("http://localhost:8888/" + response.data.url)
+      setSrc(
+        "http://localhost:8888/" + response.data.url + "?t=" + Math.random()
+      )
       setPlay(true)
     })
   }, [answer])
+
+  console.log(answer)
+  console.log(src)
 
   return (
     <div>
