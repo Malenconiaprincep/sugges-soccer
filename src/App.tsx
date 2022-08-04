@@ -6,6 +6,7 @@ import axios from "axios"
 import ReactAudioPlayer from "react-audio-player"
 import useDjs from "./hooks/usedjs"
 import Demo from "./demo"
+import useImagePreloader from "./hooks/useimagepreloader"
 
 const teams = [
   "france",
@@ -44,113 +45,128 @@ const teams = [
 
 const clubs = [
   "barcelona",
-  // "mancity",
-  // "manchester united",
-  // "arsenal",
-  // "liverpool",
-  // "tottenham",
-  // "Dortmund",
-  // "chelse",
-  // "bayern",
-  // "real madrid",
-  // "germain",
-  // "demadrid",
-  // "inter",
-  // "juventus",
-  // "milan",
-  // "sevilla",
-  // "atalanta",
-  // "leicester",
-  // "sociedad",
-  // "villarreal",
-  // "west ham",
-  // "leverkusen",
-  // "lazio",
-  // "roma",
-  // "bilbao",
-  // "betis",
-  // "ajax",
-  // "aston",
-  // "everton",
-  // "lyonnais",
-  // "benfica",
-  // "porto",
-  // "hoffenheim",
-  // "wolfsburg",
-  // "espanyol",
-  // "leeds",
-  // "wanderers",
-  // "fiorentina",
-  // "frankfurt",
-  // "lille",
-  // "juniors",
-  // "brugge",
-  // "udinese",
-  // "galatasaray",
-  // "fulham",
-  // "mallorca",
-  // "bordeaux",
-  // "celtic",
-  // "plate",
-  // "napoli",
-  // "sampdoria",
-  // "leipzig",
-  // "nottingham",
-  // "psv",
-  // "marseille",
-  // "schalke",
-  // "empoli",
-  // "feyenoord",
-  // "brentford",
-  // "norwich",
-  // "watford",
-  // "southampton",
-  // "sunderland",
-  // "freiburg",
-  // "monaco",
-  // "valencia",
-  // "crystal",
-  // "rennais",
-  // "Flamengo",
-  // "olympiacos",
-  // "levante",
-  // "getafe",
-  // "nice",
-  // "osasuna",
-  // "celta",
-  // "mineiro",
-  // "torino",
-  // "racing",
-  // "montpellier",
-  // "fenerbahce",
-  // "strasbourg",
-  // "boca",
-  // "sassuolo",
-  // "Palmeiras",
-  // "bologna",
-  // "verona",
-  // "sparta",
-  // "stuttgart",
-  // "augsburg",
-  // "elche",
-  // "vallecano",
-  // "sheffield",
-  // "Corinthians",
-  // "berlin",
-  // "santos",
-  // "cagliari",
-  // "paulo",
-  // "celtic",
-  // "angeles",
-  // "alkmaar",
-  // "brestois",
-  // "reims",
-  // "bournemouth",
-  // "istanbul",
+  "mancity",
+  "manchester united",
+  "arsenal",
+  "liverpool",
+  "tottenham",
+  "Dortmund",
+  "chelse",
+  "bayern",
+  "real madrid",
+  "germain",
+  "demadrid",
+  "inter",
+  "juventus",
+  "milan",
+  "sevilla",
+  "atalanta",
+  "leicester",
+  "sociedad",
+  "villarreal",
+  "west ham",
+  "leverkusen",
+  "lazio",
+  "roma",
+  "bilbao",
+  "betis",
+  "ajax",
+  "aston",
+  "everton",
+  "lyonnais",
+  "benfica",
+  "porto",
+  "hoffenheim",
+  "wolfsburg",
+  "espanyol",
+  "leeds",
+  "wanderers",
+  "fiorentina",
+  "frankfurt",
+  "lille",
+  "juniors",
+  "brugge",
+  "udinese",
+  "galatasaray",
+  "fulham",
+  "mallorca",
+  "bordeaux",
+  "celtic",
+  "plate",
+  "napoli",
+  "sampdoria",
+  "leipzig",
+  "nottingham",
+  "psv",
+  "marseille",
+  "schalke",
+  "empoli",
+  "feyenoord",
+  "brentford",
+  "norwich",
+  "watford",
+  "southampton",
+  "sunderland",
+  "freiburg",
+  "monaco",
+  "valencia",
+  "crystal",
+  "rennais",
+  "Flamengo",
+  "olympiacos",
+  "levante",
+  "getafe",
+  "nice",
+  "osasuna",
+  "celta",
+  "mineiro",
+  "torino",
+  "racing",
+  "montpellier",
+  "fenerbahce",
+  "strasbourg",
+  "boca",
+  "sassuolo",
+  "Palmeiras",
+  "bologna",
+  "verona",
+  "sparta",
+  "stuttgart",
+  "augsburg",
+  "elche",
+  "vallecano",
+  "sheffield",
+  "Corinthians",
+  "berlin",
+  "santos",
+  "cagliari",
+  "paulo",
+  "celtic",
+  "angeles",
+  "alkmaar",
+  "brestois",
+  "reims",
+  "bournemouth",
+  "istanbul",
   "shandong",
+  "shanghai",
+  "beijing",
+  "shenhua",
+  "yatai",
+  "shenzhen",
+  "wuhan",
+  "guangzhouCity",
+  "henan",
+  "dalian",
+  "shijiazhuang",
+  "tianjin",
+  "qingdao",
+  "guangzhouFc",
+  "chongqing",
+  "hebei",
 ]
 
-const questions = [...clubs]
+const questions = [...teams, ...clubs]
 
 const host = "http://localhost"
 
@@ -158,31 +174,21 @@ questions.sort((a, b) => {
   return Math.random() > 0.5 ? -1 : 1 // 如果a<b不交换，否则交换，即升序排列；如果a>b不交换，否则交换，即将序排列
 })
 
-console.log(questions)
+// console.log(questions)
 
-function preload(questions: any) {
+async function preload(questions: any) {
+  let imgs: any[] = []
+
   for (let i = 0; i < questions.length; i++) {
-    axios({
-      method: "get",
-      url: `/data/${questions[i]}/${questions[i]}.json`,
-      responseType: "stream",
-    }).then(function (response) {
-      const notionlogo = response.data.notionLogo
-      const playerimgs = response.data.players.map((item: any) => item.img)
-      const teamlogos = response.data.players.map((item: any) => item.teamlogo)
-
-      const imgs = [notionlogo, ...playerimgs, ...teamlogos]
-
-      for (let i = 0; i < imgs.length; i++) {
-        const image = new Image()
-        image.src = imgs[i]
-      }
-      console.log(imgs)
-    })
+    const res = await axios(`/data/${questions[i]}/${questions[i]}.json`)
+    const notionlogo = res.data.notionLogo
+    const playerimgs = res.data.players.map((item: any) => item.img)
+    const teamlogos = res.data.players.map((item: any) => item.teamlogo)
+    imgs = [notionlogo, ...playerimgs, ...teamlogos, ...imgs]
   }
-}
 
-preload(questions)
+  return imgs
+}
 
 export const useWindowEvent = (event: any, callback: any) => {
   useEffect(() => {
@@ -198,16 +204,30 @@ export const useGlobalMessage = (callback: any) => {
 // const countValue = 25
 // const waitSuccess = 8
 
-const countValue = 5
-const waitSuccess = 10
+const countValue = 2
+const waitSuccess = 5
 
 function App() {
+  const [load, setLoad] = useState(false)
+  const [preloadSrcList, setPreloadSrcList] = useState([])
+  const { imagesPreloaded } = useImagePreloader(preloadSrcList)
   const [step, setStep] = useState(0)
   const { count, setCount } = useDjs(countValue)
   const [data, setData] = useState<any>(null)
   const [visible, setVisible] = useState(false)
   const [answer, setAnswer] = useState<string>("")
   const [startIndex, setStartIndex] = useState(0)
+
+  useEffect(() => {
+    const fetch = async () => {
+      const res: any = await preload(questions)
+      setPreloadSrcList(res)
+      setLoad(true)
+      return res
+    }
+
+    fetch()
+  }, [])
 
   const getMatchKey = useCallback(
     (questions: string[], startIndex: number) => {
@@ -235,7 +255,7 @@ function App() {
         let item = event.data[i]
         if (item && item.method === "WebcastChatMessage") {
           const ans = item.content
-          if (ans === data.notionName || true) {
+          if (ans === data.notionName) {
             // 回答正确
             setAnswer(item.nickname)
             setVisible(true)
@@ -286,6 +306,10 @@ function App() {
       // ;(audio as any).pause()
     }
   }, [count])
+
+  if (!imagesPreloaded && !load) {
+    return <p>Preloading Assets</p>
+  }
 
   return (
     data && (

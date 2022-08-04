@@ -8,6 +8,8 @@ import {
 import ReactAudioPlayer from "react-audio-player"
 import axios from "axios"
 
+const host = "http://192.168.2.100"
+
 const newReg =
   /[`~!@#$%^&*()+=|{}':;',/\/\[\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|[\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g
 
@@ -28,28 +30,22 @@ const Demo = (props: any) => {
 
   useEffect(() => {
     if (!answer) return
-    console.log(answer)
+    // console.log(answer)
 
     axios({
       method: "get",
-      url: `http://localhost:7777/?name=${answer.replace(
-        newReg,
-        ""
-      )}${Math.random()}`,
+      url: `${host}:7777/?name=${answer.replace(newReg, "")}`,
       responseType: "stream",
     }).then(function (response) {
-      debugger
       // 回答正确
       // 播放
-      setSrc(
-        "http://localhost:8888/" + response.data.url + "?t=" + Math.random()
-      )
+      setSrc(host + ":8888/" + response.data.url + "?t=" + Math.random())
       setPlay(true)
     })
   }, [answer])
 
-  console.log(answer)
-  console.log(src)
+  // console.log(answer)
+  // console.log(src)
 
   return (
     <div>
