@@ -82,6 +82,10 @@
   }
 }
 
+.ant-modal {
+  top: -100px !important;
+}
+
 .ant-modal-content {
   width: 340px;
   margin: 0 auto;
