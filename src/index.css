@@ -65,8 +65,8 @@ code {
 }
 
 .field-teamlogo {
-  /* width: 3.5rem; */
-  height: 3rem;
+  width: 3.5rem;
+  /* height: 3rem; */
 
   /* transform: scale(1.08); */
 }
@@ -98,15 +98,15 @@ code {
 
 .field-name img {
   /* width: 2rem; */
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   position: absolute;
   left: -1rem;
 }
 
 .animated {
-  animation-duration: 0.5s;
+  animation-duration: 1s;
   animation-fill-mode: both;
 }
 
@@ -118,7 +118,7 @@ code {
 @keyframes zoomIn {
   0% {
     opacity: 0;
-    transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale(0.3);
   }
 
   50% {
@@ -137,6 +137,7 @@ code {
 .answer img {
   padding-right: 15px;
   height: 65px;
+  width: 80px;
 }
 
 .right {
