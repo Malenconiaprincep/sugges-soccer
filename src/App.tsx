@@ -3,9 +3,9 @@ import { Modal } from "antd"
 import "antd/dist/antd.css"
 import "./App.css"
 import axios from "axios"
-import ReactAudioPlayer from "react-audio-player"
+// import ReactAudioPlayer from "react-audio-player"
 import useDjs from "./hooks/usedjs"
-import Demo from "./demo"
+// import Demo from "./demo"
 import useImagePreloader from "./hooks/useimagepreloader"
 
 const teams: any[] = [
@@ -262,10 +262,10 @@ function App() {
             setVisible(true)
             setCount(0)
             setTimeout(() => {
-              const audio = document.querySelector("audio")
-              ;(audio as any).pause()
-              ;(audio as any).currentTime = 0
-              ;(audio as any).src = ""
+              // const audio = document.querySelector("audio")
+              // ;(audio as any).pause()
+              // ;(audio as any).currentTime = 0
+              // ;(audio as any).src = ""
 
               setVisible(false)
               setAnswer("")
@@ -377,7 +377,7 @@ function App() {
             </p>
           </div>
         </Modal>
-        <Demo answer={answer} />
+        {/* <Demo answer={answer} /> */}
       </div>
     )
   )
