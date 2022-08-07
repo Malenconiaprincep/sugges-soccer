@@ -1,0 +1,106 @@
+{
+  "notionLogo": "./data/guangzhouCity/teams-112429-180.png",
+  "notionName": "广州城",
+  "players": [
+    {
+      "left": "36.1848%",
+      "top": "-5%",
+      "img": "./data/guangzhouCity/players-232-258-22_180.png",
+      "href": "/player/232258/wenjie-song/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Song Wenjie",
+      "teamlogo": "./data/guangzhouCity/flags-cn@3x.png"
+    },
+    {
+      "left": "-1.4%",
+      "top": "26.25%",
+      "img": "./data/guangzhouCity/players-222-577-22_180.png",
+      "href": "/player/222577/jown-cardona/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Cardona",
+      "teamlogo": "./data/guangzhouCity/flags-co@3x.png"
+    },
+    {
+      "left": "21.92%",
+      "top": "33.75%",
+      "img": "./data/guangzhouCity/players-221-826-22_180.png",
+      "href": "/player/221826/tixiang-li/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Li Tixiang",
+      "teamlogo": "./data/guangzhouCity/flags-cn@3x.png"
+    },
+    {
+      "left": "49.2%",
+      "top": "33.75%",
+      "img": "./data/guangzhouCity/players-222-172-22_180.png",
+      "href": "/player/222172/yunlong-fan/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Fan Yunlong",
+      "teamlogo": "./data/guangzhouCity/flags-cn@3x.png"
+    },
+    {
+      "left": "73.4%",
+      "top": "26.25%",
+      "img": "./data/guangzhouCity/players-200-438-22_180.png",
+      "href": "/player/200438/guilherme-costa-marques/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Guilherme",
+      "teamlogo": "./data/guangzhouCity/flags-br@3x.png"
+    },
+    {
+      "left": "-1.4%",
+      "top": "57.5%",
+      "img": "./data/guangzhouCity/players-231-091-22_180.png",
+      "href": "/player/231091/chao-zeng/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Zeng Chao",
+      "teamlogo": "./data/guangzhouCity/flags-cn@3x.png"
+    },
+    {
+      "left": "18.3032%",
+      "top": "72.07%",
+      "img": "./data/guangzhouCity/players-201-026-22_180.png",
+      "href": "/player/201026/teng-yi/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Yi Teng",
+      "teamlogo": "./data/guangzhouCity/flags-cn@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "70%",
+      "img": "./data/guangzhouCity/players-233-394-22_180.png",
+      "href": "/player/233394/zhengyu-huang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Huang Zhengyu",
+      "teamlogo": "./data/guangzhouCity/flags-cn@3x.png"
+    },
+    {
+      "left": "52.2976%",
+      "top": "72.5%",
+      "img": "./data/guangzhouCity/players-258-964-22_180.png",
+      "href": "/player/258964/jinliang-zhang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Zhang Jinliang",
+      "teamlogo": "./data/guangzhouCity/flags-cn@3x.png"
+    },
+    {
+      "left": "73.4%",
+      "top": "57.5%",
+      "img": "./data/guangzhouCity/players-222-278-22_180.png",
+      "href": "/player/222278/miao-tang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Tang Miao",
+      "teamlogo": "./data/guangzhouCity/flags-cn@3x.png"
+    },
+    {
+      "left": "36.264%",
+      "top": "83.5%",
+      "img": "./data/guangzhouCity/players-253-955-22_180.png",
+      "href": "/player/253955/jiaqi-han/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Han Jiaqi",
+      "teamlogo": "./data/guangzhouCity/flags-cn@3x.png"
+    }
+  ],
+  "teamname": "guangzhouCity"
+}

@@ -1,0 +1,106 @@
+{
+  "notionLogo": "./data/dalian/teams-112378-180.png",
+  "notionName": "大连队",
+  "players": [
+    {
+      "left": "26.32%",
+      "top": "-2.5%",
+      "img": "./data/dalian/players-224-540-22_180.png",
+      "href": "/player/224540/emmanuel-boateng/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Boateng",
+      "teamlogo": "./data/dalian/flags-gh@3x.png"
+    },
+    {
+      "left": "44.8%",
+      "top": "-2.5%",
+      "img": "./data/dalian/players-209-782-22_180.png",
+      "href": "/player/209782/sam-larsson/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Larsson",
+      "teamlogo": "./data/dalian/flags-se@3x.png"
+    },
+    {
+      "left": "-1.4%",
+      "top": "26.25%",
+      "img": "./data/dalian/players-241-239-22_180.png",
+      "href": "/player/241239/liangming-lin/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Lin Liangming",
+      "teamlogo": "./data/dalian/flags-cn@3x.png"
+    },
+    {
+      "left": "22.8%",
+      "top": "33.75%",
+      "img": "./data/dalian/players-175-598-22_180.png",
+      "href": "/player/175598/xuri-zhao/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Zhao Xuri",
+      "teamlogo": "./data/dalian/flags-cn@3x.png"
+    },
+    {
+      "left": "49.2%",
+      "top": "33.75%",
+      "img": "./data/dalian/players-233-945-22_180.png",
+      "href": "/player/233945/wei-wu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Wu Wei",
+      "teamlogo": "./data/dalian/flags-cn@3x.png"
+    },
+    {
+      "left": "73.4%",
+      "top": "26.25%",
+      "img": "./data/dalian/players-182-096-22_180.png",
+      "href": "/player/182096/long-zheng/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Zheng Long",
+      "teamlogo": "./data/dalian/flags-cn@3x.png"
+    },
+    {
+      "left": "-1.4%",
+      "top": "65%",
+      "img": "./data/dalian/players-243-100-22_180.png",
+      "href": "/player/243100/shuai-li/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Li Shuai",
+      "teamlogo": "./data/dalian/flags-cn@3x.png"
+    },
+    {
+      "left": "20.6%",
+      "top": "70%",
+      "img": "./data/dalian/players-208-440-22_180.png",
+      "href": "/player/208440/marcus-danielson/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Danielson",
+      "teamlogo": "./data/dalian/flags-se@3x.png"
+    },
+    {
+      "left": "50.5992%",
+      "top": "69.57%",
+      "img": "./data/dalian/players-224-550-22_180.png",
+      "href": "/player/224550/yaopeng-wang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Wang Yaopeng",
+      "teamlogo": "./data/dalian/flags-cn@3x.png"
+    },
+    {
+      "left": "73.4%",
+      "top": "65%",
+      "img": "./data/dalian/players-233-946-22_180.png",
+      "href": "/player/233946/lei-tong/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Tong Lei",
+      "teamlogo": "./data/dalian/flags-cn@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "83.25%",
+      "img": "./data/dalian/players-182-474-22_180.png",
+      "href": "/player/182474/chong-zhang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Zhang Chong",
+      "teamlogo": "./data/dalian/flags-cn@3x.png"
+    }
+  ],
+  "teamname": "dalian"
+}

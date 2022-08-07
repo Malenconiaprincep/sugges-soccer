@@ -1,0 +1,106 @@
+{
+  "notionLogo": "./data/chongqing/teams-112165-180.png",
+  "notionName": "重庆两江竞技",
+  "players": [
+    {
+      "left": "26.32%",
+      "top": "-2.5%",
+      "img": "./data/chongqing/players-268-956-22_180.png",
+      "href": "/player/268956/leonardo-benedito-da-silva/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Naldinho",
+      "teamlogo": "./data/chongqing/flags-br@3x.png"
+    },
+    {
+      "left": "44.8%",
+      "top": "-2.5%",
+      "img": "./data/chongqing/players-180-281-22_180.png",
+      "href": "/player/180281/luiz-fernando-pereira-da-silva/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Fernandinho Silva",
+      "teamlogo": "./data/chongqing/flags-br@3x.png"
+    },
+    {
+      "left": "22.8%",
+      "top": "33.75%",
+      "img": "./data/chongqing/players-217-157-22_180.png",
+      "href": "/player/217157/xiyang-huang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Huang Xiyang",
+      "teamlogo": "./data/chongqing/flags-cn@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "33.75%",
+      "img": "./data/chongqing/players-268-958-22_180.png",
+      "href": "/player/268958/yu-jiang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Jiang Yu",
+      "teamlogo": "./data/chongqing/flags-cn@3x.png"
+    },
+    {
+      "left": "49.2%",
+      "top": "33.75%",
+      "img": "./data/chongqing/players-222-173-22_180.png",
+      "href": "/player/222173/jie-chen/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Chen Jie",
+      "teamlogo": "./data/chongqing/flags-cn@3x.png"
+    },
+    {
+      "left": "-1.4%",
+      "top": "57.5%",
+      "img": "./data/chongqing/players-242-872-22_180.png",
+      "href": "/player/242872/le-liu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Liu Le",
+      "teamlogo": "./data/chongqing/flags-cn@3x.png"
+    },
+    {
+      "left": "20.6%",
+      "top": "70%",
+      "img": "./data/chongqing/players-245-050-22_180.png",
+      "href": "/player/245050/jiayi-zhu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Zhu Jiayi",
+      "teamlogo": "./data/chongqing/flags-cn@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "70%",
+      "img": "./data/chongqing/players-253-744-22_180.png",
+      "href": "/player/253744/wu-xu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Xu Wu",
+      "teamlogo": "./data/chongqing/flags-cn@3x.png"
+    },
+    {
+      "left": "51.4%",
+      "top": "70%",
+      "img": "./data/chongqing/players-255-274-22_180.png",
+      "href": "/player/255274/dostonbek-tursunov/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Tursunov",
+      "teamlogo": "./data/chongqing/flags-uz@3x.png"
+    },
+    {
+      "left": "73.4%",
+      "top": "57.5%",
+      "img": "./data/chongqing/players-241-322-22_180.png",
+      "href": "/player/241322/qiao-wang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Wang Qiao",
+      "teamlogo": "./data/chongqing/flags-cn@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "83.25%",
+      "img": "./data/chongqing/players-182-023-22_180.png",
+      "href": "/player/182023/xiaofei-deng/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Deng Xiaofei",
+      "teamlogo": "./data/chongqing/flags-cn@3x.png"
+    }
+  ],
+  "teamname": "chongqing"
+}

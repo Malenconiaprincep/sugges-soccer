@@ -1,0 +1,106 @@
+{
+  "notionLogo": "./data/beijing/teams-111768-180.png",
+  "notionName": "北京国安",
+  "players": [
+    {
+      "left": "26.32%",
+      "top": "-2.5%",
+      "img": "./data/beijing/players-228-017-22_180.png",
+      "href": "/player/228017/yuning-zhang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Zhang Yuning",
+      "teamlogo": "./data/beijing/flags-cn@3x.png"
+    },
+    {
+      "left": "44.8%",
+      "top": "-2.5%",
+      "img": "./data/beijing/players-227-642-22_180.png",
+      "href": "/player/227642/samuel-adegbenro/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Adegbenro",
+      "teamlogo": "./data/beijing/flags-ng@3x.png"
+    },
+    {
+      "left": "21.92%",
+      "top": "37.29%",
+      "img": "./data/beijing/players-221-820-22_180.png",
+      "href": "/player/221820/xizhe-zhang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Zhang Xizhe",
+      "teamlogo": "./data/beijing/flags-cn@3x.png"
+    },
+    {
+      "left": "35.736%",
+      "top": "37.5%",
+      "img": "./data/beijing/players-202-808-22_180.png",
+      "href": "/player/202808/ke-li/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Li Ke",
+      "teamlogo": "./data/beijing/flags-cn@3x.png"
+    },
+    {
+      "left": "50.08%",
+      "top": "37.5%",
+      "img": "./data/beijing/players-228-033-22_180.png",
+      "href": "/player/228033/zhongguo-chi/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Chi Zhongguo",
+      "teamlogo": "./data/beijing/flags-cn@3x.png"
+    },
+    {
+      "left": "-1.4%",
+      "top": "57.5%",
+      "img": "./data/beijing/players-222-734-22_180.png",
+      "href": "/player/222734/sang-woo-kang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Kang Sang Woo",
+      "teamlogo": "./data/beijing/flags-kr@3x.png"
+    },
+    {
+      "left": "20.6%",
+      "top": "70%",
+      "img": "./data/beijing/players-191-532-22_180.png",
+      "href": "/player/191532/yang-yu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Yu Yang",
+      "teamlogo": "./data/beijing/flags-cn@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "70%",
+      "img": "./data/beijing/players-183-997-22_180.png",
+      "href": "/player/183997/dabao-yu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Yu Dabao",
+      "teamlogo": "./data/beijing/flags-cn@3x.png"
+    },
+    {
+      "left": "51.4%",
+      "top": "70%",
+      "img": "./data/beijing/players-235-544-22_180.png",
+      "href": "/player/235544/samir-memisevic/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Memišević",
+      "teamlogo": "./data/beijing/flags-ba@3x.png"
+    },
+    {
+      "left": "73.4%",
+      "top": "57.5%",
+      "img": "./data/beijing/players-199-088-22_180.png",
+      "href": "/player/199088/gang-wang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Wang Gang",
+      "teamlogo": "./data/beijing/flags-cn@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "83.25%",
+      "img": "./data/beijing/players-191-528-22_180.png",
+      "href": "/player/191528/sen-hou/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Hou Sen",
+      "teamlogo": "./data/beijing/flags-cn@3x.png"
+    }
+  ],
+  "teamname": "beijing"
+}

@@ -1,0 +1,106 @@
+{
+  "notionLogo": "./data/guangzhouFc/teams-111839-180.png",
+  "notionName": "广州队",
+  "players": [
+    {
+      "left": "26.32%",
+      "top": "-2.5%",
+      "img": "./data/guangzhouFc/players-269-028-22_180.png",
+      "href": "/player/269028/jiaheng-li/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Li Jiaheng",
+      "teamlogo": "./data/guangzhouFc/flags-cn@3x.png"
+    },
+    {
+      "left": "44.8%",
+      "top": "-2.5%",
+      "img": "./data/guangzhouFc/players-264-019-22_180.png",
+      "href": "/player/264019/jie-ling/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Ling Jie",
+      "teamlogo": "./data/guangzhouFc/flags-cn@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "18.75%",
+      "img": "./data/guangzhouFc/players-223-344-22_180.png",
+      "href": "/player/223344/shihao-wei/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Wei Shihao",
+      "teamlogo": "./data/guangzhouFc/flags-cn@3x.png"
+    },
+    {
+      "left": "-1.4%",
+      "top": "26.25%",
+      "img": "./data/guangzhouFc/players-269-026-22_180.png",
+      "href": "/player/269026/shengxiong-zheng/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Zheng Shengxiong",
+      "teamlogo": "./data/guangzhouFc/flags-cn@3x.png"
+    },
+    {
+      "left": "22.8%",
+      "top": "33.75%",
+      "img": "./data/guangzhouFc/players-269-045-22_180.png",
+      "href": "/player/269045/guangliang-huang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Huang Guangliang",
+      "teamlogo": "./data/guangzhouFc/flags-cn@3x.png"
+    },
+    {
+      "left": "49.2%",
+      "top": "33.75%",
+      "img": "./data/guangzhouFc/players-247-677-22_180.png",
+      "href": "/player/247677/dinghao-yan/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Yan Dinghao",
+      "teamlogo": "./data/guangzhouFc/flags-cn@3x.png"
+    },
+    {
+      "left": "73.4%",
+      "top": "26.25%",
+      "img": "./data/guangzhouFc/players-241-344-22_180.png",
+      "href": "/player/241344/liyu-yang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Yang Liyu",
+      "teamlogo": "./data/guangzhouFc/flags-cn@3x.png"
+    },
+    {
+      "left": "17.3%",
+      "top": "67.5%",
+      "img": "./data/guangzhouFc/players-253-518-22_180.png",
+      "href": "/player/253518/yang-li/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Li Yang",
+      "teamlogo": "./data/guangzhouFc/flags-cn@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "67.5%",
+      "img": "./data/guangzhouFc/players-200-741-22_180.png",
+      "href": "/player/200741/guangtai-jiang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Jiang Guangtai",
+      "teamlogo": "./data/guangzhouFc/flags-cn@3x.png"
+    },
+    {
+      "left": "54.7%",
+      "top": "67.5%",
+      "img": "./data/guangzhouFc/players-247-241-22_180.png",
+      "href": "/player/247241/shaocong-wu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Wu Shaocong",
+      "teamlogo": "./data/guangzhouFc/flags-cn@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "83.25%",
+      "img": "./data/guangzhouFc/players-233-681-22_180.png",
+      "href": "/player/233681/shibo-liu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Liu Shibo",
+      "teamlogo": "./data/guangzhouFc/flags-cn@3x.png"
+    }
+  ],
+  "teamname": "guangzhouFc"
+}

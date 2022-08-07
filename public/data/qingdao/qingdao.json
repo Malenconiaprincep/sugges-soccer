@@ -1,0 +1,106 @@
+{
+  "notionLogo": "./data/qingdao/teams-112961-180.png",
+  "notionName": "青岛队",
+  "players": [
+    {
+      "left": "26.32%",
+      "top": "-2.5%",
+      "img": "./data/qingdao/players-241-592-22_180.png",
+      "href": "/player/241592/erpan-hezimjan/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Hëzimjan Ërpan",
+      "teamlogo": "./data/qingdao/flags-cn@3x.png"
+    },
+    {
+      "left": "44.8%",
+      "top": "-2.5%",
+      "img": "./data/qingdao/players-228-061-22_180.png",
+      "href": "/player/228061/maimaitiyili-bali/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Bali",
+      "teamlogo": "./data/qingdao/flags-cn@3x.png"
+    },
+    {
+      "left": "-1.4%",
+      "top": "26.25%",
+      "img": "./data/qingdao/players-255-617-22_180.png",
+      "href": "/player/255617/memet-abdulla-ezmat/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Ezmat",
+      "teamlogo": "./data/qingdao/flags-cn@3x.png"
+    },
+    {
+      "left": "22.8%",
+      "top": "33.75%",
+      "img": "./data/qingdao/players-222-300-22_180.png",
+      "href": "/player/222300/hao-wang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Wang Hao",
+      "teamlogo": "./data/qingdao/flags-cn@3x.png"
+    },
+    {
+      "left": "49.2%",
+      "top": "33.75%",
+      "img": "./data/qingdao/players-222-190-22_180.png",
+      "href": "/player/222190/peng-lu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Lü Peng",
+      "teamlogo": "./data/qingdao/flags-cn@3x.png"
+    },
+    {
+      "left": "73.4%",
+      "top": "26.25%",
+      "img": "./data/qingdao/players-222-203-22_180.png",
+      "href": "/player/222203/fei-wang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Wang Fei",
+      "teamlogo": "./data/qingdao/flags-cn@3x.png"
+    },
+    {
+      "left": "-1.4%",
+      "top": "65%",
+      "img": "./data/qingdao/players-238-106-22_180.png",
+      "href": "/player/238106/wei-wang/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Wang Wei",
+      "teamlogo": "./data/qingdao/flags-cn@3x.png"
+    },
+    {
+      "left": "20.6%",
+      "top": "70%",
+      "img": "./data/qingdao/players-194-947-22_180.png",
+      "href": "/player/194947/jagos-vukovic/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Vuković",
+      "teamlogo": "./data/qingdao/flags-rs@3x.png"
+    },
+    {
+      "left": "51.4%",
+      "top": "70%",
+      "img": "./data/qingdao/players-158-305-22_180.png",
+      "href": "/player/158305/jian-liu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Liu Jian",
+      "teamlogo": "./data/qingdao/flags-cn@3x.png"
+    },
+    {
+      "left": "73.4%",
+      "top": "65%",
+      "img": "./data/qingdao/players-181-964-22_180.png",
+      "href": "/player/181964/ting-zhu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Zhu Ting",
+      "teamlogo": "./data/qingdao/flags-cn@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "83.25%",
+      "img": "./data/qingdao/players-182-076-22_180.png",
+      "href": "/player/182076/zhenli-liu/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Liu Zhenli",
+      "teamlogo": "./data/qingdao/flags-cn@3x.png"
+    }
+  ],
+  "teamname": "qingdao"
+}
