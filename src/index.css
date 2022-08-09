@@ -4,11 +4,11 @@
 }
 
 html {
-  background: #212529;
+  /* background: #212529; */
 }
 
 #root {
-  background: #212529;
+  /* background: #212529; */
 }
 
 body {
@@ -19,7 +19,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 0.75rem;
-  background: #212529 !important;
+  /* background: #212529 !important; */
+  background: transparent !important;
 }
 
 code {
