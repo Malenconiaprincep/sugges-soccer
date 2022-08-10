@@ -4,11 +4,11 @@
 }
 
 html {
-  /* background: #212529; */
+  background: #212529;
 }
 
 #root {
-  /* background: #212529; */
+  background: #212529;
 }
 
 body {
@@ -55,7 +55,7 @@ code {
   height: 32.45rem;
   position: relative;
   /* margin: 1rem 1rem 2rem; */
-  left: 1.3rem;
+  left: 2.1rem;
 }
 
 .field-avatar {

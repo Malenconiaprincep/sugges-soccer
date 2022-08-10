@@ -41,6 +41,13 @@ const teams: any[] = [
   "northern ireland",
   "australia",
   "zealand",
+  "japan",
+  "korea",
+  "Uruguay",
+  "Croatia",
+  "Cameroon",
+  "Ecuador",
+  "Iran"
 ]
 
 const clubs  = [
@@ -163,7 +170,7 @@ const clubs  = [
   "Málaga",
   "hyundai",
   "jeonbuk",
-  zhongchao
+  // zhongchao
   "shandong",
   "shanghai",
   "beijing",
