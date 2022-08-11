@@ -47,10 +47,10 @@ const teams: any[] = [
   "Croatia",
   "Cameroon",
   "Ecuador",
-  "Iran"
+  "Iran",
 ]
 
-const clubs  = [
+const clubs = [
   "barcelona",
   "mancity",
   "manchester united",
@@ -283,6 +283,7 @@ const clubs  = [
 ]
 
 const questions = [...teams, ...clubs]
+// const questions = ["germain"]
 
 const host = "http://localhost"
 
@@ -317,11 +318,11 @@ export const useGlobalMessage = (callback: any) => {
   return useWindowEvent("message", callback)
 }
 
-const countValue = 25
-const waitSuccess = 8
+// const countValue = 25
+// const waitSuccess = 8
 
-// const countValue = 2
-// const waitSuccess = 2
+const countValue = 5
+const waitSuccess = 5
 
 function App() {
   const [load, setLoad] = useState(false)
@@ -433,17 +434,29 @@ function App() {
       <div className="App">
         <div className="block-two-third">
           {/* <button onClick={() => setStep(1)}>显示答案</button> */}
-          <div style={{ height: "80px", marginBottom: "20px" }}>
+          <div
+            style={{
+              height: "80px",
+              marginBottom: "40px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             {step === 0 && <div className="count-down">{count}</div>}
             {step === 1 && (
               <div className="answer">
+                <div className="top"></div>
+                <div className="center">
+                  <span>{data.notionName}</span>
+                </div>
+                <div className="top"></div>
                 <img src={data.notionLogo} />
-                <span>{data.notionName}</span>
               </div>
             )}
           </div>
           <div className="field-large">
-            <div className="lineup">
+            <div className={step === 0 ? "lineup" : "lineup2"}>
               {data.players.map((item: any) => {
                 return (
                   <div
@@ -485,10 +498,26 @@ function App() {
           <span style={{ fontSize: "20px" }}>(未成年禁止打赏)</span>
         </div> */}
         <Modal visible={visible} footer={null} closable={false} centered={true}>
+          <div
+            style={{
+              width: "180px",
+              height: "15px",
+              background: "rgba(196, 247, 82)",
+              position: "absolute",
+              left: "0",
+              top: "0",
+            }}
+          ></div>
           <div className="modal-show">
-            <div className="right"></div>
+            <div>GOAL!</div>
             <p className="congra">
-              恭喜<span style={{ color: "red" }}>{answer}</span>回答正确
+              恭喜
+              <span className="res">
+                <span className="name">
+                  {answer.length > 15 ? answer.slice(0, 10) + "..." : answer}
+                </span>
+              </span>
+              回答正确
             </p>
           </div>
         </Modal>

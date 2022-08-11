@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: myFirstFont;
 }
 
 .App .title {
@@ -83,7 +84,12 @@
 }
 
 .ant-modal {
-  top: -100px !important;
+  top: -50px !important;
+  font-family: myFirstFont;
+}
+
+.ant-modal-body {
+  background: url("./msgbg.jpg") repeat;
 }
 
 .ant-modal-content {

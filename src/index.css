@@ -30,9 +30,11 @@ code {
 
 .App {
   width: 390px;
-  height: 760px;
+  height: 844px;
   /* margin: 40px 30px; */
   /* background: #212529; */
+  background: url("./football.jpg") no-repeat center top;
+  background-size: cover;
   position: relative;
   margin: 0 auto;
 }
@@ -41,7 +43,7 @@ code {
   width: 374px;
   vertical-align: top;
   margin: 0 auto;
-  padding-top: 70px;
+  padding-top: 50px;
 }
 
 .field-large {
@@ -56,6 +58,13 @@ code {
   position: relative;
   /* margin: 1rem 1rem 2rem; */
   left: 2.1rem;
+}
+
+.lineup2 {
+  height: 32.45rem;
+  position: relative;
+  /* margin: 1rem 1rem 2rem; */
+  left: 1rem;
 }
 
 .field-avatar {
@@ -137,12 +146,33 @@ code {
   justify-content: center;
   color: white;
   font-size: 28px;
+  width: 220px;
+  flex-direction: column;
+  position: relative;
 }
 
 .answer img {
-  padding-right: 15px;
   height: 65px;
-  width: 80px;
+  /* width: 80px; */
+  position: absolute;
+  left: 10px;
+}
+
+.answer .top {
+  height: 28px;
+  background: rgba(196, 247, 82);
+  width: 100%;
+}
+
+.answer .center {
+  height: 25px;
+  background: rgba(0, 15, 47);
+  width: 100%;
+  font-size: 18px;
+}
+
+.answer span {
+  margin-left: 60px;
 }
 
 .right {
@@ -160,11 +190,34 @@ code {
   flex-direction: column;
 }
 
+.ant-modal-body {
+  padding: 24px 4px !important;
+}
+
+.modal-show div {
+  font-size: 26px;
+  margin-top: 20px;
+}
+
 .modal-show p {
   margin-top: 30px;
   font-size: 20px;
 }
 
+.modal-show .res {
+  color: red;
+  word-break: break-all;
+  padding: 0 5px;
+}
+
+.modal-show .name {
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .congra {
   font-size: 20px;
+  background: rgba(196, 247, 82);
 }
