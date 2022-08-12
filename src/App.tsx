@@ -283,7 +283,7 @@ const clubs = [
 ]
 
 const questions = [...teams, ...clubs]
-// const questions = ["germain"]
+// const questions = ["japan"]
 
 const host = "http://localhost"
 
