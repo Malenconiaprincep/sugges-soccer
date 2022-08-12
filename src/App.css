@@ -64,6 +64,7 @@
   font-size: 80px;
   height: 65px;
   color: white;
+  font-family: myFirstFont;
 }
 
 @keyframes count {

@@ -318,11 +318,11 @@ export const useGlobalMessage = (callback: any) => {
   return useWindowEvent("message", callback)
 }
 
-// const countValue = 25
-// const waitSuccess = 8
+const countValue = 25
+const waitSuccess = 8
 
-const countValue = 5
-const waitSuccess = 5
+// const countValue = 2
+// const waitSuccess = 2
 
 function App() {
   const [load, setLoad] = useState(false)
