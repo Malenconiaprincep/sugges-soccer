@@ -283,7 +283,14 @@ const clubs = [
 ]
 
 const questions = [...teams, ...clubs]
-// const questions = ["japan"]
+// const questions = [
+//   "france",
+//   "germany",
+//   "Netherlands",
+//   "brazil",
+//   "Belgium",
+//   "Argentina",
+// ]
 
 const host = "http://localhost"
 
@@ -372,7 +379,7 @@ function App() {
         let item = event.data[i]
         if (item && item.method === "WebcastChatMessage") {
           const ans = item.content
-          if (ans === data.notionName) {
+          if (ans === data.notionName.trim() || ans === data.notionName) {
             // 回答正确
             setAnswer(item.nickname)
             setVisible(true)
@@ -414,7 +421,7 @@ function App() {
         // 等一段时间下一题
         setStep(2)
         if (startIndex === questions.length) {
-          setStartIndex(0)
+          setStartIndex(1)
         } else {
           setStartIndex((startIndex) => startIndex + 1)
         }
