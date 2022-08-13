@@ -284,12 +284,12 @@ const clubs = [
 
 const questions = [...teams, ...clubs]
 // const questions = [
-//   "france",
-//   "germany",
-//   "Netherlands",
-//   "brazil",
-//   "Belgium",
-//   "Argentina",
+// "seoul",
+// "germany",
+// "Netherlands",
+// "brazil",
+// "Belgium",
+// "Argentina",
 // ]
 
 const host = "http://localhost"
@@ -378,8 +378,11 @@ function App() {
       for (let i = 0; i < event.data.length; i++) {
         let item = event.data[i]
         if (item && item.method === "WebcastChatMessage") {
-          const ans = item.content
-          if (ans === data.notionName.trim() || ans === data.notionName) {
+          const ans = item.content.toUpperCase()
+          if (
+            ans === data.notionName.replace(/\s/g, "").toUpperCase() ||
+            ans === data.notionName.toUpperCase()
+          ) {
             // 回答正确
             setAnswer(item.nickname)
             setVisible(true)
@@ -521,7 +524,9 @@ function App() {
               恭喜
               <span className="res">
                 <span className="name">
-                  {answer.length > 15 ? answer.slice(0, 10) + "..." : answer}
+                  {answer && answer.length > 15
+                    ? answer.slice(0, 10) + "..."
+                    : answer}
                 </span>
               </span>
               回答正确
@@ -529,6 +534,21 @@ function App() {
           </div>
         </Modal>
         {/* <Demo answer={answer} /> */}
+        {/* <button
+          onClick={() => {
+            receiveMessage({
+              data: [
+                {
+                  content: "首尔 fc",
+                  method: "WebcastChatMessage",
+                  nickname: "1111",
+                },
+              ],
+            })
+          }}
+        >
+          测试
+        </button> */}
       </div>
     )
   )
