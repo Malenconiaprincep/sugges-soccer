@@ -283,7 +283,7 @@ const clubs = [
 ]
 
 const questions = [...teams, ...clubs]
-// const questions = ["manchester united", "inter"]
+// const questions = ["everton"]
 
 const host = "http://localhost"
 
