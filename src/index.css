@@ -4,11 +4,11 @@
 }
 
 html {
-  /* background: #212529; */
+  background: #212529;
 }
 
 #root {
-  /* background: #212529; */
+  background: #212529;
 }
 
 body {
@@ -29,7 +29,7 @@ code {
 }
 
 .App {
-  width: 390px;
+  width: 430px;
   height: 844px;
   /* margin: 40px 30px; */
   /* background: #212529; */

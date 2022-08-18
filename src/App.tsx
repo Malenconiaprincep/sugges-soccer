@@ -287,9 +287,9 @@ const questions = [...teams, ...clubs]
 
 const host = "http://localhost"
 
-questions.sort((a, b) => {
-  return Math.random() > 0.5 ? -1 : 1 // 如果a<b不交换，否则交换，即升序排列；如果a>b不交换，否则交换，即将序排列
-})
+// questions.sort((a, b) => {
+//   return Math.random() > 0.5 ? -1 : 1 // 如果a<b不交换，否则交换，即升序排列；如果a>b不交换，否则交换，即将序排列
+// })
 
 // console.log(questions)
 
@@ -318,7 +318,7 @@ export const useGlobalMessage = (callback: any) => {
   return useWindowEvent("message", callback)
 }
 
-const countValue = 25
+const countValue = 15
 const waitSuccess = 8
 
 // const countValue = 2
