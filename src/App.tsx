@@ -9,6 +9,7 @@ import useDjs from "./hooks/usedjs"
 import useImagePreloader from "./hooks/useimagepreloader"
 
 const teams: any[] = [
+  "Iran",
   "france",
   "germany",
   "Netherlands",
