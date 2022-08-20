@@ -283,13 +283,19 @@ const clubs = [
 ]
 
 const questions = [...teams, ...clubs]
-// const questions = ["everton"]
+
+// const questions = ["real madrid"]
 
 const host = "http://localhost"
 
 questions.sort((a, b) => {
   return Math.random() > 0.5 ? -1 : 1 // 如果a<b不交换，否则交换，即升序排列；如果a>b不交换，否则交换，即将序排列
 })
+
+questions.splice(questions.indexOf(["manchester united"]), 1)
+questions.splice(questions.indexOf(["real madrid"]), 1)
+questions.splice(30, 0, "manchester united")
+questions.splice(60, 0, "real madrid")
 
 // console.log(questions)
 
