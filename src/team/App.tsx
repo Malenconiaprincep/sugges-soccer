@@ -4,9 +4,9 @@ import "antd/dist/antd.css"
 import "./App.css"
 import axios from "axios"
 // import ReactAudioPlayer from "react-audio-player"
-import useDjs from "./hooks/usedjs"
+import useDjs from "../hooks/usedjs"
 // import Demo from "./demo"
-import useImagePreloader from "./hooks/useimagepreloader"
+import useImagePreloader from "../hooks/useimagepreloader"
 
 const teams: any[] = [
   "france",
