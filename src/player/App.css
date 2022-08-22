@@ -1,0 +1,140 @@
+.App {
+  text-align: center;
+  font-family: myFirstFont;
+}
+
+.App .title {
+  font-size: 50px;
+  color: white;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@property --t {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+@counter-style stop {
+  system: cyclic;
+  symbols: " ";
+  range: infinite 0;
+}
+
+.count-down {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 80px;
+  height: 65px;
+  color: white;
+  font-family: myFirstFont;
+}
+
+@keyframes count {
+  to {
+    --t: 0;
+  }
+}
+@keyframes shark {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  20% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+.ant-modal {
+  top: -50px !important;
+  font-family: myFirstFont;
+}
+
+.ant-modal-body {
+  background: url("./msgbg.jpg") repeat;
+}
+
+.ant-modal-content {
+  width: 340px;
+  margin: 0 auto;
+}
+
+.field-club {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.field-club img {
+  width: 100px;
+}
+
+.lineup {
+  height: 32.45rem;
+  position: relative;
+  /* margin: 1rem 1rem 2rem; */
+  left: 2.1rem;
+  top: 15rem;
+}
+
+.field-large1 {
+  margin-top: 170px;
+}
+
+.field-large1 .field-item {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.field-large1 .field-club {
+  height: 0px;
+  /* height: 85px; */
+  width: 30%;
+  margin: 2px 1.66%;
+  padding-bottom: 30%;
+}
+
+.answer img {
+  height: 85px;
+}
