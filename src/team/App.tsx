@@ -427,8 +427,11 @@ function App() {
         } else {
           setStartIndex((startIndex) => startIndex + 1)
         }
-        setStep(0)
-        setCount(countValue)
+
+        setTimeout(() => {
+          setStep(0)
+          setCount(countValue)
+        }, 30)
       }, waitSuccess * 1000)
       // ;(audio as any).pause()
     }
@@ -490,6 +493,16 @@ function App() {
                     {step === 0 && (
                       <>
                         <div>
+                          <img
+                            className="field-teamlogo animated zoomIn"
+                            src={item.teamlogo}
+                          />
+                        </div>
+                      </>
+                    )}
+                    {step === 0 && (
+                      <>
+                        <div style={{ display: "none" }}>
                           <img
                             className="field-teamlogo animated zoomIn"
                             src={item.teamlogo}
