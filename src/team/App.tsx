@@ -435,7 +435,7 @@ function App() {
         setTimeout(() => {
           setStep(0)
           setCount(countValue)
-        }, 30)
+        }, 600)
       }, waitSuccess * 1000)
       // ;(audio as any).pause()
     }
