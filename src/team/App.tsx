@@ -282,6 +282,7 @@ const clubs = [
   "accrington",
 ]
 
+const isDebug = window.location.search.indexOf("debug") !== -1
 const questions = [...teams, ...clubs]
 
 // const questions = ["real madrid"]
@@ -416,6 +417,9 @@ function App() {
   }, [matchKey])
 
   useEffect(() => {
+    if (isDebug) {
+      setStep(1)
+    }
     if (count === 0) {
       // 出答案
       setStep(1)
@@ -516,6 +520,24 @@ function App() {
             </div>
           </div>
         </div>
+        {isDebug && (
+          <div>
+            <button
+              onClick={() => {
+                setStartIndex((startIndex) => startIndex - 1)
+              }}
+            >
+              上一个
+            </button>
+            <button
+              onClick={() => {
+                setStartIndex((startIndex) => startIndex + 1)
+              }}
+            >
+              下一个
+            </button>
+          </div>
+        )}
         {/* <div className="title">
           <span style={{ fontSize: "20px" }}>(未成年禁止打赏)</span>
         </div> */}
