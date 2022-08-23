@@ -280,6 +280,12 @@ const clubs = [
   "northampton",
   "doncaster",
   "accrington",
+  "deportivo",
+  "hertha",
+  "cadiz",
+  "granada",
+  "etienne",
+  "nantes",
 ]
 
 const isDebug = window.location.search.indexOf("debug") !== -1
