@@ -48,8 +48,6 @@ code {
 
 .field-large {
   width: 100%;
-  background: url("./field.webp") no-repeat center top;
-  background-size: cover;
   position: relative;
 }
 
@@ -70,6 +68,8 @@ code {
 .field-avatar {
   width: 3.5rem;
   height: 3.5rem;
+  position: relative;
+  left: -15%;
 
   transform: scale(1.08);
 }
@@ -88,6 +88,11 @@ code {
   justify-content: center;
   flex-direction: column;
   margin-left: -10px;
+}
+
+.field-player img {
+  width: 60px;
+  height: 60px;
 }
 
 .field-name {

@@ -1,1 +1,106 @@
-{"notionLogo":"./data/levante/teams-1853-180.png","notionName":"莱万特","players":[{"left":"65.04%","top":"2%","img":"./data/levante/players-204-233-22_180.png","href":"/player/204233/charly-musonda/","defaultimg":"https://cdn.sofifa.net/players/notfound_0_60.png","name":"Musonda","teamlogo":"./data/levante/flags-be@3x.png"},{"left":"47.44%","top":"-15%","img":"./data/levante/players-232-381-22_180.png","href":"/player/232381/wesley-moraes-ferreira-da-silva/","defaultimg":"https://cdn.sofifa.net/players/notfound_0_60.png","name":"Wesley","teamlogo":"./data/levante/flags-br@3x.png"},{"left":"1.68%","top":"2%","img":"./data/levante/players-219-652-22_180.png","href":"/player/219652/roberto-ibanez-castro/","defaultimg":"https://cdn.sofifa.net/players/notfound_0_60.png","name":"Rober Ibáñez","teamlogo":"./data/levante/flags-es@3x.png"},{"left":"20.16%","top":"33.75%","img":"./data/levante/players-189-560-22_180.png","href":"/player/189560/vicente-iborra-de-la-fuente/","defaultimg":"https://cdn.sofifa.net/players/notfound_0_60.png","name":"Iborra","teamlogo":"./data/levante/flags-es@3x.png"},{"left":"51.84%","top":"33.75%","img":"./data/levante/players-230-786-22_180.png","href":"/player/230786/jose-luis-garcia-vaya/","defaultimg":"https://cdn.sofifa.net/players/notfound_0_60.png","name":"Pepelu","teamlogo":"./data/levante/flags-es@3x.png"},{"left":"20.16%","top":"-8%","img":"./data/levante/players-146-758-22_180.png","href":"/player/146758/roberto-soldado-rillo/","defaultimg":"https://cdn.sofifa.net/players/notfound_0_60.png","name":"Soldado","teamlogo":"./data/levante/flags-es@3x.png"},{"left":"-3.16%","top":"62.5%","img":"./data/levante/players-240-976-22_180.png","href":"/player/240976/marcelo-saracchi/","defaultimg":"https://cdn.sofifa.net/players/notfound_0_60.png","name":"Saracchi","teamlogo":"./data/levante/flags-uy@3x.png"},{"left":"20.16%","top":"70%","img":"./data/levante/players-211-857-22_180.png","href":"/player/211857/alejandro-jose-munoz-miguel/","defaultimg":"https://cdn.sofifa.net/players/notfound_0_60.png","name":"Alex Muñoz","teamlogo":"./data/levante/flags-es@3x.png"},{"left":"51.84%","top":"70%","img":"./data/levante/players-215-399-22_180.png","href":"/player/215399/ruben-miguel-nunes-vezo/","defaultimg":"https://cdn.sofifa.net/players/notfound_0_60.png","name":"Rúben Vezo","teamlogo":"./data/levante/flags-pt@3x.png"},{"left":"75.16%","top":"62.5%","img":"./data/levante/players-252-086-22_180.png","href":"/player/252086/fco-javier-hidalgo-gomez/","defaultimg":"https://cdn.sofifa.net/players/notfound_0_60.png","name":"Son","teamlogo":"./data/levante/flags-es@3x.png"},{"left":"36%","top":"83.5%","img":"./data/levante/players-236-033-22_180.png","href":"/player/236033/daniel-cardenas-lindez/","defaultimg":"https://cdn.sofifa.net/players/notfound_0_60.png","name":"Dani Cárdenas","teamlogo":"./data/levante/flags-es@3x.png"}],"teamname":"levante"}
+{
+  "notionLogo": "./data/levante/teams-1853-180.png",
+  "notionName": "莱万特",
+  "players": [
+    {
+      "left": "65.04%",
+      "top": "17%",
+      "img": "./data/levante/players-204-233-22_180.png",
+      "href": "/player/204233/charly-musonda/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Musonda",
+      "teamlogo": "./data/levante/flags-be@3x.png"
+    },
+    {
+      "left": "47.44%",
+      "top": "0%",
+      "img": "./data/levante/players-232-381-22_180.png",
+      "href": "/player/232381/wesley-moraes-ferreira-da-silva/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Wesley",
+      "teamlogo": "./data/levante/flags-br@3x.png"
+    },
+    {
+      "left": "1.68%",
+      "top": "17%",
+      "img": "./data/levante/players-219-652-22_180.png",
+      "href": "/player/219652/roberto-ibanez-castro/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Rober Ibáñez",
+      "teamlogo": "./data/levante/flags-es@3x.png"
+    },
+    {
+      "left": "20.16%",
+      "top": "33.75%",
+      "img": "./data/levante/players-189-560-22_180.png",
+      "href": "/player/189560/vicente-iborra-de-la-fuente/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Iborra",
+      "teamlogo": "./data/levante/flags-es@3x.png"
+    },
+    {
+      "left": "51.84%",
+      "top": "33.75%",
+      "img": "./data/levante/players-230-786-22_180.png",
+      "href": "/player/230786/jose-luis-garcia-vaya/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Pepelu",
+      "teamlogo": "./data/levante/flags-es@3x.png"
+    },
+    {
+      "left": "20.16%",
+      "top": "7%",
+      "img": "./data/levante/players-146-758-22_180.png",
+      "href": "/player/146758/roberto-soldado-rillo/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Soldado",
+      "teamlogo": "./data/levante/flags-es@3x.png"
+    },
+    {
+      "left": "-3.16%",
+      "top": "62.5%",
+      "img": "./data/levante/players-240-976-22_180.png",
+      "href": "/player/240976/marcelo-saracchi/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Saracchi",
+      "teamlogo": "./data/levante/flags-uy@3x.png"
+    },
+    {
+      "left": "20.16%",
+      "top": "70%",
+      "img": "./data/levante/players-211-857-22_180.png",
+      "href": "/player/211857/alejandro-jose-munoz-miguel/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Alex Muñoz",
+      "teamlogo": "./data/levante/flags-es@3x.png"
+    },
+    {
+      "left": "51.84%",
+      "top": "70%",
+      "img": "./data/levante/players-215-399-22_180.png",
+      "href": "/player/215399/ruben-miguel-nunes-vezo/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Rúben Vezo",
+      "teamlogo": "./data/levante/flags-pt@3x.png"
+    },
+    {
+      "left": "75.16%",
+      "top": "62.5%",
+      "img": "./data/levante/players-252-086-22_180.png",
+      "href": "/player/252086/fco-javier-hidalgo-gomez/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Son",
+      "teamlogo": "./data/levante/flags-es@3x.png"
+    },
+    {
+      "left": "36%",
+      "top": "83.5%",
+      "img": "./data/levante/players-236-033-22_180.png",
+      "href": "/player/236033/daniel-cardenas-lindez/",
+      "defaultimg": "https://cdn.sofifa.net/players/notfound_0_60.png",
+      "name": "Dani Cárdenas",
+      "teamlogo": "./data/levante/flags-es@3x.png"
+    }
+  ],
+  "teamname": "levante"
+}

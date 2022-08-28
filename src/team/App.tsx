@@ -291,7 +291,7 @@ const clubs = [
 const isDebug = window.location.search.indexOf("debug") !== -1
 const questions = [...teams, ...clubs]
 
-// const questions = ["real madrid"]
+// const questions = ["spain"]
 
 const host = "http://localhost"
 
@@ -299,10 +299,10 @@ questions.sort((a, b) => {
   return Math.random() > 0.5 ? -1 : 1 // 如果a<b不交换，否则交换，即升序排列；如果a>b不交换，否则交换，即将序排列
 })
 
-questions.splice(questions.indexOf(["manchester united"]), 1)
-questions.splice(questions.indexOf(["real madrid"]), 1)
-questions.splice(30, 0, "manchester united")
-questions.splice(60, 0, "real madrid")
+// questions.splice(questions.indexOf(["manchester united"]), 1)
+// questions.splice(questions.indexOf(["real madrid"]), 1)
+// questions.splice(30, 0, "manchester united")
+// questions.splice(60, 0, "real madrid")
 
 // console.log(questions)
 
@@ -454,6 +454,7 @@ function App() {
   return (
     data && (
       <div className="App">
+        <div className="bg"></div>
         <div className="block-two-third">
           {/* <button onClick={() => setStep(1)}>显示答案</button> */}
           <div
@@ -527,7 +528,7 @@ function App() {
           </div>
         </div>
         {isDebug && (
-          <div>
+          <div style={{ position: "absolute" }}>
             <button
               onClick={() => {
                 setStartIndex((startIndex) => startIndex - 1)

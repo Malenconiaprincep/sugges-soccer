@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   font-family: myFirstFont;
+  width: 410px;
 }
 
 .App .title {
@@ -96,4 +97,13 @@
 .ant-modal-content {
   width: 340px;
   margin: 0 auto;
+}
+
+.App .bg {
+  background: url("../field.webp") no-repeat center top;
+  background-size: cover;
+  position: absolute;
+  height: 570px;
+  width: 100%;
+  top: 160px;
 }
