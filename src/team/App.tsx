@@ -331,7 +331,7 @@ export const useGlobalMessage = (callback: any) => {
   return useWindowEvent("message", callback)
 }
 
-const countValue = 25
+const countValue = 15
 const waitSuccess = 8
 
 // const countValue = 2

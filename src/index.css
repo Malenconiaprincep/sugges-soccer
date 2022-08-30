@@ -66,8 +66,8 @@ code {
 }
 
 .field-avatar {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 60px;
+  height: 60px;
   position: relative;
   left: -15%;
 
@@ -76,6 +76,7 @@ code {
 
 .field-teamlogo {
   width: 3.5rem;
+  height: auto;
   /* height: 3rem; */
 
   /* transform: scale(1.08); */
@@ -91,8 +92,8 @@ code {
 }
 
 .field-player img {
-  width: 60px;
-  height: 60px;
+  /* width: 60px;
+  height: 60px; */
 }
 
 .field-name {
