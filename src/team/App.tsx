@@ -90,7 +90,7 @@ const clubs = [
   "wanderers",
   "fiorentina",
   "frankfurt",
-  "lille",
+  // "lille",
   "juniors",
   "brugge",
   "udinese",
