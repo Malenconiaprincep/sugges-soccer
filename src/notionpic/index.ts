@@ -6,4 +6,8 @@ export const imgs: any = {
   Germany: "21.webp",
   Brazil: "54.webp",
   Spain: "45.webp",
+  Uruguay: "uy.webp",
+  Sweden: "se.webp",
+  Netherlands: "nl.webp",
+  Norway: "no.webp",
 }

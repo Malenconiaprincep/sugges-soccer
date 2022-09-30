@@ -4,11 +4,11 @@
 }
 
 html {
-  background: #212529;
+  /* background: #212529; */
 }
 
 #root {
-  background: #212529;
+  /* background: #212529; */
 }
 
 body {
@@ -33,7 +33,7 @@ code {
   height: 844px;
   /* margin: 40px 30px; */
   /* background: #212529; */
-  background: url("./football.jpg") no-repeat center top;
+  /* background: url("./football.jpg") no-repeat center top; */
   background-size: cover;
   position: relative;
   margin: 0 auto;

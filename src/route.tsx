@@ -2,7 +2,7 @@ import * as React from "react"
 import { Routes, Route, Link } from "react-router-dom"
 import App from "./team/App"
 import Player from "./player/App"
-import GenerateApp from "./generateplayer"
+import GenerateApp from "./generateplayer/index2"
 
 function RouteApp() {
   return (
