@@ -55,14 +55,14 @@ code {
   height: 32.45rem;
   position: relative;
   /* margin: 1rem 1rem 2rem; */
-  left: 2.1rem;
+  left: 1rem;
 }
 
 .lineup2 {
   height: 32.45rem;
   position: relative;
   /* margin: 1rem 1rem 2rem; */
-  left: 1.2rem;
+  left: 0.5rem;
 }
 
 .field-avatar {
@@ -75,7 +75,7 @@ code {
 }
 
 .field-teamlogo {
-  width: 3.5rem;
+  width: 4rem;
   height: auto;
   /* height: 3rem; */
 
@@ -92,6 +92,7 @@ code {
 }
 
 .field-player img {
+  /* image-rendering: auto; */
   /* width: 60px;
   height: 60px; */
 }

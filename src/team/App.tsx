@@ -289,9 +289,9 @@ const clubs = [
 ]
 
 const isDebug = window.location.search.indexOf("debug") !== -1
-const questions = [...teams, ...clubs]
+// const questions = [...teams, ...clubs]
 
-// const questions = ["spain"]
+const questions = ["france"]
 
 const host = "http://localhost"
 
