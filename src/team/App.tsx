@@ -381,9 +381,8 @@ function App() {
   const receiveMessage = useCallback(
     (event: any) => {
       if (step === 1) return
-      for (let i = 0; i < event.data.length; i++) {
-        let item = event.data[i]
-        if (item && item.method === "WebcastChatMessage") {
+      const item = event.data?.data
+      if(item && item.type === 'chat') {
           const ans = item.content.toUpperCase()
           if (
             ans === data.notionName.replace(/\s/g, "").toUpperCase() ||
@@ -402,10 +401,9 @@ function App() {
               setVisible(false)
               setAnswer("")
             }, 6000)
-            break
           }
-        }
       }
+    
     },
     [data, visible, step]
   )
