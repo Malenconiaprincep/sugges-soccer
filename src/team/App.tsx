@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react"
 import { Modal } from "antd"
 import "antd/dist/antd.css"
 import "./App.css"
@@ -7,6 +13,8 @@ import axios from "axios"
 import useDjs from "../hooks/usedjs"
 // import Demo from "./demo"
 import useImagePreloader from "../hooks/useimagepreloader"
+import { getCount, getDetailTeam, getList, pageSize } from "../config/team"
+import { host } from "../config/env"
 
 const teams: any[] = [
   "france",
@@ -291,13 +299,33 @@ const clubs = [
 const isDebug = window.location.search.indexOf("debug") !== -1
 // const questions = [...teams, ...clubs]
 
-const questions = ["france"]
+// const host = "http://localhost"
 
-const host = "http://localhost"
+function getValueByKeyPath(data: any, keypath: string) {
+  const keys = keypath.split(".")
+  let result = data
+  keys.forEach((key) => {
+    try {
+      if (result.data) {
+        if (Array.isArray(result.data)) {
+          result = result.data[0].attributes[key]
+        } else {
+          result = result.data.attributes[key]
+        }
+      }
+      if (result.attributes) {
+        result = result.attributes[key]
+      }
+    } catch (e) {
+      debugger
+    }
+  })
+  return result
+}
 
-questions.sort((a, b) => {
-  return Math.random() > 0.5 ? -1 : 1 // 如果a<b不交换，否则交换，即升序排列；如果a>b不交换，否则交换，即将序排列
-})
+// questions.sort((a, b) => {
+//   return Math.random() > 0.5 ? -1 : 1 // 如果a<b不交换，否则交换，即升序排列；如果a>b不交换，否则交换，即将序排列
+// })
 
 // questions.splice(questions.indexOf(["manchester united"]), 1)
 // questions.splice(questions.indexOf(["real madrid"]), 1)
@@ -306,18 +334,35 @@ questions.sort((a, b) => {
 
 // console.log(questions)
 
-async function preload(questions: any) {
-  let imgs: any[] = []
+const convertData = (data: any) => {
+  // console.log(data)
+  const type = getValueByKeyPath(data, "type")
+  const res = {
+    name: getValueByKeyPath(data, "name"),
+    logo: host + getValueByKeyPath(data, "logo.url"),
+    players: getValueByKeyPath(data, "formations.formation").map(
+      (item: any) => {
+        const player = getValueByKeyPath(data, "players").data.filter(
+          (p: any) => p.attributes.pid === item.pid
+        )[0]
 
-  for (let i = 0; i < questions.length; i++) {
-    const res = await axios(`/data/${questions[i]}/${questions[i]}.json`)
-    const notionlogo = res.data.notionLogo
-    const playerimgs = res.data.players.map((item: any) => item.img)
-    const teamlogos = res.data.players.map((item: any) => item.teamlogo)
-    imgs = [notionlogo, ...playerimgs, ...teamlogos, ...imgs]
+        return {
+          ...item,
+          teamlogo:
+            host +
+            getValueByKeyPath(
+              getValueByKeyPath(player, "teams").data.filter((team: any) => {
+                console.log(getValueByKeyPath(team, "type"), ">>123")
+                return getValueByKeyPath(team, "type") !== type
+              })[0],
+              "logo.url"
+            ),
+          img: host + getValueByKeyPath(player, "avatar.url"),
+        }
+      }
+    ),
   }
-
-  return imgs
+  return res
 }
 
 export const useWindowEvent = (event: any, callback: any) => {
@@ -338,7 +383,7 @@ const waitSuccess = 8
 // const waitSuccess = 2
 
 function App() {
-  const [load, setLoad] = useState(false)
+  const [loaded, setLoad] = useState(false)
   const [preloadSrcList, setPreloadSrcList] = useState([])
   const { imagesPreloaded } = useImagePreloader(preloadSrcList)
   const [step, setStep] = useState(0)
@@ -347,8 +392,9 @@ function App() {
   const [visible, setVisible] = useState(false)
   const [answer, setAnswer] = useState<string>("")
   const [startIndex, setStartIndex] = useState(0)
+  const [questions, setQuestions] = useState({})
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetch = async () => {
       const res: any = await preload(questions)
       setPreloadSrcList(res)
@@ -359,51 +405,60 @@ function App() {
     fetch()
   }, [])
 
-  const getMatchKey = useCallback(
-    (questions: string[], startIndex: number) => {
-      if (questions) {
-        if (questions[startIndex]) {
-          const value = questions[startIndex]
-          startIndex++
-          return value
-        } else {
-          startIndex = 0
-          return questions[startIndex]
+  async function preload(questions: any) {
+    let assets: any[] = []
+
+    const count = await getCount()
+    const pages = Math.ceil(count / pageSize)
+
+    // load assets
+    for (let i = 1; i <= pages; i++) {
+      const list = await getList(i)
+      if (list) {
+        for (let i = 0; i < list.length; i++) {
+          const item = list[i]
+          assets.push(item.attributes.logo.data.attributes.url)
+
+          setQuestions((olddata) => {
+            return {
+              ...olddata,
+              [item.attributes.name]: item,
+            }
+          })
         }
       }
-      return ""
-    },
-    [startIndex]
-  )
+    }
 
-  const matchKey = getMatchKey(questions, startIndex)
+    console.log(`当前加载的题目： [${Object.keys(questions)}]`)
+
+    return assets
+  }
 
   const receiveMessage = useCallback(
     (event: any) => {
       if (step === 1) return
       const item = event.data?.data
-      if(item && item.type === 'chat') {
-          const ans = item.content.toUpperCase()
-          if (
-            ans === data.notionName.replace(/\s/g, "").toUpperCase() ||
-            ans === data.notionName.toUpperCase()
-          ) {
-            // 回答正确
-            setAnswer(item.nickname)
-            setVisible(true)
-            setCount(0)
-            setTimeout(() => {
-              // const audio = document.querySelector("audio")
-              // ;(audio as any).pause()
-              // ;(audio as any).currentTime = 0
-              // ;(audio as any).src = ""
+      if (item && item.type === "chat") {
+        const ans = item.content.toUpperCase()
+        if (
+          ans === data.name.replace(/\s/g, "").toUpperCase() ||
+          ans === data.name.toUpperCase()
+        ) {
+          // 回答正确
+          setAnswer(item.nickname)
+          setVisible(true)
+          setCount(0)
+          setTimeout(() => {
+            // const audio = document.querySelector("audio")
+            // ;(audio as any).pause()
+            // ;(audio as any).currentTime = 0
+            // ;(audio as any).src = ""
 
-              setVisible(false)
-              setAnswer("")
-            }, 6000)
-          }
+            setVisible(false)
+            setAnswer("")
+          }, 6000)
+        }
       }
-    
     },
     [data, visible, step]
   )
@@ -411,14 +466,20 @@ function App() {
   useGlobalMessage(receiveMessage)
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: `/data/${matchKey}/${matchKey}.json`,
-      responseType: "stream",
-    }).then(function (response) {
-      setData(response.data)
-    })
-  }, [matchKey])
+    const fetch = async () => {
+      // @ts-ignore
+      const id = questions[Object.keys(questions)[startIndex]].id
+      const res: any = await getDetailTeam(id)
+      if (res) {
+        const convertRes = convertData(res)
+        setData(convertRes)
+      }
+    }
+
+    if (loaded) {
+      fetch()
+    }
+  }, [startIndex, loaded])
 
   useEffect(() => {
     if (isDebug) {
@@ -430,7 +491,7 @@ function App() {
       setTimeout(() => {
         // 等一段时间下一题
         setStep(2)
-        if (startIndex === questions.length) {
+        if (startIndex === Object.keys(questions).length) {
           setStartIndex(1)
         } else {
           setStartIndex((startIndex) => startIndex + 1)
@@ -445,7 +506,13 @@ function App() {
     }
   }, [count])
 
-  if (!imagesPreloaded && !load) {
+  useEffect(() => {
+    if (imagesPreloaded && loaded) {
+      console.log("资源加载完成")
+    }
+  }, [imagesPreloaded, loaded])
+
+  if (!imagesPreloaded && !loaded) {
     return <p>Preloading Assets</p>
   }
 
@@ -469,10 +536,10 @@ function App() {
               <div className="answer">
                 <div className="top"></div>
                 <div className="center">
-                  <span>{data.notionName}</span>
+                  <span>{data.name}</span>
                 </div>
                 <div className="top"></div>
-                <img src={data.notionLogo} />
+                <img src={data.logo} />
               </div>
             )}
           </div>
@@ -483,14 +550,14 @@ function App() {
                   <div
                     className="field-player "
                     style={{ left: item.left, top: item.top }}
-                    key={item.img}
+                    key={`${item.img}`}
                   >
                     {step === 1 && (
                       <>
                         <div>
                           <img
                             className="field-avatar animated zoomIn"
-                            src={item.img}
+                            src={`${item.img}`}
                           />
                         </div>
                         <div className="field-name animated zoomIn">

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { host } from "../config/env"
 
 function preloadImage(src: string) {
   return new Promise((resolve, reject) => {
@@ -20,7 +21,7 @@ export default function useImagePreloader(imageList: string[]) {
     let isCancelled = false
 
     async function effect() {
-      console.log("PRELOAD")
+      console.log("PRELOAD IMAGES")
 
       if (isCancelled) {
         return
@@ -28,7 +29,7 @@ export default function useImagePreloader(imageList: string[]) {
 
       const imagesPromiseList: Promise<any>[] = []
       for (const i of imageList) {
-        imagesPromiseList.push(preloadImage(i))
+        imagesPromiseList.push(preloadImage(`${host}${i}`))
       }
 
       await Promise.all(imagesPromiseList)
