@@ -15,6 +15,7 @@ import useDjs from "../hooks/usedjs"
 import useImagePreloader from "../hooks/useimagepreloader"
 import { getCount, getDetailTeam, getList, pageSize } from "../config/team"
 import { host } from "../config/env"
+import { national } from "../config/source"
 
 const teams: any[] = [
   "france",
@@ -296,6 +297,8 @@ const clubs = [
   "nantes",
 ]
 
+const whiteList = national.map((item) => item.name)
+
 const isDebug = window.location.search.indexOf("debug") !== -1
 // const questions = [...teams, ...clubs]
 
@@ -316,9 +319,7 @@ function getValueByKeyPath(data: any, keypath: string) {
       if (result.attributes) {
         result = result.attributes[key]
       }
-    } catch (e) {
-      debugger
-    }
+    } catch (e) {}
   })
   return result
 }
@@ -335,7 +336,8 @@ function getValueByKeyPath(data: any, keypath: string) {
 // console.log(questions)
 
 const convertData = (data: any) => {
-  // console.log(data)
+  console.log(`当前数据:`)
+  console.log(data)
   const type = getValueByKeyPath(data, "type")
   const res = {
     name: getValueByKeyPath(data, "name"),
@@ -345,19 +347,21 @@ const convertData = (data: any) => {
         const player = getValueByKeyPath(data, "players").data.filter(
           (p: any) => p.attributes.pid === item.pid
         )[0]
-
         return {
           ...item,
           teamlogo:
             host +
             getValueByKeyPath(
               getValueByKeyPath(player, "teams").data.filter((team: any) => {
-                console.log(getValueByKeyPath(team, "type"), ">>123")
                 return getValueByKeyPath(team, "type") !== type
               })[0],
               "logo.url"
             ),
           img: host + getValueByKeyPath(player, "avatar.url"),
+          name:
+            getValueByKeyPath(player, "name") +
+            " " +
+            getValueByKeyPath(player, "family_name"),
         }
       }
     ),
@@ -376,11 +380,11 @@ export const useGlobalMessage = (callback: any) => {
   return useWindowEvent("message", callback)
 }
 
-const countValue = 15
-const waitSuccess = 8
+// const countValue = 15
+// const waitSuccess = 8
 
-// const countValue = 2
-// const waitSuccess = 2
+const countValue = 2
+const waitSuccess = 2
 
 function App() {
   const [loaded, setLoad] = useState(false)
@@ -413,7 +417,10 @@ function App() {
 
     // load assets
     for (let i = 1; i <= pages; i++) {
-      const list = await getList(i)
+      let list = (await getList(i)) as any
+      list = list.filter((item: any) => {
+        return whiteList.includes(item.attributes.name)
+      })
       if (list) {
         for (let i = 0; i < list.length; i++) {
           const item = list[i]
@@ -484,6 +491,7 @@ function App() {
   useEffect(() => {
     if (isDebug) {
       setStep(1)
+      return
     }
     if (count === 0) {
       // 出答案
@@ -494,7 +502,11 @@ function App() {
         if (startIndex === Object.keys(questions).length) {
           setStartIndex(1)
         } else {
-          setStartIndex((startIndex) => startIndex + 1)
+          if (startIndex + 1 === Object.keys(questions).length) {
+            setStartIndex(0)
+          } else {
+            setStartIndex((startIndex) => startIndex + 1)
+          }
         }
 
         setTimeout(() => {
@@ -562,7 +574,9 @@ function App() {
                         </div>
                         <div className="field-name animated zoomIn">
                           <img src={item.teamlogo} className="field-logo" />
-                          {item.name}
+                          {item.name.length > 12
+                            ? item.name.substring(0, 10) + "..."
+                            : item.name}
                         </div>
                       </>
                     )}
@@ -603,7 +617,11 @@ function App() {
             </button>
             <button
               onClick={() => {
-                setStartIndex((startIndex) => startIndex + 1)
+                if (startIndex + 1 === Object.keys(questions).length) {
+                  setStartIndex(0)
+                } else {
+                  setStartIndex((startIndex) => startIndex + 1)
+                }
               }}
             >
               下一个

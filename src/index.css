@@ -40,15 +40,18 @@ code {
 }
 
 .block-two-third {
-  width: 374px;
+  width: 600px;
   vertical-align: top;
   margin: 0 auto;
   padding-top: 50px;
 }
 
 .field-large {
-  width: 100%;
+  height: 495px;
   position: relative;
+  padding: 30px 0;
+  margin: 0.75rem 0 4rem;
+  box-sizing: content-box;
 }
 
 .lineup {
@@ -59,23 +62,24 @@ code {
 }
 
 .lineup2 {
-  height: 32.45rem;
-  position: relative;
+  /* height: 32.45rem; */
+  /* position: relative; */
   /* margin: 1rem 1rem 2rem; */
-  left: 0.5rem;
+  /* left: 0.5rem; */
+  /* top: 1rem; */
 }
 
 .field-avatar {
   width: 60px;
   height: 60px;
   position: relative;
-  left: -15%;
+  /* left: -15%; */
 
-  transform: scale(1.08);
+  transform: scale(1);
 }
 
 .field-teamlogo {
-  width: 4rem;
+  width: 3.7rem;
   height: auto;
   /* height: 3rem; */
 
@@ -88,7 +92,6 @@ code {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-left: -10px;
 }
 
 .field-player img {
@@ -101,7 +104,7 @@ code {
   background: rgba(0, 0, 0, 0.75) !important;
   color: white;
   line-height: 1.2rem;
-  width: 100%;
+  width: 110px;
   border: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -111,6 +114,10 @@ code {
   display: flex;
   align-items: center;
   padding: 0 20px 0 15px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, PingFang SC,
+    Hiragino Sans GB, Microsoft YaHei, "\5FAE\8F6F\96C5\9ED1", helvetica neue,
+    helvetica, ubuntu, roboto, noto, segoe ui, Arial, sans-serif;
+  font-weight: bold;
 }
 
 .field-name img {

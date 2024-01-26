@@ -1,6 +1,6 @@
 import { strapi } from "../lib/strapi"
 
-export const pageSize = 1
+export const pageSize = 10
 
 export async function getList(page: number = 1): Promise<any> {
   try {

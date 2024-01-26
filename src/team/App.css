@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   font-family: myFirstFont;
-  width: 410px;
+  width: 600px;
 }
 
 .App .title {
@@ -100,10 +100,20 @@
 }
 
 .App .bg {
-  background: url("../field.webp") no-repeat center top;
+  /* background: url("../field.webp") no-repeat center top; */
+  /* background: url("//cdn.sofifa.net/img/field.png") no-repeat center center;
   background-size: cover;
   position: absolute;
   height: 570px;
   width: 100%;
-  top: 160px;
+  top: 160px; */
+}
+
+.field-large {
+  background: url("//cdn.sofifa.net/img/field.png") no-repeat center center;
+  background-size: cover;
+  height: 495px;
+  position: relative;
+  padding: 30px 0;
+  margin: 0.75rem 0 4rem;
 }
