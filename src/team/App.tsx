@@ -380,11 +380,8 @@ export const useGlobalMessage = (callback: any) => {
   return useWindowEvent("message", callback)
 }
 
-// const countValue = 15
-// const waitSuccess = 8
-
-const countValue = 2
-const waitSuccess = 2
+const countValue = isDebug ? 2 : 15
+const waitSuccess = isDebug ? 2 : 8
 
 function App() {
   const [loaded, setLoad] = useState(false)
@@ -530,135 +527,157 @@ function App() {
 
   return (
     data && (
-      <div className="App">
-        <div className="bg"></div>
-        <div className="block-two-third">
-          {/* <button onClick={() => setStep(1)}>显示答案</button> */}
-          <div
-            style={{
-              height: "80px",
-              marginBottom: "40px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {step === 0 && <div className="count-down">{count}</div>}
-            {step === 1 && (
-              <div className="answer">
-                <div className="top"></div>
-                <div className="center">
-                  <span>{data.name}</span>
+      <div>
+        {isDebug && (
+          <div className="debug">
+            {isDebug && (
+              <div
+                style={{
+                  position: "absolute",
+                  background: "white;",
+                  width: "300px",
+                  height: "50vh",
+                }}
+              >
+                <div>
+                  <button
+                    onClick={() => {
+                      setStartIndex((startIndex) => startIndex - 1)
+                    }}
+                  >
+                    上一个
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (startIndex + 1 === Object.keys(questions).length) {
+                        setStartIndex(0)
+                      } else {
+                        setStartIndex((startIndex) => startIndex + 1)
+                      }
+                    }}
+                  >
+                    下一个
+                  </button>
                 </div>
-                <div className="top"></div>
-                <img src={data.logo} />
               </div>
             )}
           </div>
-          <div className="field-large">
-            <div className={step === 0 ? "lineup" : "lineup2"}>
-              {data.players.map((item: any) => {
-                return (
-                  <div
-                    className="field-player "
-                    style={{ left: item.left, top: item.top }}
-                    key={`${item.img}`}
-                  >
-                    {step === 1 && (
-                      <>
-                        <div>
-                          <img
-                            className="field-avatar animated zoomIn"
-                            src={`${item.img}`}
-                          />
-                        </div>
-                        <div className="field-name animated zoomIn">
-                          <img src={item.teamlogo} className="field-logo" />
-                          {item.name.length > 12
-                            ? item.name.substring(0, 10) + "..."
-                            : item.name}
-                        </div>
-                      </>
-                    )}
-                    {step === 0 && (
-                      <>
-                        <div>
-                          <img
-                            className="field-teamlogo animated zoomIn"
-                            src={item.teamlogo}
-                          />
-                        </div>
-                      </>
-                    )}
-                    {step === 0 && (
-                      <>
-                        <div style={{ display: "none" }}>
-                          <img
-                            className="field-teamlogo animated zoomIn"
-                            src={item.teamlogo}
-                          />
-                        </div>
-                      </>
-                    )}
+        )}
+        <div className="App">
+          <div className="bg"></div>
+          <div className="block-two-third">
+            {/* <button onClick={() => setStep(1)}>显示答案</button> */}
+            <div
+              style={{
+                height: "80px",
+                marginBottom: "40px",
+                marginTop: "100px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {step === 0 && <div className="count-down">{count}</div>}
+              {step === 1 && (
+                <div className="answer">
+                  <div className="top"></div>
+                  <div className="center">
+                    <span>{data.name}</span>
                   </div>
-                )
-              })}
+                  <div className="top"></div>
+                  <img src={data.logo} />
+                </div>
+              )}
+            </div>
+            <div className="field-large">
+              <div className={step === 0 ? "lineup" : "lineup2"}>
+                {data.players.map((item: any) => {
+                  return (
+                    <div
+                      className="field-player "
+                      style={{ left: item.left, top: item.top }}
+                      key={`${item.img}`}
+                    >
+                      {step === 1 && (
+                        <>
+                          <div>
+                            <img
+                              className="field-avatar animated zoomIn"
+                              src={`${item.img}`}
+                            />
+                          </div>
+                          <div className="field-name animated zoomIn">
+                            <img src={item.teamlogo} className="field-logo" />
+                            {item.name.length > 12
+                              ? item.name.substring(0, 10) + "..."
+                              : item.name}
+                            {isDebug ? item.pid : ""}
+                          </div>
+                        </>
+                      )}
+                      {step === 0 && (
+                        <>
+                          <div>
+                            <img
+                              className="field-teamlogo animated zoomIn"
+                              src={item.teamlogo}
+                            />
+                          </div>
+                        </>
+                      )}
+                      {step === 0 && (
+                        <>
+                          <div style={{ display: "none" }}>
+                            <img
+                              className="field-teamlogo animated zoomIn"
+                              src={item.teamlogo}
+                            />
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           </div>
-        </div>
-        {isDebug && (
-          <div style={{ position: "absolute" }}>
-            <button
-              onClick={() => {
-                setStartIndex((startIndex) => startIndex - 1)
-              }}
-            >
-              上一个
-            </button>
-            <button
-              onClick={() => {
-                if (startIndex + 1 === Object.keys(questions).length) {
-                  setStartIndex(0)
-                } else {
-                  setStartIndex((startIndex) => startIndex + 1)
-                }
-              }}
-            >
-              下一个
-            </button>
-          </div>
-        )}
-        {/* <div className="title">
+
+          {/* <div className="title">
           <span style={{ fontSize: "20px" }}>(未成年禁止打赏)</span>
         </div> */}
-        <Modal visible={visible} footer={null} closable={false} centered={true}>
-          <div
-            style={{
-              width: "180px",
-              height: "15px",
-              background: "rgba(196, 247, 82)",
-              position: "absolute",
-              left: "0",
-              top: "0",
-            }}
-          ></div>
-          <div className="modal-show">
-            <div>GOAL!</div>
-            <p className="congra">
-              恭喜
-              <span className="res">
-                <span className="name">
-                  {answer && answer.length > 15
-                    ? answer.slice(0, 10) + "..."
-                    : answer}
+          <Modal
+            visible={visible}
+            footer={null}
+            closable={false}
+            centered={true}
+          >
+            <div
+              style={{
+                width: "180px",
+                height: "15px",
+                background: "rgba(196, 247, 82)",
+                position: "absolute",
+                left: "0",
+                top: "0",
+              }}
+            ></div>
+            <div className="modal-show">
+              <div>GOAL!</div>
+              <p className="congra">
+                恭喜
+                <span className="res">
+                  <span className="name">
+                    {answer && answer.length > 15
+                      ? answer.slice(0, 10) + "..."
+                      : answer}
+                  </span>
                 </span>
-              </span>
-              回答正确
-            </p>
-          </div>
-        </Modal>
-        {/* <Demo answer={answer} /> */}
-        {/* <button
+                回答正确
+              </p>
+            </div>
+          </Modal>
+          {/* <Demo answer={answer} /> */}
+          {/* <button
           onClick={() => {
             receiveMessage({
               data: [
@@ -673,6 +692,7 @@ function App() {
         >
           测试
         </button> */}
+        </div>
       </div>
     )
   )

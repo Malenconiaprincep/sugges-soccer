@@ -6,7 +6,7 @@ import GenerateApp from "./generateplayer/index2"
 
 function RouteApp() {
   return (
-    <div className="App">
+    <div>
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="generate" element={<GenerateApp />} />
