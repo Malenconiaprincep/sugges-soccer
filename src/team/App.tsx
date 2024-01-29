@@ -9,13 +9,15 @@ import { Modal } from "antd"
 import "antd/dist/antd.css"
 import "./App.css"
 import axios from "axios"
+import { BiliDanmu, startConnection } from "innoz-bili-util"
 // import ReactAudioPlayer from "react-audio-player"
 import useDjs from "../hooks/usedjs"
 // import Demo from "./demo"
 import useImagePreloader from "../hooks/useimagepreloader"
 import { getCount, getDetailTeam, getList, pageSize } from "../config/team"
 import { host } from "../config/env"
-import { national } from "../config/source"
+import { national, club } from "../config/source"
+import { IFROM, convertMessage } from "../lib/convert"
 
 const teams: any[] = [
   "france",
@@ -297,9 +299,10 @@ const clubs = [
   "nantes",
 ]
 
-const whiteList = national.map((item) => item.name)
+const whiteList = club.map((item) => item.name)
 
 const isDebug = window.location.search.indexOf("debug") !== -1
+const isBili = window.location.search.indexOf("bili") !== -1
 // const questions = [...teams, ...clubs]
 
 // const host = "http://localhost"
@@ -369,19 +372,43 @@ const convertData = (data: any) => {
   return res
 }
 
-export const useWindowEvent = (event: any, callback: any) => {
+export const useWindowEvent = (event: any, callback: any, data: any) => {
   useEffect(() => {
-    window.addEventListener(event, callback)
+    if (!isBili) {
+      window.addEventListener(event, callback)
+    }
     return () => window.removeEventListener(event, callback)
-  }, [event, callback])
+  }, [event, callback, data])
 }
 
-export const useGlobalMessage = (callback: any) => {
-  return useWindowEvent("message", callback)
+export const useBiliDanmu = (callback: any, data: any) => {
+  useEffect(() => {
+    const start = async () => {
+      startConnection({
+        roomId: "31489212",
+        key: "eUDhpCCmjM1V6hxljAYTomzr-HE27vY7smMyd1f7njknCItcS-46Ei9fWn1EbqoKyDV4PpiM-faGBPI9iMPOyWcnnnBhphE1ovdESmUS7n8c83_o2PIt1-IYxnbuuOJ-BOF2QwSp8Xp5ejjln0jstJRx0p5ne6zIkSAdfcMemqj_kSdbFQAMU1enfkg=",
+        uid: 413782120,
+        onMessage: async (msg) => {
+          const message = convertMessage(IFROM.bili, msg)
+          if (message && callback) {
+            callback({
+              type: "chat",
+              data: message,
+            })
+          }
+        },
+      })
+    }
+    if (isBili) {
+      start()
+    }
+  }, [data, callback])
 }
 
 const countValue = isDebug ? 2 : 15
 const waitSuccess = isDebug ? 2 : 8
+
+let currentData: any = null
 
 function App() {
   const [loaded, setLoad] = useState(false)
@@ -438,36 +465,36 @@ function App() {
     return assets
   }
 
-  const receiveMessage = useCallback(
-    (event: any) => {
-      if (step === 1) return
-      const item = event.data?.data
-      if (item && item.type === "chat") {
-        const ans = item.content.toUpperCase()
-        if (
-          ans === data.name.replace(/\s/g, "").toUpperCase() ||
-          ans === data.name.toUpperCase()
-        ) {
-          // 回答正确
-          setAnswer(item.nickname)
-          setVisible(true)
-          setCount(0)
-          setTimeout(() => {
-            // const audio = document.querySelector("audio")
-            // ;(audio as any).pause()
-            // ;(audio as any).currentTime = 0
-            // ;(audio as any).src = ""
+  const receiveMessage = (event: any) => {
+    if (step === 1) return
+    if (event && event.type === "chat") {
+      const item = event.data
+      console.log(item)
+      const ans = item.content.toUpperCase()
+      if (
+        currentData &&
+        (ans === currentData.name.replace(/\s/g, "").toUpperCase() ||
+          ans === currentData.name.toUpperCase())
+      ) {
+        // 回答正确
+        setAnswer(item.nickname)
+        setVisible(true)
+        setCount(0)
+        setTimeout(() => {
+          // const audio = document.querySelector("audio")
+          // ;(audio as any).pause()
+          // ;(audio as any).currentTime = 0
+          // ;(audio as any).src = ""
 
-            setVisible(false)
-            setAnswer("")
-          }, 6000)
-        }
+          setVisible(false)
+          setAnswer("")
+        }, 6000)
       }
-    },
-    [data, visible, step]
-  )
+    }
+  }
 
-  useGlobalMessage(receiveMessage)
+  useWindowEvent("message", receiveMessage, data)
+  useBiliDanmu(receiveMessage, data)
 
   useEffect(() => {
     const fetch = async () => {
@@ -477,6 +504,7 @@ function App() {
       if (res) {
         const convertRes = convertData(res)
         setData(convertRes)
+        currentData = convertRes
       }
     }
 
@@ -524,7 +552,6 @@ function App() {
   if (!imagesPreloaded && !loaded) {
     return <p>Preloading Assets</p>
   }
-
   return (
     data && (
       <div>
@@ -540,6 +567,21 @@ function App() {
                 }}
               >
                 <div>
+                  <p>
+                    球队地址：{" "}
+                    {Object.keys(questions).length > 0 && (
+                      <a
+                        target="_blank"
+                        href={`https://sofifa.com/${
+                          // @ts-ignore
+                          questions[Object.keys(questions)[startIndex]]
+                            .attributes.search_key
+                        }`}
+                      >
+                        球队地址
+                      </a>
+                    )}
+                  </p>
                   <button
                     onClick={() => {
                       setStartIndex((startIndex) => startIndex - 1)
