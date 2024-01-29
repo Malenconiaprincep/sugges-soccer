@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Screen Recording</title>
+  </head>
+  <body>
+    <div
+      id="targetElement"
+      style="width: 300px; height: 200px; background-color: lightblue"
+    >
+      <!-- Your DOM content to be recorded -->
+      <h2>This is the target element</h2>
+      <p>Recording this specific element</p>
+    </div>
+    <button onclick="startRecording()">Start Recording</button>
+    <button onclick="stopRecording()">Stop Recording</button>
+    <video controls autoplay></video>
+
+    <script>
+      let stream, recorder, videoElement
+
+      async function startRecording() {
+        const displayMediaOptions = {
+          video: {
+            cursor: "never",
+          },
+          audio: false,
+        }
+
+        try {
+          stream = await navigator.mediaDevices.getDisplayMedia(
+            displayMediaOptions
+          )
+          const canvas = document.createElement("canvas")
+          canvas.width = 300 // Width of target element
+          canvas.height = 200 // Height of target element
+          const ctx = canvas.getContext("2d")
+          const targetElement = document.getElementById("targetElement")
+          ctx.drawImage(targetElement, 0, 0, 300, 200) // Draw the target element onto the canvas
+          videoElement = document.querySelector("video")
+          videoElement.srcObject = stream
+          recorder = new MediaRecorder(stream)
+          const chunks = []
+          recorder.ondataavailable = (event) => chunks.push(event.data)
+          recorder.onstop = () => {
+            const blob = new Blob(chunks, { type: "video/webm" })
+            videoElement.src = URL.createObjectURL(blob)
+          }
+          recorder.start()
+        } catch (err) {
+          console.error("Error accessing media devices.", err)
+        }
+      }
+
+      function stopRecording() {
+        if (recorder && stream) {
+          recorder.stop()
+          stream.getTracks().forEach((track) => track.stop())
+        }
+      }
+    </script>
+  </body>
+</html>

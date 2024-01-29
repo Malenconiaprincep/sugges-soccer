@@ -17,8 +17,10 @@
     "react": "^18.2.0",
     "react-audio-player": "^0.17.0",
     "react-dom": "^18.2.0",
+    "react-html5-camera-photo": "^1.5.11",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "recordrtc": "^5.6.2",
     "strapi-sdk-js": "^2.3.3",
     "typescript": "^4.7.4",
     "web-vitals": "^2.1.4"
@@ -46,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/recordrtc": "^5.6.14"
   }
 }

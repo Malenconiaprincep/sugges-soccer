@@ -8,7 +8,6 @@ html {
 }
 
 #root {
-  background: #212529;
 }
 
 body {
@@ -31,10 +30,10 @@ code {
 .App {
   width: 390px;
   /* height: 844px; */
-  height: 100vh;
+  height: 1060px;
   /* margin: 40px 30px; */
   /* background: #212529; */
-  background: url("./football.jpg") no-repeat center top;
+  background: url("./bg.jpg") no-repeat center top;
   background-size: cover;
   position: relative;
   margin: 0 auto;
@@ -93,6 +92,7 @@ code {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-left: 10px;
 }
 
 .field-player img {
