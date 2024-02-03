@@ -299,7 +299,7 @@ const clubs = [
   "nantes",
 ]
 
-const whiteList = club.map((item) => item.name)
+const whiteList = [...national, ...club].map((item) => item.name)
 
 const isDebug = window.location.search.indexOf("debug") !== -1
 const isBili = window.location.search.indexOf("bili") !== -1
@@ -419,7 +419,7 @@ function App() {
   const [data, setData] = useState<any>(null)
   const [visible, setVisible] = useState(false)
   const [answer, setAnswer] = useState<string>("")
-  const [startIndex, setStartIndex] = useState(0)
+  const [startIndex, setStartIndex] = useState(80)
   const [questions, setQuestions] = useState({})
 
   useLayoutEffect(() => {
@@ -437,14 +437,26 @@ function App() {
     let assets: any[] = []
 
     const count = await getCount()
+
     const pages = Math.ceil(count / pageSize)
 
+    console.log("一共有", count, "球队  ", "共有", pages, "页")
     // load assets
     for (let i = 1; i <= pages; i++) {
       let list = (await getList(i)) as any
+
+      console.log(
+        ">> 原始",
+        list.map((item: any) => item.attributes.name)
+      )
+
       list = list.filter((item: any) => {
         return whiteList.includes(item.attributes.name)
       })
+      console.log(
+        "过滤长度 >> ",
+        list.map((item: any) => item.attributes.name)
+      )
       if (list) {
         for (let i = 0; i < list.length; i++) {
           const item = list[i]
@@ -582,6 +594,7 @@ function App() {
                       </a>
                     )}
                   </p>
+                  <p>当前第 {startIndex} 个</p>
                   <button
                     onClick={() => {
                       setStartIndex((startIndex) => startIndex - 1)

@@ -110,7 +110,7 @@
 }
 
 .field-large {
-  background: url("//cdn.sofifa.net/img/field.png") no-repeat center center;
+  background: url("../field.webp") no-repeat center center;
   background-size: cover;
   height: 495px;
   position: relative;

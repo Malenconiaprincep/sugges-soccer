@@ -11,12 +11,7 @@ export const national = [
     searchKey: "germany",
     alias: ["德国", "germany"],
   },
-  {
-    name: "苏格兰",
-    type: "national",
-    searchKey: "Scotland",
-    alias: ["苏格兰", "Scotland"],
-  },
+
   {
     name: "法国",
     type: "national",
@@ -24,10 +19,35 @@ export const national = [
     alias: ["法国", "France"],
   },
   {
+    name: "葡萄牙",
+    type: "national",
+    searchKey: "Portugal",
+    alias: ["葡萄牙", "Portugal"],
+  },
+  {
     name: "荷兰",
     type: "national",
     searchKey: "Netherlands",
     alias: ["荷兰", "Netherlands"],
+  },
+  {
+    name: "比利时",
+    type: "national",
+    searchKey: "Belgium",
+    alias: ["比利时", "Belgium"],
+  },
+
+  {
+    name: "土耳其",
+    type: "national",
+    searchKey: "Turkey",
+    alias: ["土耳其", "Turkey"],
+  },
+  {
+    name: "克罗地亚",
+    type: "national",
+    searchKey: "Croatia",
+    alias: ["克罗地亚", "Croatia"],
   },
   {
     name: "英格兰",
@@ -42,22 +62,10 @@ export const national = [
     alias: ["意大利", "Italy"],
   },
   {
-    name: "土耳其",
+    name: "苏格兰",
     type: "national",
-    searchKey: "Turkey",
-    alias: ["土耳其", "Turkey"],
-  },
-  {
-    name: "克罗地亚",
-    type: "national",
-    searchKey: "Croatia",
-    alias: ["克罗地亚", "Croatia"],
-  },
-  {
-    name: "葡萄牙",
-    type: "national",
-    searchKey: "Portugal",
-    alias: ["葡萄牙", "Portugal"],
+    searchKey: "Scotland",
+    alias: ["苏格兰", "Scotland"],
   },
   {
     name: "阿尔巴尼亚",
@@ -71,12 +79,7 @@ export const national = [
     searchKey: "Czech Republic",
     alias: ["捷克", "Czech Republic"],
   },
-  {
-    name: "比利时",
-    type: "national",
-    searchKey: "Belgium",
-    alias: ["比利时", "Belgium"],
-  },
+
   {
     name: "奥地利",
     type: "national",
@@ -89,48 +92,42 @@ export const national = [
     searchKey: "Hungary",
     alias: ["匈牙利", "Hungary"],
   },
-  {
-    name: "塞尔维亚",
-    type: "national",
-    searchKey: "1682994",
-    alias: ["塞尔维亚", "Serbia"],
-  },
+  // {
+  //   name: "塞尔维亚",
+  //   type: "national",
+  //   searchKey: "1682994",
+  //   alias: ["塞尔维亚", "Serbia"],
+  // },
   {
     name: "丹麦",
     type: "national",
     searchKey: "Denmark",
     alias: ["丹麦", "Denmark"],
   },
-  {
-    name: "斯洛文尼亚",
-    type: "national",
-    searchKey: "1749062",
-    alias: ["斯洛文尼亚", "Slovenia"],
-  },
+  // {
+  //   name: "斯洛文尼亚",
+  //   type: "national",
+  //   searchKey: "1749062",
+  //   alias: ["斯洛文尼亚", "Slovenia"],
+  // },
   {
     name: "罗马尼亚",
     type: "national",
     searchKey: "Romania",
     alias: ["罗马尼亚", "Romania"],
   },
-  {
-    name: "瑞士",
-    type: "national",
-    searchKey: "1751960",
-    alias: ["瑞士", "Switzerland"],
-  },
-  {
-    name: "葡萄牙",
-    type: "national",
-    searchKey: "Portugal",
-    alias: ["葡萄牙", "Portugal"],
-  },
-  {
-    name: "斯洛伐克",
-    type: "national",
-    searchKey: "1751933",
-    alias: ["斯洛伐克", "Slovakia"],
-  },
+  // {
+  //   name: "瑞士",
+  //   type: "national",
+  //   searchKey: "1751960",
+  //   alias: ["瑞士", "Switzerland"],
+  // },
+  // {
+  //   name: "斯洛伐克",
+  //   type: "national",
+  //   searchKey: "1751933",
+  //   alias: ["斯洛伐克", "Slovakia"],
+  // },
 ]
 
 export const club = [
@@ -196,6 +193,17 @@ export const club = [
     url: "/team/110/wolverhampton-wanderers/",
   },
   { name: "布伦特福德", originName: "Brentford", url: "/team/1925/brentford/" },
+  { name: "沃特福德", originName: "Watford", url: "/team/1795/watford/" },
+  {
+    name: "女王公园流浪者",
+    originName: "queens-park-rangers",
+    url: "/team/15/queens-park-rangers/",
+  },
+  {
+    name: "诺里奇",
+    originName: "norwich city",
+    url: "/team/1792/norwich-city/",
+  },
   {
     name: "伯恩茅斯",
     originName: "AFC Bournemouth",
@@ -260,7 +268,7 @@ export const club = [
     url: "/team/32/bayer-04-leverkusen/",
   },
   {
-    name: "RB莱比锡",
+    name: "rb莱比锡",
     originName: "RB Leipzig",
     url: "/team/112172/rb-leipzig/",
   },
@@ -328,7 +336,7 @@ export const club = [
   },
   // 意甲
   { name: "国际米兰", originName: "Inter", url: "/team/44/inter/" },
-  { name: "AC米兰", originName: "Milan", url: "/team/47/milan/" },
+  { name: "ac米兰", originName: "Milan", url: "/team/47/milan/" },
   { name: "尤文图斯", originName: "Juventus", url: "/team/45/juventus/" },
   { name: "拉齐奥", originName: "Lazio", url: "/team/46/lazio/" },
   { name: "那不勒斯", originName: "Napoli", url: "/team/48/napoli/" },
@@ -616,7 +624,7 @@ export const club = [
   //
   { name: "利雅得胜利", originName: "Al Nassr", url: "/team/112139/al-nassr/" },
   {
-    name: "利雅得青年",
+    name: "利雅得新月",
     originName: "Al Shabab",
     url: "/team/111674/al-shabab/",
   },
@@ -639,5 +647,15 @@ export const club = [
     name: "莫斯科火车头",
     originName: "Lokomotiv Moskva",
     url: "/team/100765/lokomotiv-moskva/",
+  },
+  {
+    name: "伊蒂法克",
+    originName: "al ettifaq",
+    url: "/team/112096/al-ettifaq/",
+  },
+  {
+    name: "伊斯坦布尔",
+    originName: "i̇stanbul başakşehir",
+    url: "/team/101014/istanbul-basaksehir/",
   },
 ]
