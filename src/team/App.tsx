@@ -14,7 +14,13 @@ import { BiliDanmu, startConnection } from "innoz-bili-util"
 import useDjs from "../hooks/usedjs"
 // import Demo from "./demo"
 import useImagePreloader from "../hooks/useimagepreloader"
-import { getCount, getDetailTeam, getList, pageSize } from "../config/team"
+import {
+  getCount,
+  getDetailTeam,
+  getList,
+  getPlayers,
+  pageSize,
+} from "../config/team"
 import { host } from "../config/env"
 import { national, club } from "../config/source"
 import { IFROM, convertMessage } from "../lib/convert"
@@ -299,8 +305,115 @@ const clubs = [
   "nantes",
 ]
 
-const whiteList = [...national, ...club].map((item) => item.name)
+const whiteList = [
+  {
+    name: "西班牙",
+    type: "national",
+    searchKey: "Spain",
+    alias: ["西班牙", "Spain"],
+  },
+  // {
+  //   name: "德国",
+  //   type: "national",
+  //   searchKey: "germany",
+  //   alias: ["德国", "germany"],
+  // },
 
+  // {
+  //   name: "法国",
+  //   type: "national",
+  //   searchKey: "France",
+  //   alias: ["法国", "France"],
+  // },
+  // {
+  //   name: "葡萄牙",
+  //   type: "national",
+  //   searchKey: "Portugal",
+  //   alias: ["葡萄牙", "Portugal"],
+  // },
+  // {
+  //   name: "荷兰",
+  //   type: "national",
+  //   searchKey: "Netherlands",
+  //   alias: ["荷兰", "Netherlands"],
+  // },
+  // {
+  //   name: "比利时",
+  //   type: "national",
+  //   searchKey: "Belgium",
+  //   alias: ["比利时", "Belgium"],
+  // },
+  // {
+  //   name: "英格兰",
+  //   type: "national",
+  //   searchKey: "England",
+  //   alias: ["英格兰", "England"],
+  // },
+  // {
+  //   name: "意大利",
+  //   type: "national",
+  //   searchKey: "Italy",
+  //   alias: ["意大利", "Italy"],
+  // },
+  // {
+  //   name: "拜仁慕尼黑",
+  //   originName: "FC Bayern München",
+  //   url: "/team/21/fc-bayern-munchen/",
+  // },
+  // {
+  //   name: "巴黎圣日耳曼",
+  //   type: "club",
+  //   searchKey: "paris saint",
+  //   alias: ["巴黎圣日耳曼", "psg"],
+  // },
+  // {
+  //   name: "曼城",
+  //   originName: "Manchester City",
+  //   url: "/team/10/manchester-city/",
+  // },
+  // { name: "阿森纳", originName: "Arsenal", url: "/team/1/arsenal/" },
+  // { name: "利物浦", originName: "Liverpool", url: "/team/9/liverpool/" },
+  // {
+  //   name: "曼联",
+  //   originName: "Manchester United",
+  //   url: "/team/11/manchester-united/",
+  // },
+  // {
+  //   name: "热刺",
+  //   originName: "Tottenham Hotspur",
+  //   url: "/team/18/tottenham-hotspur/",
+  // },
+  // {
+  //   name: "多特蒙德",
+  //   originName: "Borussia Dortmund",
+  //   url: "/team/22/borussia-dortmund/",
+  // },
+  // {
+  //   name: "皇家马德里",
+  //   originName: "Real Madrid",
+  //   url: "/team/243/real-madrid/",
+  // },
+  // {
+  //   name: "巴塞罗那",
+  //   originName: "FC Barcelona",
+  //   url: "/team/241/fc-barcelona/",
+  // },
+  // {
+  //   name: "马德里竞技",
+  //   originName: "Atlético Madrid",
+  //   url: "/team/240/atletico-madrid/",
+  // },
+  // { name: "埃因霍温", originName: "PSV", url: "/team/247/psv/" },
+  // { name: "波尔图", originName: "Porto", url: "/team/236/porto/" },
+  // { name: "国际米兰", originName: "Inter", url: "/team/44/inter/" },
+  // { name: "ac米兰", originName: "Milan", url: "/team/47/milan/" },
+  // { name: "尤文图斯", originName: "Juventus", url: "/team/45/juventus/" },
+  // { name: "那不勒斯", originName: "Napoli", url: "/team/48/napoli/" },
+].map((item) => item.name)
+
+// const whiteList = [...national, ...club].map((item) => item.name)
+
+const isZh = window.location.search.indexOf("zh") !== -1
 const isDebug = window.location.search.indexOf("debug") !== -1
 const isBili = window.location.search.indexOf("bili") !== -1
 // const questions = [...teams, ...clubs]
@@ -327,57 +440,66 @@ function getValueByKeyPath(data: any, keypath: string) {
   return result
 }
 
-// questions.sort((a, b) => {
-//   return Math.random() > 0.5 ? -1 : 1 // 如果a<b不交换，否则交换，即升序排列；如果a>b不交换，否则交换，即将序排列
-// })
-
-// questions.splice(questions.indexOf(["manchester united"]), 1)
-// questions.splice(questions.indexOf(["real madrid"]), 1)
-// questions.splice(30, 0, "manchester united")
-// questions.splice(60, 0, "real madrid")
-
-// console.log(questions)
-
-const convertData = (data: any) => {
+const convertData = (data: any, players: any) => {
   console.log(`当前数据:`)
   console.log(data)
   const type = getValueByKeyPath(data, "type")
   const res = {
-    name: getValueByKeyPath(data, "name"),
+    name: isZh
+      ? getValueByKeyPath(data, "name")
+      : getValueByKeyPath(data, "alias")[1],
     logo: host + getValueByKeyPath(data, "logo.url"),
     players: getValueByKeyPath(data, "formations.formation").map(
-      (item: any) => {
-        const player = getValueByKeyPath(data, "players").data.filter(
-          (p: any) => p.attributes.pid === item.pid
-        )[0]
+      (player: any) => {
+        const findPlayer = players.find(
+          (item: any) => item.attributes.pid === player.pid
+        )
         return {
-          ...item,
+          ...player,
           teamlogo:
             host +
             getValueByKeyPath(
-              getValueByKeyPath(player, "teams").data.filter((team: any) => {
-                return getValueByKeyPath(team, "type") !== type
-              })[0],
+              getValueByKeyPath(findPlayer, "teams").data.filter(
+                (team: any) => {
+                  return getValueByKeyPath(team, "type") !== type
+                }
+              )[0],
               "logo.url"
             ),
-          img: host + getValueByKeyPath(player, "avatar.url"),
+          img: host + getValueByKeyPath(findPlayer, "avatar.url"),
           name:
-            getValueByKeyPath(player, "name") +
+            getValueByKeyPath(findPlayer, "name") +
             " " +
-            getValueByKeyPath(player, "family_name"),
+            getValueByKeyPath(findPlayer, "family_name"),
         }
       }
     ),
+    search_key: getValueByKeyPath(data, "search_key"),
   }
   return res
 }
 
-export const useWindowEvent = (event: any, callback: any, data: any) => {
+export const useWindowEvent = (
+  event: any,
+  callback: any,
+  data: any,
+  loaded: boolean
+) => {
   useEffect(() => {
-    if (!isBili) {
-      window.addEventListener(event, callback)
+    if (!isBili && !loaded) {
+      window.addEventListener(event, (e) => {
+        const message = convertMessage(IFROM.douyin, e.data.data)
+        if (message) {
+          callback({
+            type: "chat",
+            data: message,
+          })
+        }
+      })
     }
-    return () => window.removeEventListener(event, callback)
+    return () => {
+      window.removeEventListener(event, callback)
+    }
   }, [event, callback, data])
 }
 
@@ -413,13 +535,14 @@ let currentData: any = null
 function App() {
   const [loaded, setLoad] = useState(false)
   const [preloadSrcList, setPreloadSrcList] = useState([])
-  const { imagesPreloaded } = useImagePreloader(preloadSrcList)
+  const { imagesPreloaded, preloadProgress } = useImagePreloader(preloadSrcList)
   const [step, setStep] = useState(0)
-  const { count, setCount } = useDjs(countValue)
+  const [bindMessage, setBindMessage] = useState(false)
+  const { count, setCount } = useDjs(countValue, imagesPreloaded, loaded)
   const [data, setData] = useState<any>(null)
   const [visible, setVisible] = useState(false)
   const [answer, setAnswer] = useState<string>("")
-  const [startIndex, setStartIndex] = useState(80)
+  const [startIndex, setStartIndex] = useState(0)
   const [questions, setQuestions] = useState({})
 
   useLayoutEffect(() => {
@@ -429,7 +552,7 @@ function App() {
       setLoad(true)
       return res
     }
-
+    setBindMessage(true)
     fetch()
   }, [])
 
@@ -459,13 +582,26 @@ function App() {
       )
       if (list) {
         for (let i = 0; i < list.length; i++) {
-          const item = list[i]
-          assets.push(item.attributes.logo.data.attributes.url)
+          const team = list[i]
+          const pids = getValueByKeyPath(team, "formations.formation.pid").map(
+            (player: any) => player.pid
+          )
+          const players = await getPlayers(pids)
+          assets.push(getValueByKeyPath(team, "logo.url"))
+          if (players && players.length > 0) {
+            players.forEach((player: any) => {
+              assets.push(getValueByKeyPath(player, "avatar.url"))
+              const teams = getValueByKeyPath(player, "teams")
+              teams.data.forEach((team: any) => {
+                assets.push(getValueByKeyPath(team, "logo.url"))
+              })
+            })
+          }
 
           setQuestions((olddata) => {
             return {
               ...olddata,
-              [item.attributes.name]: item,
+              [team.attributes.name]: convertData(team, players),
             }
           })
         }
@@ -505,18 +641,16 @@ function App() {
     }
   }
 
-  useWindowEvent("message", receiveMessage, data)
+  useWindowEvent("message", receiveMessage, data, bindMessage)
   useBiliDanmu(receiveMessage, data)
 
   useEffect(() => {
     const fetch = async () => {
       // @ts-ignore
-      const id = questions[Object.keys(questions)[startIndex]].id
-      const res: any = await getDetailTeam(id)
-      if (res) {
-        const convertRes = convertData(res)
-        setData(convertRes)
-        currentData = convertRes
+      const question = questions[Object.keys(questions)[startIndex]]
+      if (question) {
+        setData(question)
+        currentData = question
       }
     }
 
@@ -548,8 +682,10 @@ function App() {
 
         setTimeout(() => {
           setStep(0)
-          setCount(countValue)
-        }, 600)
+          setTimeout(() => {
+            setCount(countValue)
+          }, 300)
+        }, 500)
       }, waitSuccess * 1000)
       // ;(audio as any).pause()
     }
@@ -561,8 +697,8 @@ function App() {
     }
   }, [imagesPreloaded, loaded])
 
-  if (!imagesPreloaded && !loaded) {
-    return <p>Preloading Assets</p>
+  if (!imagesPreloaded || !loaded) {
+    return <p>{`Preloading Assets 当前进度:  ${preloadProgress}`}</p>
   }
   return (
     data && (
@@ -587,7 +723,7 @@ function App() {
                         href={`https://sofifa.com/${
                           // @ts-ignore
                           questions[Object.keys(questions)[startIndex]]
-                            .attributes.search_key
+                            .search_key
                         }`}
                       >
                         球队地址
@@ -618,6 +754,13 @@ function App() {
             )}
           </div>
         )}
+        <div
+          onClick={() => {
+            setStep(2)
+          }}
+        >
+          开始
+        </div>
         <div className="App">
           <div className="bg"></div>
           <div className="block-two-third">
@@ -632,7 +775,9 @@ function App() {
                 justifyContent: "center",
               }}
             >
-              {step === 0 && <div className="count-down">{count}</div>}
+              {step === 0 && count !== 0 && (
+                <div className="count-down">{count}</div>
+              )}
               {step === 1 && (
                 <div className="answer">
                   <div className="top"></div>

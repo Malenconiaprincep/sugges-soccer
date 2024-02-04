@@ -12,4 +12,12 @@ export const convertMessage = (from: IFROM, data: any) => {
       }
     }
   }
+  if (from === IFROM.douyin) {
+    if (data && data.nickname && data.content) {
+      return {
+        nickname: data.nickname,
+        content: data.content,
+      }
+    }
+  }
 }

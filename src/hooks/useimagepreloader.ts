@@ -16,6 +16,7 @@ function preloadImage(src: string) {
 
 export default function useImagePreloader(imageList: string[]) {
   const [imagesPreloaded, setImagesPreloaded] = useState<boolean>(false)
+  const [preloadProgress, setPreloadProgress] = useState<number>(0)
 
   useEffect(() => {
     let isCancelled = false
@@ -23,15 +24,20 @@ export default function useImagePreloader(imageList: string[]) {
     async function effect() {
       console.log("PRELOAD IMAGES")
 
-      if (isCancelled) {
+      if (isCancelled || imageList.length === 0) {
         return
       }
 
       const imagesPromiseList: Promise<any>[] = []
+      let index = 0
       for (const i of imageList) {
-        imagesPromiseList.push(preloadImage(`${host}${i}`))
+        imagesPromiseList.push(
+          preloadImage(`${host}${i}`).then(() => {
+            const progress = Math.round((index++ / imageList.length) * 100)
+            setPreloadProgress(progress)
+          })
+        )
       }
-
       await Promise.all(imagesPromiseList)
 
       if (isCancelled) {
@@ -48,5 +54,5 @@ export default function useImagePreloader(imageList: string[]) {
     }
   }, [imageList])
 
-  return { imagesPreloaded }
+  return { imagesPreloaded, preloadProgress }
 }

@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react"
 
-function useDjs(init: number) {
+function useDjs(init: number, imagesPreloaded?: boolean, loaded?: boolean) {
   const [count, setCount] = useState(init)
 
   useEffect(() => {
+    if (!imagesPreloaded || !loaded) {
+      return
+    }
     let timer = setInterval(() => {
-      setCount((count) => count - 1)
+      if (count - 1 < 0) {
+        setCount((count) => count)
+      } else {
+        setCount((count) => count - 1)
+      }
     }, 1000)
 
     return () => {
@@ -15,7 +22,7 @@ function useDjs(init: number) {
 
   return {
     count,
-    setCount
+    setCount,
   }
 }
 

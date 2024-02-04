@@ -60,3 +60,20 @@ export async function getDetailTeam(tid: number) {
     return null
   }
 }
+
+export async function getPlayers(pids: number[]): Promise<any> {
+  try {
+    const res = await strapi.find(`players`, {
+      filters: {
+        pid: {
+          $in: pids,
+        },
+      },
+      populate: ["teams.logo", "avatar"],
+    })
+
+    return res.data
+  } catch (e) {
+    return null
+  }
+}

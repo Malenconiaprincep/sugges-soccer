@@ -36,19 +36,6 @@ export const national = [
     searchKey: "Belgium",
     alias: ["比利时", "Belgium"],
   },
-
-  {
-    name: "土耳其",
-    type: "national",
-    searchKey: "Turkey",
-    alias: ["土耳其", "Turkey"],
-  },
-  {
-    name: "克罗地亚",
-    type: "national",
-    searchKey: "Croatia",
-    alias: ["克罗地亚", "Croatia"],
-  },
   {
     name: "英格兰",
     type: "national",
@@ -61,6 +48,19 @@ export const national = [
     searchKey: "Italy",
     alias: ["意大利", "Italy"],
   },
+  {
+    name: "土耳其",
+    type: "national",
+    searchKey: "Turkey",
+    alias: ["土耳其", "Turkey"],
+  },
+  {
+    name: "克罗地亚",
+    type: "national",
+    searchKey: "Croatia",
+    alias: ["克罗地亚", "Croatia"],
+  },
+
   {
     name: "苏格兰",
     type: "national",
