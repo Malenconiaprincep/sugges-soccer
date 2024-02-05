@@ -305,113 +305,113 @@ const clubs = [
   "nantes",
 ]
 
-const whiteList = [
-  {
-    name: "西班牙",
-    type: "national",
-    searchKey: "Spain",
-    alias: ["西班牙", "Spain"],
-  },
-  // {
-  //   name: "德国",
-  //   type: "national",
-  //   searchKey: "germany",
-  //   alias: ["德国", "germany"],
-  // },
+// const whiteList = [
+//   {
+//     name: "西班牙",
+//     type: "national",
+//     searchKey: "Spain",
+//     alias: ["西班牙", "Spain"],
+//   },
+//   {
+//     name: "德国",
+//     type: "national",
+//     searchKey: "germany",
+//     alias: ["德国", "germany"],
+//   },
 
-  // {
-  //   name: "法国",
-  //   type: "national",
-  //   searchKey: "France",
-  //   alias: ["法国", "France"],
-  // },
-  // {
-  //   name: "葡萄牙",
-  //   type: "national",
-  //   searchKey: "Portugal",
-  //   alias: ["葡萄牙", "Portugal"],
-  // },
-  // {
-  //   name: "荷兰",
-  //   type: "national",
-  //   searchKey: "Netherlands",
-  //   alias: ["荷兰", "Netherlands"],
-  // },
-  // {
-  //   name: "比利时",
-  //   type: "national",
-  //   searchKey: "Belgium",
-  //   alias: ["比利时", "Belgium"],
-  // },
-  // {
-  //   name: "英格兰",
-  //   type: "national",
-  //   searchKey: "England",
-  //   alias: ["英格兰", "England"],
-  // },
-  // {
-  //   name: "意大利",
-  //   type: "national",
-  //   searchKey: "Italy",
-  //   alias: ["意大利", "Italy"],
-  // },
-  // {
-  //   name: "拜仁慕尼黑",
-  //   originName: "FC Bayern München",
-  //   url: "/team/21/fc-bayern-munchen/",
-  // },
-  // {
-  //   name: "巴黎圣日耳曼",
-  //   type: "club",
-  //   searchKey: "paris saint",
-  //   alias: ["巴黎圣日耳曼", "psg"],
-  // },
-  // {
-  //   name: "曼城",
-  //   originName: "Manchester City",
-  //   url: "/team/10/manchester-city/",
-  // },
-  // { name: "阿森纳", originName: "Arsenal", url: "/team/1/arsenal/" },
-  // { name: "利物浦", originName: "Liverpool", url: "/team/9/liverpool/" },
-  // {
-  //   name: "曼联",
-  //   originName: "Manchester United",
-  //   url: "/team/11/manchester-united/",
-  // },
-  // {
-  //   name: "热刺",
-  //   originName: "Tottenham Hotspur",
-  //   url: "/team/18/tottenham-hotspur/",
-  // },
-  // {
-  //   name: "多特蒙德",
-  //   originName: "Borussia Dortmund",
-  //   url: "/team/22/borussia-dortmund/",
-  // },
-  // {
-  //   name: "皇家马德里",
-  //   originName: "Real Madrid",
-  //   url: "/team/243/real-madrid/",
-  // },
-  // {
-  //   name: "巴塞罗那",
-  //   originName: "FC Barcelona",
-  //   url: "/team/241/fc-barcelona/",
-  // },
-  // {
-  //   name: "马德里竞技",
-  //   originName: "Atlético Madrid",
-  //   url: "/team/240/atletico-madrid/",
-  // },
-  // { name: "埃因霍温", originName: "PSV", url: "/team/247/psv/" },
-  // { name: "波尔图", originName: "Porto", url: "/team/236/porto/" },
-  // { name: "国际米兰", originName: "Inter", url: "/team/44/inter/" },
-  // { name: "ac米兰", originName: "Milan", url: "/team/47/milan/" },
-  // { name: "尤文图斯", originName: "Juventus", url: "/team/45/juventus/" },
-  // { name: "那不勒斯", originName: "Napoli", url: "/team/48/napoli/" },
-].map((item) => item.name)
+//   {
+//     name: "法国",
+//     type: "national",
+//     searchKey: "France",
+//     alias: ["法国", "France"],
+//   },
+//   {
+//     name: "葡萄牙",
+//     type: "national",
+//     searchKey: "Portugal",
+//     alias: ["葡萄牙", "Portugal"],
+//   },
+//   {
+//     name: "荷兰",
+//     type: "national",
+//     searchKey: "Netherlands",
+//     alias: ["荷兰", "Netherlands"],
+//   },
+//   {
+//     name: "比利时",
+//     type: "national",
+//     searchKey: "Belgium",
+//     alias: ["比利时", "Belgium"],
+//   },
+//   {
+//     name: "英格兰",
+//     type: "national",
+//     searchKey: "England",
+//     alias: ["英格兰", "England"],
+//   },
+//   {
+//     name: "意大利",
+//     type: "national",
+//     searchKey: "Italy",
+//     alias: ["意大利", "Italy"],
+//   },
+// {
+//   name: "拜仁慕尼黑",
+//   originName: "FC Bayern München",
+//   url: "/team/21/fc-bayern-munchen/",
+// },
+// {
+//   name: "巴黎圣日耳曼",
+//   type: "club",
+//   searchKey: "paris saint",
+//   alias: ["巴黎圣日耳曼", "psg"],
+// },
+// {
+//   name: "曼城",
+//   originName: "Manchester City",
+//   url: "/team/10/manchester-city/",
+// },
+// { name: "阿森纳", originName: "Arsenal", url: "/team/1/arsenal/" },
+// { name: "利物浦", originName: "Liverpool", url: "/team/9/liverpool/" },
+// {
+//   name: "曼联",
+//   originName: "Manchester United",
+//   url: "/team/11/manchester-united/",
+// },
+// {
+//   name: "热刺",
+//   originName: "Tottenham Hotspur",
+//   url: "/team/18/tottenham-hotspur/",
+// },
+// {
+//   name: "多特蒙德",
+//   originName: "Borussia Dortmund",
+//   url: "/team/22/borussia-dortmund/",
+// },
+// {
+//   name: "皇家马德里",
+//   originName: "Real Madrid",
+//   url: "/team/243/real-madrid/",
+// },
+// {
+//   name: "巴塞罗那",
+//   originName: "FC Barcelona",
+//   url: "/team/241/fc-barcelona/",
+// },
+// {
+//   name: "马德里竞技",
+//   originName: "Atlético Madrid",
+//   url: "/team/240/atletico-madrid/",
+// },
+// { name: "埃因霍温", originName: "PSV", url: "/team/247/psv/" },
+// { name: "波尔图", originName: "Porto", url: "/team/236/porto/" },
+// { name: "国际米兰", originName: "Inter", url: "/team/44/inter/" },
+// { name: "ac米兰", originName: "Milan", url: "/team/47/milan/" },
+// { name: "尤文图斯", originName: "Juventus", url: "/team/45/juventus/" },
+// { name: "那不勒斯", originName: "Napoli", url: "/team/48/napoli/" },
+// ].map((item) => item.name)
 
-// const whiteList = [...national, ...club].map((item) => item.name)
+const whiteList = [...national].map((item) => item.name)
 
 const isZh = window.location.search.indexOf("zh") !== -1
 const isDebug = window.location.search.indexOf("debug") !== -1
@@ -507,7 +507,7 @@ export const useBiliDanmu = (callback: any, data: any) => {
   useEffect(() => {
     const start = async () => {
       startConnection({
-        roomId: "31489212",
+        roomId: "31904110",
         key: "eUDhpCCmjM1V6hxljAYTomzr-HE27vY7smMyd1f7njknCItcS-46Ei9fWn1EbqoKyDV4PpiM-faGBPI9iMPOyWcnnnBhphE1ovdESmUS7n8c83_o2PIt1-IYxnbuuOJ-BOF2QwSp8Xp5ejjln0jstJRx0p5ne6zIkSAdfcMemqj_kSdbFQAMU1enfkg=",
         uid: 413782120,
         onMessage: async (msg) => {
@@ -559,7 +559,7 @@ function App() {
   async function preload(questions: any) {
     let assets: any[] = []
 
-    const count = await getCount()
+    const count = 1
 
     const pages = Math.ceil(count / pageSize)
 
@@ -754,13 +754,6 @@ function App() {
             )}
           </div>
         )}
-        <div
-          onClick={() => {
-            setStep(2)
-          }}
-        >
-          开始
-        </div>
         <div className="App">
           <div className="bg"></div>
           <div className="block-two-third">
@@ -769,7 +762,7 @@ function App() {
               style={{
                 height: "80px",
                 marginBottom: "40px",
-                marginTop: "100px",
+                marginTop: "40px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

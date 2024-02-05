@@ -61,61 +61,61 @@ export const national = [
     alias: ["克罗地亚", "Croatia"],
   },
 
-  {
-    name: "苏格兰",
-    type: "national",
-    searchKey: "Scotland",
-    alias: ["苏格兰", "Scotland"],
-  },
-  {
-    name: "阿尔巴尼亚",
-    type: "national",
-    searchKey: "823619",
-    alias: ["阿尔巴尼亚", "Albania"],
-  },
-  {
-    name: "捷克",
-    type: "national",
-    searchKey: "Czech Republic",
-    alias: ["捷克", "Czech Republic"],
-  },
+  // {
+  //   name: "苏格兰",
+  //   type: "national",
+  //   searchKey: "Scotland",
+  //   alias: ["苏格兰", "Scotland"],
+  // },
+  // {
+  //   name: "阿尔巴尼亚",
+  //   type: "national",
+  //   searchKey: "823619",
+  //   alias: ["阿尔巴尼亚", "Albania"],
+  // },
+  // {
+  //   name: "捷克",
+  //   type: "national",
+  //   searchKey: "Czech Republic",
+  //   alias: ["捷克", "Czech Republic"],
+  // },
 
-  {
-    name: "奥地利",
-    type: "national",
-    searchKey: "Austria",
-    alias: ["奥地利", "Austria"],
-  },
-  {
-    name: "匈牙利",
-    type: "national",
-    searchKey: "Hungary",
-    alias: ["匈牙利", "Hungary"],
-  },
+  // {
+  //   name: "奥地利",
+  //   type: "national",
+  //   searchKey: "Austria",
+  //   alias: ["奥地利", "Austria"],
+  // },
+  // {
+  //   name: "匈牙利",
+  //   type: "national",
+  //   searchKey: "Hungary",
+  //   alias: ["匈牙利", "Hungary"],
+  // },
   // {
   //   name: "塞尔维亚",
   //   type: "national",
   //   searchKey: "1682994",
   //   alias: ["塞尔维亚", "Serbia"],
   // },
-  {
-    name: "丹麦",
-    type: "national",
-    searchKey: "Denmark",
-    alias: ["丹麦", "Denmark"],
-  },
+  // {
+  //   name: "丹麦",
+  //   type: "national",
+  //   searchKey: "Denmark",
+  //   alias: ["丹麦", "Denmark"],
+  // },
   // {
   //   name: "斯洛文尼亚",
   //   type: "national",
   //   searchKey: "1749062",
   //   alias: ["斯洛文尼亚", "Slovenia"],
   // },
-  {
-    name: "罗马尼亚",
-    type: "national",
-    searchKey: "Romania",
-    alias: ["罗马尼亚", "Romania"],
-  },
+  // {
+  //   name: "罗马尼亚",
+  //   type: "national",
+  //   searchKey: "Romania",
+  //   alias: ["罗马尼亚", "Romania"],
+  // },
   // {
   //   name: "瑞士",
   //   type: "national",
