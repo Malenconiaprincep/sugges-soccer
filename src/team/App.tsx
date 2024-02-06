@@ -411,7 +411,7 @@ const clubs = [
 // { name: "那不勒斯", originName: "Napoli", url: "/team/48/napoli/" },
 // ].map((item) => item.name)
 
-const whiteList = [...national].map((item) => item.name)
+const whiteList = [...national, ...club].map((item) => item.name)
 
 const isZh = window.location.search.indexOf("zh") !== -1
 const isDebug = window.location.search.indexOf("debug") !== -1
@@ -559,7 +559,7 @@ function App() {
   async function preload(questions: any) {
     let assets: any[] = []
 
-    const count = 1
+    const count = await getCount()
 
     const pages = Math.ceil(count / pageSize)
 

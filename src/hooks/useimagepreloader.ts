@@ -30,13 +30,16 @@ export default function useImagePreloader(imageList: string[]) {
 
       const imagesPromiseList: Promise<any>[] = []
       let index = 0
+      console.log(imageList)
       for (const i of imageList) {
-        imagesPromiseList.push(
-          preloadImage(`${host}${i}`).then(() => {
-            const progress = Math.round((index++ / imageList.length) * 100)
-            setPreloadProgress(progress)
-          })
-        )
+        if (typeof i === "string") {
+          imagesPromiseList.push(
+            preloadImage(`${host}${i}`).then(() => {
+              const progress = Math.round((index++ / imageList.length) * 100)
+              setPreloadProgress(progress)
+            })
+          )
+        }
       }
       await Promise.all(imagesPromiseList)
 
