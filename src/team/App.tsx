@@ -698,7 +698,21 @@ function App() {
   }, [imagesPreloaded, loaded])
 
   if (!imagesPreloaded || !loaded) {
-    return <p>{`Preloading Assets 当前进度:  ${preloadProgress}`}</p>
+    return (
+      <div
+        className="App"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          color: "#ffffff",
+          justifyContent: "center",
+        }}
+      >
+        <p
+          style={{ color: "#ffffff", fontSize: "40px" }}
+        >{`游戏加载进度:  ${preloadProgress}`}</p>
+      </div>
+    )
   }
   return (
     data && (
