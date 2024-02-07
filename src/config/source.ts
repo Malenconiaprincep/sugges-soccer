@@ -92,42 +92,42 @@ export const national = [
     searchKey: "Hungary",
     alias: ["匈牙利", "Hungary"],
   },
-  {
-    name: "塞尔维亚",
-    type: "national",
-    searchKey: "1682994",
-    alias: ["塞尔维亚", "Serbia"],
-  },
-  {
-    name: "丹麦",
-    type: "national",
-    searchKey: "Denmark",
-    alias: ["丹麦", "Denmark"],
-  },
-  {
-    name: "斯洛文尼亚",
-    type: "national",
-    searchKey: "1749062",
-    alias: ["斯洛文尼亚", "Slovenia"],
-  },
-  {
-    name: "罗马尼亚",
-    type: "national",
-    searchKey: "Romania",
-    alias: ["罗马尼亚", "Romania"],
-  },
-  {
-    name: "瑞士",
-    type: "national",
-    searchKey: "1751960",
-    alias: ["瑞士", "Switzerland"],
-  },
-  {
-    name: "斯洛伐克",
-    type: "national",
-    searchKey: "1751933",
-    alias: ["斯洛伐克", "Slovakia"],
-  },
+  // {
+  //   name: "塞尔维亚",
+  //   type: "national",
+  //   searchKey: "1682994",
+  //   alias: ["塞尔维亚", "Serbia"],
+  // },
+  // {
+  //   name: "丹麦",
+  //   type: "national",
+  //   searchKey: "Denmark",
+  //   alias: ["丹麦", "Denmark"],
+  // },
+  // {
+  //   name: "斯洛文尼亚",
+  //   type: "national",
+  //   searchKey: "1749062",
+  //   alias: ["斯洛文尼亚", "Slovenia"],
+  // },
+  // {
+  //   name: "罗马尼亚",
+  //   type: "national",
+  //   searchKey: "Romania",
+  //   alias: ["罗马尼亚", "Romania"],
+  // },
+  // {
+  //   name: "瑞士",
+  //   type: "national",
+  //   searchKey: "1751960",
+  //   alias: ["瑞士", "Switzerland"],
+  // },
+  // {
+  //   name: "斯洛伐克",
+  //   type: "national",
+  //   searchKey: "1751933",
+  //   alias: ["斯洛伐克", "Slovakia"],
+  // },
 ]
 
 export const club = [

@@ -236,3 +236,12 @@ code {
   font-size: 20px;
   background: rgba(196, 247, 82);
 }
+
+.congra .item {
+  margin-top: 5px;
+  font-size: 20px;
+}
+
+.congra ol li {
+  list-style-position: inside;
+}

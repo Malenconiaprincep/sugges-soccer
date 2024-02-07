@@ -411,7 +411,7 @@ const clubs = [
 // { name: "那不勒斯", originName: "Napoli", url: "/team/48/napoli/" },
 // ].map((item) => item.name)
 
-const whiteList = [...national, ...club].map((item) => item.name)
+const whiteList = [...national].map((item) => item.name)
 
 const isZh = window.location.search.indexOf("zh") !== -1
 const isDebug = window.location.search.indexOf("debug") !== -1
@@ -529,6 +529,7 @@ export const useBiliDanmu = (callback: any, data: any) => {
 
 const countValue = isDebug ? 2 : 15
 const waitSuccess = isDebug ? 2 : 8
+const delayNetTime = 8
 
 let currentData: any = null
 
@@ -541,7 +542,7 @@ function App() {
   const { count, setCount } = useDjs(countValue, imagesPreloaded, loaded)
   const [data, setData] = useState<any>(null)
   const [visible, setVisible] = useState(false)
-  const [answer, setAnswer] = useState<string>("")
+  const [answer, setAnswer] = useState<string[]>([])
   const [startIndex, setStartIndex] = useState(0)
   const [questions, setQuestions] = useState({})
 
@@ -617,7 +618,6 @@ function App() {
     if (step === 1) return
     if (event && event.type === "chat") {
       const item = event.data
-      console.log(item)
       const ans = item.content.toUpperCase()
       if (
         currentData &&
@@ -625,18 +625,18 @@ function App() {
           ans === currentData.name.toUpperCase())
       ) {
         // 回答正确
-        setAnswer(item.nickname)
-        setVisible(true)
-        setCount(0)
-        setTimeout(() => {
-          // const audio = document.querySelector("audio")
-          // ;(audio as any).pause()
-          // ;(audio as any).currentTime = 0
-          // ;(audio as any).src = ""
+        setAnswer(Array.from(new Set([...answer, item.nickname])))
+        // setVisible(true)
+        // setCount(0)
+        // setTimeout(() => {
+        //   // const audio = document.querySelector("audio")
+        //   // ;(audio as any).pause()
+        //   // ;(audio as any).currentTime = 0
+        //   // ;(audio as any).src = ""
 
-          setVisible(false)
-          setAnswer("")
-        }, 6000)
+        //   setVisible(false)
+        //   setAnswer("")
+        // }, 6000)
       }
     }
   }
@@ -648,9 +648,12 @@ function App() {
     const fetch = async () => {
       // @ts-ignore
       const question = questions[Object.keys(questions)[startIndex]]
+      setAnswer([])
       if (question) {
         setData(question)
-        currentData = question
+        setTimeout(() => {
+          currentData = question
+        }, delayNetTime * 1000)
       }
     }
 
@@ -852,37 +855,51 @@ function App() {
           {/* <div className="title">
           <span style={{ fontSize: "20px" }}>(未成年禁止打赏)</span>
         </div> */}
-          <Modal
-            visible={visible}
-            footer={null}
-            closable={false}
-            centered={true}
-          >
-            <div
-              style={{
-                width: "180px",
-                height: "15px",
-                background: "rgba(196, 247, 82)",
-                position: "absolute",
-                left: "0",
-                top: "0",
-              }}
-            ></div>
-            <div className="modal-show">
-              <div>GOAL!</div>
-              <p className="congra">
-                恭喜
-                <span className="res">
-                  <span className="name">
-                    {answer && answer.length > 15
-                      ? answer.slice(0, 10) + "..."
-                      : answer}
-                  </span>
-                </span>
-                回答正确
-              </p>
-            </div>
-          </Modal>
+          {(answer.length > 0 && count === 0) ||
+            (true && (
+              <Modal
+                visible={true}
+                footer={null}
+                closable={false}
+                centered={true}
+              >
+                <div
+                  style={{
+                    width: "180px",
+                    height: "15px",
+                    background: "rgba(196, 247, 82)",
+                    position: "absolute",
+                    left: "0",
+                    top: "0",
+                  }}
+                ></div>
+                <div className="modal-show">
+                  <div>GOAL!</div>
+                  <p className="congra">
+                    <p className="res">恭喜下面粉丝回答正确</p>
+                    <ol className="item">
+                      {answer.map((item, index) => {
+                        if (index >= 5) return
+                        return (
+                          <li>
+                            <span className="name">
+                              {item && item.length > 15
+                                ? item.slice(0, 10) + "..."
+                                : item}
+                            </span>
+                          </li>
+                        )
+                      })}
+                    </ol>
+                    {answer.length >= 5 && (
+                      <div className="item">
+                        <span className="name">等{answer.length - 5}名</span>
+                      </div>
+                    )}
+                  </p>
+                </div>
+              </Modal>
+            ))}
           {/* <Demo answer={answer} /> */}
           {/* <button
           onClick={() => {
