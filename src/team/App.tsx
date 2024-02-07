@@ -855,51 +855,50 @@ function App() {
           {/* <div className="title">
           <span style={{ fontSize: "20px" }}>(未成年禁止打赏)</span>
         </div> */}
-          {(answer.length > 0 && count === 0) ||
-            (true && (
-              <Modal
-                visible={true}
-                footer={null}
-                closable={false}
-                centered={true}
-              >
-                <div
-                  style={{
-                    width: "180px",
-                    height: "15px",
-                    background: "rgba(196, 247, 82)",
-                    position: "absolute",
-                    left: "0",
-                    top: "0",
-                  }}
-                ></div>
-                <div className="modal-show">
-                  <div>GOAL!</div>
-                  <p className="congra">
-                    <p className="res">恭喜下面粉丝回答正确</p>
-                    <ol className="item">
-                      {answer.map((item, index) => {
-                        if (index >= 5) return
-                        return (
-                          <li>
-                            <span className="name">
-                              {item && item.length > 15
-                                ? item.slice(0, 10) + "..."
-                                : item}
-                            </span>
-                          </li>
-                        )
-                      })}
-                    </ol>
-                    {answer.length >= 5 && (
-                      <div className="item">
-                        <span className="name">等{answer.length - 5}名</span>
-                      </div>
-                    )}
-                  </p>
-                </div>
-              </Modal>
-            ))}
+          {answer.length > 0 && count === 0 && (
+            <Modal
+              visible={true}
+              footer={null}
+              closable={false}
+              centered={true}
+            >
+              <div
+                style={{
+                  width: "180px",
+                  height: "15px",
+                  background: "rgba(196, 247, 82)",
+                  position: "absolute",
+                  left: "0",
+                  top: "0",
+                }}
+              ></div>
+              <div className="modal-show">
+                <div>GOAL!</div>
+                <p className="congra">
+                  <p className="res">恭喜下面粉丝回答正确</p>
+                  <ol className="item">
+                    {answer.map((item, index) => {
+                      if (index >= 5) return
+                      return (
+                        <li>
+                          <span className="name">
+                            {item && item.length > 15
+                              ? item.slice(0, 10) + "..."
+                              : item}
+                          </span>
+                        </li>
+                      )
+                    })}
+                  </ol>
+                  {answer.length >= 5 && (
+                    <div className="item">
+                      <span className="name">等{answer.length - 5}名</span>
+                    </div>
+                  )}
+                </p>
+              </div>
+            </Modal>
+          )}
           {/* <Demo answer={answer} /> */}
           {/* <button
           onClick={() => {
