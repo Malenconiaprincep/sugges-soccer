@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.0.6",
     "antd": "^4.22.1",
     "axios": "^0.27.2",
+    "express": "^4.18.2",
     "html2canvas": "^1.4.1",
     "innoz-bili-util": "^1.0.3",
     "pako": "^2.1.0",
@@ -22,9 +23,12 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "recordrtc": "^5.6.2",
+    "socket.io": "^4.7.4",
+    "socket.io-client": "^4.7.4",
     "strapi-sdk-js": "^2.3.3",
     "typescript": "^4.7.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "ws": "^8.16.0"
   },
   "scripts": {
     "start": "react-scripts start",

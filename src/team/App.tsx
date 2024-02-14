@@ -24,6 +24,7 @@ import {
 import { host } from "../config/env"
 import { national, club } from "../config/source"
 import { IFROM, convertMessage } from "../lib/convert"
+import useSocket from "../hooks/usesocket"
 
 const teams: any[] = [
   "france",
@@ -479,28 +480,29 @@ const convertData = (data: any, players: any) => {
   return res
 }
 
-export const useWindowEvent = (
-  event: any,
-  callback: any,
-  data: any,
-  loaded: boolean
-) => {
+export const useDouyin = (socket: any, callback: any, data: any) => {
+  const socketRef = useRef<any>(null)
   useEffect(() => {
-    if (!isBili && !loaded) {
-      window.addEventListener(event, (e) => {
-        const message = convertMessage(IFROM.douyin, e.data.data)
-        if (message) {
-          callback({
-            type: "chat",
-            data: message,
+    if (!isBili) {
+      if (socket) {
+        if (!socketRef.current) {
+          socket.addEventListener("message", (event: any) => {
+            const message = convertMessage(IFROM.douyin, event.data.data)
+            if (message) {
+              callback({
+                type: "chat",
+                data: message,
+              })
+            }
           })
+          socketRef.current = socket
         }
-      })
+      }
     }
-    return () => {
-      window.removeEventListener(event, callback)
-    }
-  }, [event, callback, data])
+    // return () => {
+    //   window.removeEventListener(event, callback)
+    // }
+  }, [socket, callback, data])
 }
 
 export const useBiliDanmu = (callback: any, data: any) => {
@@ -545,6 +547,15 @@ function App() {
   const [answer, setAnswer] = useState<string[]>([])
   const [startIndex, setStartIndex] = useState(0)
   const [questions, setQuestions] = useState({})
+  const socket = useSocket("ws://localhost:8080")
+
+  // useEffect(() => {
+  //   if (socket) {
+  //     socket.addEventListener("message", (event: any) => {
+  //       console.log("Message from server ", event.data)
+  //     })
+  //   }
+  // }, [socket])
 
   useLayoutEffect(() => {
     const fetch = async () => {
@@ -641,7 +652,7 @@ function App() {
     }
   }
 
-  useWindowEvent("message", receiveMessage, data, bindMessage)
+  useDouyin(socket, receiveMessage, data)
   useBiliDanmu(receiveMessage, data)
 
   useEffect(() => {
