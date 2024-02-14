@@ -530,6 +530,7 @@ const waitSuccess = isDebug ? 2 : 8
 const delayNetTime = 8
 
 let currentData: any = null
+let answer: string[] = []
 
 function App() {
   const [loaded, setLoad] = useState(false)
@@ -540,7 +541,6 @@ function App() {
   const { count, setCount } = useDjs(countValue, imagesPreloaded, loaded)
   const [data, setData] = useState<any>(null)
   const [visible, setVisible] = useState(false)
-  const [answer, setAnswer] = useState<string[]>([])
   const [startIndex, setStartIndex] = useState(0)
   const [questions, setQuestions] = useState({})
   const [reloadSocket, setReloadSocket] = useState(false)
@@ -640,7 +640,9 @@ function App() {
           ans === currentData.name.toUpperCase())
       ) {
         // 回答正确
-        setAnswer(Array.from(new Set([...answer, item.nickname])))
+        // setAnswer(Array.from(new Set([...answer, item.nickname])))
+        answer.push(item.nickname)
+
         // setVisible(true)
         // setCount(0)
         // setTimeout(() => {
@@ -663,7 +665,7 @@ function App() {
     const fetch = async () => {
       // @ts-ignore
       const question = questions[Object.keys(questions)[startIndex]]
-      setAnswer([])
+      answer = []
       if (question) {
         setData(question)
         setTimeout(() => {
@@ -732,6 +734,9 @@ function App() {
       </div>
     )
   }
+
+  let newAnswer = Array.from(new Set([...answer]))
+
   return (
     data && (
       <div>
@@ -875,7 +880,7 @@ function App() {
           {/* <div className="title">
           <span style={{ fontSize: "20px" }}>(未成年禁止打赏)</span>
         </div> */}
-          {answer.length > 0 && count === 0 && (
+          {newAnswer.length > 0 && count === 0 && (
             <Modal
               visible={true}
               footer={null}
@@ -897,7 +902,7 @@ function App() {
                 <p className="congra">
                   <p className="res">恭喜下面粉丝回答正确</p>
                   <ol className="item">
-                    {answer.map((item, index) => {
+                    {newAnswer.map((item, index) => {
                       if (index >= 5) return
                       return (
                         <li>
@@ -910,9 +915,9 @@ function App() {
                       )
                     })}
                   </ol>
-                  {answer.length >= 5 && (
+                  {newAnswer.length >= 5 && (
                     <div className="item">
-                      <span className="name">等{answer.length - 5}名</span>
+                      <span className="name">等{newAnswer.length - 5}名</span>
                     </div>
                   )}
                 </p>
