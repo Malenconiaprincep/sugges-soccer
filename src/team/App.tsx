@@ -26,6 +26,13 @@ import { national, club } from "../config/source"
 import { IFROM, convertMessage } from "../lib/convert"
 import useSocket from "../hooks/usesocket"
 
+enum Mode {
+  // 娱乐
+  entertainment = "entertainment",
+  // 竞赛
+  competition = "competition",
+}
+
 const teams: any[] = [
   "france",
   "germany",
@@ -412,11 +419,15 @@ const clubs = [
 // { name: "那不勒斯", originName: "Napoli", url: "/team/48/napoli/" },
 // ].map((item) => item.name)
 
-const whiteList = [...national].map((item) => item.name)
+const whiteList = [...national, ...club].map((item) => item.name)
 
 const isZh = window.location.search.indexOf("zh") !== -1
 const isDebug = window.location.search.indexOf("debug") !== -1
 const isBili = window.location.search.indexOf("bili") !== -1
+const Constmode =
+  window.location.search.indexOf("competition") !== -1
+    ? Mode.competition
+    : Mode.entertainment
 // const questions = [...teams, ...clubs]
 
 // const host = "http://localhost"
@@ -525,7 +536,6 @@ export const useBiliDanmu = (callback: any, data: any) => {
   }, [data, callback])
 }
 
-const countValue = isDebug ? 2 : 15
 const waitSuccess = isDebug ? 2 : 8
 const delayNetTime = 8
 
@@ -538,6 +548,8 @@ function App() {
   const { imagesPreloaded, preloadProgress } = useImagePreloader(preloadSrcList)
   const [step, setStep] = useState(0)
   const [bindMessage, setBindMessage] = useState(false)
+  const [mode, setMode] = useState(Constmode)
+  const countValue = isDebug ? 2 : Mode.entertainment === mode ? 15 : 10
   const { count, setCount } = useDjs(countValue, imagesPreloaded, loaded)
   const [data, setData] = useState<any>(null)
   const [visible, setVisible] = useState(false)
@@ -663,8 +675,12 @@ function App() {
 
   useEffect(() => {
     const fetch = async () => {
+      // 随机排序
+      const arrQuestions = isDebug
+        ? Object.keys(questions)
+        : Object.keys(questions).sort(() => Math.random() - 0.5)
       // @ts-ignore
-      const question = questions[Object.keys(questions)[startIndex]]
+      const question = questions[arrQuestions[startIndex]]
       answer = []
       if (question) {
         setData(question)
