@@ -487,7 +487,7 @@ export const useDouyin = (socket: any, callback: any, data: any) => {
       if (socket) {
         if (!socketRef.current) {
           socket.addEventListener("message", (event: any) => {
-            const message = convertMessage(IFROM.douyin, event.data.data)
+            const message = convertMessage(IFROM.douyin, event.data)
             if (message) {
               callback({
                 type: "chat",

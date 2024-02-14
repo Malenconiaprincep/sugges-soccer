@@ -12,7 +12,8 @@ export const convertMessage = (from: IFROM, data: any) => {
       }
     }
   }
-  if (from === IFROM.douyin) {
+  if (from === IFROM.douyin && data !== "ping") {
+    data = JSON.parse(data)
     if (data && data.nickname && data.content) {
       return {
         nickname: data.nickname,
