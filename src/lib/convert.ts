@@ -18,6 +18,8 @@ export const convertMessage = (from: IFROM, data: any) => {
       return {
         nickname: data.nickname,
         content: data.content,
+        type: data.type,
+        gift: data.gift,
       }
     }
   }

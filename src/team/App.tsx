@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react"
-import { Modal } from "antd"
+import { Modal, message } from "antd"
 import "antd/dist/antd.css"
 import "./App.css"
 import axios from "axios"
@@ -25,8 +25,10 @@ import { host } from "../config/env"
 import { national, club } from "../config/source"
 import { IFROM, convertMessage } from "../lib/convert"
 import useSocket from "../hooks/usesocket"
+import { ModeComponent } from "../components/mode"
+import { GiftComponent } from "../components/gift"
 
-enum Mode {
+export enum Mode {
   // 娱乐
   entertainment = "entertainment",
   // 竞赛
@@ -499,7 +501,7 @@ export const useDouyin = (socketRef: any, callback: any, data: any) => {
           const message = convertMessage(IFROM.douyin, event.data)
           if (message) {
             callback({
-              type: "chat",
+              type: message.type,
               data: message,
             })
           }
@@ -541,6 +543,7 @@ const delayNetTime = 8
 
 let currentData: any = null
 let answer: string[] = []
+let lastMode: Mode = Mode.entertainment
 
 function App() {
   const [loaded, setLoad] = useState(false)
@@ -556,6 +559,7 @@ function App() {
   const [startIndex, setStartIndex] = useState(0)
   const [questions, setQuestions] = useState({})
   const [reloadSocket, setReloadSocket] = useState(false)
+  const [messageApi] = message.useMessage()
   const socketRef = useRef<any>(null)
   const socket = useSocket(
     "ws://localhost:8080",
@@ -643,29 +647,40 @@ function App() {
 
   const receiveMessage = (event: any) => {
     if (step === 1) return
-    if (event && event.type === "chat") {
+    if (event) {
       const item = event.data
-      const ans = item.content.toUpperCase()
-      if (
-        currentData &&
-        (ans === currentData.name.replace(/\s/g, "").toUpperCase() ||
-          ans === currentData.name.toUpperCase())
-      ) {
-        // 回答正确
-        // setAnswer(Array.from(new Set([...answer, item.nickname])))
-        answer.push(item.nickname)
+      if (event.type === "chat") {
+        const ans = item.content.toUpperCase()
+        if (
+          currentData &&
+          (ans === currentData.name.replace(/\s/g, "").toUpperCase() ||
+            ans === currentData.name.toUpperCase())
+        ) {
+          // 回答正确
+          // setAnswer(Array.from(new Set([...answer, item.nickname])))
+          answer.push(item.nickname)
 
-        // setVisible(true)
-        // setCount(0)
-        // setTimeout(() => {
-        //   // const audio = document.querySelector("audio")
-        //   // ;(audio as any).pause()
-        //   // ;(audio as any).currentTime = 0
-        //   // ;(audio as any).src = ""
+          // setVisible(true)
+          // setCount(0)
+          // setTimeout(() => {
+          //   // const audio = document.querySelector("audio")
+          //   // ;(audio as any).pause()
+          //   // ;(audio as any).currentTime = 0
+          //   // ;(audio as any).src = ""
 
-        //   setVisible(false)
-        //   setAnswer("")
-        // }, 6000)
+          //   setVisible(false)
+          //   setAnswer("")
+          // }, 6000)
+        }
+      }
+      if (event.type === "gift") {
+        console.log("收到礼物", item.gift.name)
+        if (item.gift.name.indexOf("小心心") !== -1) {
+          setMode(Mode.entertainment)
+        }
+        if (item.gift.name.indexOf("抖音") !== -1) {
+          setMode(Mode.competition)
+        }
       }
     }
   }
@@ -706,22 +721,47 @@ function App() {
       setTimeout(() => {
         // 等一段时间下一题
         setStep(2)
-        if (startIndex === Object.keys(questions).length) {
-          setStartIndex(1)
-        } else {
-          if (startIndex + 1 === Object.keys(questions).length) {
-            setStartIndex(0)
+
+        // 下一道题目
+        const nextStart = () => {
+          if (startIndex === Object.keys(questions).length) {
+            setStartIndex(1)
           } else {
-            setStartIndex((startIndex) => startIndex + 1)
+            if (startIndex + 1 === Object.keys(questions).length) {
+              setStartIndex(0)
+            } else {
+              setStartIndex((startIndex) => startIndex + 1)
+            }
           }
+
+          setTimeout(() => {
+            setStep(0)
+            setTimeout(() => {
+              setCount(countValue)
+            }, 300)
+          }, 500)
         }
 
-        setTimeout(() => {
-          setStep(0)
+        // 切换模式tip
+        if (lastMode !== mode) {
+          lastMode = mode
+          // messageApi.open({
+          //   type: "success",
+          //   content: `当前切换模式为：
+          //       ${mode === Mode.competition ? "竞赛模式" : "娱乐模式"}`,
+          //   duration: 3,
+          // })
+          message.info(
+            `当前切换模式为：${
+              mode === Mode.competition ? "竞赛模式" : "娱乐模式"
+            }`
+          )
           setTimeout(() => {
-            setCount(countValue)
-          }, 300)
-        }, 500)
+            nextStart()
+          }, 3000)
+        } else {
+          nextStart()
+        }
       }, waitSuccess * 1000)
       // ;(audio as any).pause()
     }
@@ -765,6 +805,7 @@ function App() {
                   background: "white;",
                   width: "300px",
                   height: "50vh",
+                  right: 0,
                 }}
               >
                 <div>
@@ -807,28 +848,15 @@ function App() {
             )}
           </div>
         )}
+
         <div
           className="App"
           onClick={() => {
             setReloadSocket(true)
           }}
         >
-          <div
-            style={{
-              color: "white",
-              display: "flex",
-              alignItems: "leftCenter",
-              background: "gray",
-              padding: "10px 10px",
-              position: "absolute",
-              top: 0,
-              // width: "100%",
-              zIndex: "9999",
-              opacity: 0.8,
-            }}
-          >
-            当前模式： {Mode.competition === mode ? "竞赛模式" : "娱乐模式"}
-          </div>
+          <ModeComponent mode={lastMode} />
+
           <div className="bg"></div>
           <div className="block-two-third">
             {/* <button onClick={() => setStep(1)}>显示答案</button> */}
@@ -836,7 +864,7 @@ function App() {
               style={{
                 height: "80px",
                 marginBottom: "40px",
-                marginTop: "40px",
+                marginTop: "120px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -956,6 +984,13 @@ function App() {
               </div>
             </Modal>
           )}
+          <span style={{ color: "white" }}>球队数据截止 2024.2.1</span>
+          {/* <button onClick={() => setMode(Mode.competition)}>
+            切换模式竞赛
+          </button>
+          <button onClick={() => setMode(Mode.entertainment)}>
+            切换娱乐竞赛
+          </button> */}
           {/* <Demo answer={answer} /> */}
           {/* <button
           onClick={() => {

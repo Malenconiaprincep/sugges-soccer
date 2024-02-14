@@ -31,8 +31,11 @@ wss.on("connection", function connection(ws) {
     try {
       const parseMessage = JSON.parse(message)
       if (parseMessage.type === "chat") {
-        console.log("接收到消息: %s", message)
         // 回复收到的消息
+        webClient.send(`${message}`)
+      }
+      if (parseMessage.type === "gift") {
+        console.log("接收到消息: %s", message)
         webClient.send(`${message}`)
       }
     } catch (e) {
