@@ -1,21 +1,32 @@
 import { useEffect, useRef, useState } from "react"
 
-const useSocket = (socketUrl: string) => {
+const useSocket = (
+  socketUrl: string,
+  reloadSocket: boolean,
+  setReloadSocket: any
+) => {
   const [socket, setSocket] = useState<any>(null)
   const socketRef = useRef<any>(null)
 
   useEffect(() => {
-    // 只在组件第一次渲染时创建 Socket 实例
+    if (reloadSocket) {
+      socketRef.current.close()
+      socketRef.current = null
+    }
     if (!socketRef.current) {
-      const newSocket = new WebSocket(socketUrl)
-      socketRef.current = newSocket
+      setTimeout(() => {
+        // 只在组件第一次渲染时创建 Socket 实例
+        const newSocket = new WebSocket(socketUrl)
+        socketRef.current = newSocket
 
-      newSocket.addEventListener("open", function () {
-        console.log("Connected to Server")
-        newSocket.send("连接 socket, footBall")
-      })
+        newSocket.addEventListener("open", function () {
+          console.log("Connected to Server")
+          newSocket.send("连接 socket, footBall")
+        })
 
-      setSocket(newSocket)
+        setSocket(newSocket)
+      }, 500)
+      setReloadSocket(false)
     }
 
     // 在组件卸载时，断开 Socket 连接
@@ -24,7 +35,7 @@ const useSocket = (socketUrl: string) => {
         socketRef.current.close()
       }
     }
-  }, [socketUrl])
+  }, [socketUrl, reloadSocket])
 
   return socket
 }

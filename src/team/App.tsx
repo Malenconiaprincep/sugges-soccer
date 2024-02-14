@@ -547,7 +547,9 @@ function App() {
   const [answer, setAnswer] = useState<string[]>([])
   const [startIndex, setStartIndex] = useState(0)
   const [questions, setQuestions] = useState({})
-  const socket = useSocket("ws://localhost:8080")
+  const [reloadSocket, setReloadSocket] = useState(false)
+
+  const socket = useSocket("ws://localhost:8080", reloadSocket, setReloadSocket)
 
   // useEffect(() => {
   //   if (socket) {
@@ -782,7 +784,12 @@ function App() {
             )}
           </div>
         )}
-        <div className="App">
+        <div
+          className="App"
+          onClick={() => {
+            setReloadSocket(true)
+          }}
+        >
           <div className="bg"></div>
           <div className="block-two-third">
             {/* <button onClick={() => setStep(1)}>显示答案</button> */}
