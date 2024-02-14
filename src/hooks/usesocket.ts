@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from "react"
 const useSocket = (
   socketUrl: string,
   reloadSocket: boolean,
-  setReloadSocket: any
+  setReloadSocket: any,
+  socketRef: any
 ) => {
   const [socket, setSocket] = useState<any>(null)
-  const socketRef = useRef<any>(null)
 
   useEffect(() => {
     if (reloadSocket) {

@@ -480,29 +480,25 @@ const convertData = (data: any, players: any) => {
   return res
 }
 
-export const useDouyin = (socket: any, callback: any, data: any) => {
-  const socketRef = useRef<any>(null)
+export const useDouyin = (socketRef: any, callback: any, data: any) => {
   useEffect(() => {
     if (!isBili) {
-      if (socket) {
-        if (!socketRef.current) {
-          socket.addEventListener("message", (event: any) => {
-            const message = convertMessage(IFROM.douyin, event.data)
-            if (message) {
-              callback({
-                type: "chat",
-                data: message,
-              })
-            }
-          })
-          socketRef.current = socket
-        }
+      if (socketRef.current) {
+        socketRef.current.addEventListener("message", (event: any) => {
+          const message = convertMessage(IFROM.douyin, event.data)
+          if (message) {
+            callback({
+              type: "chat",
+              data: message,
+            })
+          }
+        })
       }
     }
     // return () => {
     //   window.removeEventListener(event, callback)
     // }
-  }, [socket, callback, data])
+  }, [socketRef.current, callback, data])
 }
 
 export const useBiliDanmu = (callback: any, data: any) => {
@@ -548,8 +544,14 @@ function App() {
   const [startIndex, setStartIndex] = useState(0)
   const [questions, setQuestions] = useState({})
   const [reloadSocket, setReloadSocket] = useState(false)
-
-  const socket = useSocket("ws://localhost:8080", reloadSocket, setReloadSocket)
+  const socketRef = useRef<any>(null)
+  const socket = useSocket(
+    "ws://localhost:8080",
+    reloadSocket,
+    setReloadSocket,
+    socketRef
+  )
+  socketRef.current = socket
 
   // useEffect(() => {
   //   if (socket) {
@@ -654,7 +656,7 @@ function App() {
     }
   }
 
-  useDouyin(socket, receiveMessage, data)
+  useDouyin(socketRef, receiveMessage, data)
   useBiliDanmu(receiveMessage, data)
 
   useEffect(() => {
