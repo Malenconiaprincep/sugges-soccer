@@ -493,11 +493,12 @@ const convertData = (data: any, players: any) => {
   return res
 }
 
-export const useDouyin = (socketRef: any, callback: any, data: any) => {
+export const useDouyin = (socketRef: any, socket: any, callback: any) => {
   useEffect(() => {
     if (!isBili) {
-      if (socketRef.current) {
-        socketRef.current.addEventListener("message", (event: any) => {
+      if (socket) {
+        socket.addEventListener("message", (event: any) => {
+          console.log("addEventlistener messgae")
           const message = convertMessage(IFROM.douyin, event.data)
           if (message) {
             callback({
@@ -511,7 +512,7 @@ export const useDouyin = (socketRef: any, callback: any, data: any) => {
     // return () => {
     //   window.removeEventListener(event, callback)
     // }
-  }, [socketRef.current, callback, data])
+  }, [socket])
 }
 
 export const useBiliDanmu = (callback: any, data: any) => {
@@ -567,7 +568,6 @@ function App() {
     setReloadSocket,
     socketRef
   )
-  socketRef.current = socket
 
   // useEffect(() => {
   //   if (socket) {
@@ -685,7 +685,7 @@ function App() {
     }
   }
 
-  useDouyin(socketRef, receiveMessage, data)
+  useDouyin(socketRef, socket, receiveMessage)
   useBiliDanmu(receiveMessage, data)
 
   useEffect(() => {
@@ -753,7 +753,7 @@ function App() {
           // })
           message.info(
             `当前切换模式为：${
-              mode === Mode.competition ? "竞赛模式" : "娱乐模式"
+              mode === Mode.competition ? "竞速模式" : "娱乐模式"
             }`
           )
           setTimeout(() => {
@@ -975,7 +975,7 @@ function App() {
                       )
                     })}
                   </ol>
-                  {newAnswer.length >= 5 && (
+                  {newAnswer.length > 5 && (
                     <div className="item">
                       <span className="name">等{newAnswer.length - 5}名</span>
                     </div>

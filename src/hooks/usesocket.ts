@@ -10,10 +10,12 @@ const useSocket = (
 
   useEffect(() => {
     if (reloadSocket) {
-      socketRef.current.close()
-      socketRef.current = null
+      if (socketRef.current) {
+        socketRef.current.close()
+        socketRef.current = null
+      }
     }
-    if (!socketRef.current) {
+    if (!socketRef.current && reloadSocket) {
       setTimeout(() => {
         // 只在组件第一次渲染时创建 Socket 实例
         const newSocket = new WebSocket(socketUrl)
