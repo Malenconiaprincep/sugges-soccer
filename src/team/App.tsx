@@ -75,7 +75,7 @@ export function getConfigCount(
       timerCount = 3
     }
     if (Mode.battle === mode) {
-      modeChangeCount = 8
+      modeChangeCount = 4
     }
     waitSuccessCount = 4
   } else {
@@ -106,8 +106,6 @@ const isBili = window.location.search.indexOf("bili") !== -1
 let Constmode = getMode()
 
 const convertData = (data: any, players: any) => {
-  console.log(`当前数据:`)
-  console.log(data)
   const type = getValueByKeyPath(data, "type")
   const res = {
     name: isZh
@@ -194,7 +192,7 @@ export const useDouyin = (
 
 let nextMode: Mode = Mode.entertainment
 // 对战回合数
-let recordBattleModeStart = -1
+let recordBattleModeStart = 0
 export const recordBattleModeEnd = 3
 
 function App() {
@@ -302,26 +300,24 @@ function App() {
       // }
       if (event.type === "gift") {
         // console.log("收到礼物", item.gift.name)
-        if (recordBattleModeStart === -1) {
+        if (recordBattleModeStart === 0) {
           if (item.gift.name.indexOf("小心心") !== -1) {
             if (Mode.entertainment !== mode) {
               nextMode = Mode.entertainment
             }
-            recordBattleModeStart = -1
           }
           if (item.gift.name.indexOf("抖音") !== -1) {
             if (Mode.competition !== mode) {
               nextMode = Mode.competition
             }
-            recordBattleModeStart = -1
           }
         }
         if (item.gift.name.indexOf("棒棒糖") !== -1) {
           if (Mode.battle !== mode) {
             nextMode = Mode.battle
           }
-          if (recordBattleModeStart === -1) {
-            recordBattleModeStart = 0
+          if (recordBattleModeStart === 0) {
+            recordBattleModeStart = 1
           }
         }
       }
@@ -421,7 +417,7 @@ function App() {
   }, [count])
 
   useEffect(() => {
-    const nextStart = () => {
+    const nextStart = (currentMode: Mode) => {
       if (startIndex === Object.keys(questions).length) {
         setStartIndex(1)
       } else {
@@ -431,13 +427,14 @@ function App() {
           setStartIndex((startIndex) => startIndex + 1)
         }
       }
-      restart()
+
+      restart(currentMode)
     }
 
-    const restart = () => {
+    const restart = (currentMode: Mode) => {
       setStep(0)
       setTimeout(() => {
-        setCount(getConfigCount(mode, isDebug).timerCount)
+        setCount(getConfigCount(currentMode, isDebug).timerCount)
       }, 300)
     }
 
@@ -449,10 +446,27 @@ function App() {
         message.info(`当前切换模式为：${modeMap[nextMode]}`)
         setTimeout(() => {
           setModalRule(false)
-          nextStart()
+          nextStart(nextMode)
         }, getConfigCount(nextMode, isDebug).modeChangeCount * 1000) // Adjust the delay time as needed
       } else {
-        nextStart()
+        if (nextMode === Mode.battle) {
+          if (recordBattleModeStart === recordBattleModeEnd) {
+            const resetMode = Mode.entertainment
+            setMode(resetMode)
+            setModalRule(true)
+            recordBattleModeStart = 0
+            message.info(`当前切换模式为：${modeMap[resetMode]}`)
+            setTimeout(() => {
+              setModalRule(false)
+              nextStart(resetMode)
+            }, getConfigCount(resetMode, isDebug).modeChangeCount * 1000) // Adjust the delay time as needed
+          } else {
+            recordBattleModeStart++
+            nextStart(mode)
+          }
+        } else {
+          nextStart(mode)
+        }
       }
     }
   }, [step])
