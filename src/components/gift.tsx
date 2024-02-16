@@ -1,7 +1,9 @@
 enum GiftType {
   // 切换模式
   // 棒棒糖  竞速模式
-  bangbangtang = 1,
+  xiaoxinxin = 1,
+  douyin = 2,
+  bangbangtang = 3,
 }
 
 export const GiftComponent = () => {
@@ -9,18 +11,22 @@ export const GiftComponent = () => {
     {
       title: "娱乐模式",
       type: GiftType.bangbangtang,
-      img: "/xiaoxinxin.png",
+      img: "/2.png",
       subtitle: "小心心",
     },
     {
       title: "竞速模式",
       type: GiftType.bangbangtang,
-      img: "/douyin.png",
+      img: "/3.png",
       subtitle: "抖音",
     },
-    // {
-    //   title: "积分模式（暂未开放）",
-    // },
+    {
+      title: "赛局模式",
+      type: GiftType.bangbangtang,
+      img: "/1.png",
+      subimg: "/new.gif",
+      subtitle: "棒棒糖",
+    },
   ]
 
   return (
@@ -39,8 +45,21 @@ export const GiftComponent = () => {
           {list.map((item, index) => {
             return (
               <div key={index}>
-                <img src={item.img} alt="" width={30} />
+                <img
+                  src={item.img}
+                  alt=""
+                  width={30}
+                  style={{ marginRight: "5px" }}
+                />
                 <span>{item.title}</span>
+                {item.subimg && (
+                  <img
+                    src={item.subimg}
+                    alt=""
+                    width={30}
+                    style={{ marginLeft: "5px" }}
+                  />
+                )}
               </div>
             )
           })}

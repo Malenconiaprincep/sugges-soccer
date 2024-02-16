@@ -50,6 +50,32 @@ wss.on("connection", function connection(ws) {
     webClient.send("ping")
   }, 60000)
 
+  // setInterval(() => {
+  //   webClient.send(
+  //     '{"id":7335727571088250000,"type":"gift","nickname":"喵手回春","content":"英格兰","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"棒棒糖","count":0,"url":"","desc":""}}'
+  //   )
+  // }, 15000)
+
+  // setInterval(() => {
+  //   webClient.send(
+  //     `{"id":7335727571088250000,"type":"chat","nickname":"喵手回春","content":"西班牙","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"小心心","count":0,"url":"","desc":""}}`
+  //   )
+  // }, 3000)
+
+  // setInterval(() => {
+  //   webClient.send(
+  //     `{"id":7335727571088250000,"type":"chat","nickname":"makuta","content":"德国","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"小心心","count":0,"url":"","desc":""}}`
+  //   )
+  // }, 3000)
+
+  setInterval(() => {
+    webClient.send(
+      `{"id":7335727571088250000,"type":"gift","nickname":"makuta2","content":"德国","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${
+        Math.random() > 0.5 ? "小心心" : "抖音"
+      }","count":0,"url":"","desc":""}}`
+    )
+  }, 5000)
+
   // 连接关闭时的处理程序
   ws.on("close", function close() {
     console.log("WebSocket 连接已关闭。")

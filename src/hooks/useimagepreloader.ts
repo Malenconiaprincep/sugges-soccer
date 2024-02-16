@@ -30,7 +30,6 @@ export default function useImagePreloader(imageList: string[]) {
 
       const imagesPromiseList: Promise<any>[] = []
       let index = 0
-      console.log(imageList)
       for (const i of imageList) {
         if (typeof i === "string") {
           imagesPromiseList.push(

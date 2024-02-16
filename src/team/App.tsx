@@ -9,7 +9,6 @@ import { Modal, message } from "antd"
 import "antd/dist/antd.css"
 import "./App.css"
 import axios from "axios"
-import { BiliDanmu, startConnection } from "innoz-bili-util"
 // import ReactAudioPlayer from "react-audio-player"
 import useDjs from "../hooks/usedjs"
 // import Demo from "./demo"
@@ -26,433 +25,74 @@ import { national, club } from "../config/source"
 import { IFROM, convertMessage } from "../lib/convert"
 import useSocket from "../hooks/usesocket"
 import { ModeComponent } from "../components/mode"
-import { GiftComponent } from "../components/gift"
+import { modeMap } from "../config/mode"
+import { TipComponent } from "../components/tip"
+import { getValueByKeyPath } from "../lib/strapi-util"
+import { SuccessModal } from "../components/successModal"
+import { RandomQuestions } from "../utils/random"
 
 export enum Mode {
   // 娱乐
   entertainment = "entertainment",
-  // 竞赛
+  // 竞速
   competition = "competition",
+  // 对战
+  battle = "battle",
 }
 
-const teams: any[] = [
-  "france",
-  "germany",
-  "Netherlands",
-  "brazil",
-  "Belgium",
-  "Argentina",
-  "england",
-  "spain",
-  "portugal",
-  "Mexi",
-  "italy",
-  "states",
-  "wales",
-  "denmark",
-  "poland",
-  "iceland",
-  "canada",
-  "romania",
-  "greece",
-  "ukraine",
-  "sweden",
-  "norway",
-  "china",
-  "czech",
-  "austria",
-  "scotland",
-  "ireland",
-  "hungary",
-  "finland",
-  "northern ireland",
-  "australia",
-  "zealand",
-  "japan",
-  "korea",
-  "Uruguay",
-  "Croatia",
-  "Cameroon",
-  "Ecuador",
-  "Iran",
-]
+export function getMode() {
+  const mode = new URLSearchParams(window.location.search).get("mode")
+  switch (mode) {
+    case "competition":
+      return Mode.competition
+    case "battle":
+      return Mode.battle
+    default:
+      return Mode.entertainment
+  }
+}
 
-const clubs = [
-  "barcelona",
-  "mancity",
-  "manchester united",
-  "arsenal",
-  "liverpool",
-  "tottenham",
-  "Dortmund",
-  "chelse",
-  "bayern",
-  "real madrid",
-  "germain",
-  "demadrid",
-  "inter",
-  "juventus",
-  "milan",
-  "sevilla",
-  "atalanta",
-  "leicester",
-  "sociedad",
-  "villarreal",
-  "west ham",
-  "leverkusen",
-  "lazio",
-  "roma",
-  "bilbao",
-  "betis",
-  "ajax",
-  "aston",
-  "everton",
-  "lyonnais",
-  "benfica",
-  "porto",
-  "hoffenheim",
-  "wolfsburg",
-  "espanyol",
-  "leeds",
-  "wanderers",
-  "fiorentina",
-  "frankfurt",
-  // "lille",
-  "juniors",
-  "brugge",
-  "udinese",
-  "galatasaray",
-  "fulham",
-  "mallorca",
-  "bordeaux",
-  "celtic",
-  "plate",
-  "napoli",
-  "sampdoria",
-  "leipzig",
-  "nottingham",
-  "psv",
-  "marseille",
-  "schalke",
-  "empoli",
-  "feyenoord",
-  "brentford",
-  "norwich",
-  "watford",
-  "southampton",
-  "sunderland",
-  "freiburg",
-  "monaco",
-  "valencia",
-  "crystal",
-  "rennais",
-  "Flamengo",
-  "olympiacos",
-  "levante",
-  "getafe",
-  "nice",
-  "osasuna",
-  "celta",
-  "mineiro",
-  "torino",
-  "racing",
-  "montpellier",
-  "fenerbahce",
-  "strasbourg",
-  "boca",
-  "sassuolo",
-  "Palmeiras",
-  "bologna",
-  "verona",
-  "sparta",
-  "stuttgart",
-  "augsburg",
-  "elche",
-  "vallecano",
-  "sheffield",
-  "Corinthians",
-  "berlin",
-  "santos",
-  "cagliari",
-  "paulo",
-  "celtic",
-  "angeles",
-  "alkmaar",
-  "brestois",
-  "reims",
-  "bournemouth",
-  "istanbul",
-  "salzburg",
-  "zagreb",
-  "kobenhavn",
-  "bochum",
-  "bielefeld",
-  "venezia",
-  "blackburn",
-  "hamburger",
-  "middlesbrough",
-  "kawasaki",
-  "vissel",
-  "yokohama",
-  "Málaga",
-  "hyundai",
-  "jeonbuk",
-  // zhongchao
-  "shandong",
-  "shanghai",
-  "beijing",
-  "shenhua",
-  "yatai",
-  "shenzhen",
-  "wuhan",
-  "guangzhouCity",
-  "henan",
-  "dalian",
-  "shijiazhuang",
-  "tianjin",
-  "qingdao",
-  "guangzhouFc",
-  "chongqing",
-  "hebei",
-  "wuhansanzhen",
-  "azul",
-  "hilal",
-  "kyiv",
-  "eibar",
-  "genoa",
-  "racingclub",
-  "angerssco",
-  "independiente",
-  "werder",
-  "troyes",
-  "fluminense",
-  "metz",
-  "panathinaikos",
-  "genk",
-  "kaa",
-  "fortaleza",
-  "anderlecht",
-  "antwerp",
-  "girona",
-  "goianiense",
-  "queens",
-  "clermont",
-  "salernitana",
-  "seattle",
-  "lanus",
-  "bromwich",
-  "spezia",
-  "demirspor",
-  "greuther",
-  "lorient",
-  "midtjylland",
-  "atlanta united",
-  "reading",
-  "tenerife",
-  "coventry",
-  "middlesbrough",
-  "stoke",
-  "leganes",
-  "talleres",
-  "estoril",
-  "parma",
-  "fortuna",
-  "millwall",
-  "vitesse",
-  "basel",
-  "benevento",
-  "huddersfield",
-  "swansea",
-  "nurnberg",
-  "monza",
-  "gijon",
-  "palmas",
-  "cartagena",
-  "zaragoza",
-  "huesca",
-  "philadelphia",
-  "karlsruher",
-  "paderborn",
-  "auxerre",
-  "Málaga",
-  "birmingham",
-  "lecce",
-  "heidenheim",
-  "cardiff",
-  "galaxy",
-  "diamonds",
-  "hannover",
-  "ponferradina",
-  "oviedo",
-  "toulouse",
-  "kashima",
-  "cerezo",
-  "hull",
-  "bulls",
-  "jeju",
-  "nagoya",
-  "gamba",
-  "sanfrecce",
-  "groningen",
-  "samsung",
-  "seoul",
-  "lugo",
-  "plymouth",
-  "bolton",
-  "kashiwa",
-  "munchen1860",
-  "charlton",
-  "daegu",
-  "port-vale",
-  "northampton",
-  "doncaster",
-  "accrington",
-  "deportivo",
-  "hertha",
-  "cadiz",
-  "granada",
-  "etienne",
-  "nantes",
-]
+export function getConfigCount(
+  mode: Mode = Mode.entertainment,
+  isDebug: boolean = false
+) {
+  let timerCount
+  let waitSuccessCount
+  let modalAnswerCount = 3
+  let modeChangeCount = 1
+  if (isDebug) {
+    timerCount = 2
+    waitSuccessCount = 2
+  } else if (isLocal) {
+    if (Mode.entertainment === mode) {
+      timerCount = 5
+    } else {
+      timerCount = 3
+    }
+    waitSuccessCount = 4
+  } else {
+    if (Mode.entertainment === mode) {
+      timerCount = 15
+    } else {
+      timerCount = 10
+    }
+    waitSuccessCount = 8
+  }
 
-// const whiteList = [
-//   {
-//     name: "西班牙",
-//     type: "national",
-//     searchKey: "Spain",
-//     alias: ["西班牙", "Spain"],
-//   },
-//   {
-//     name: "德国",
-//     type: "national",
-//     searchKey: "germany",
-//     alias: ["德国", "germany"],
-//   },
+  return {
+    timerCount,
+    waitSuccessCount,
+    modalAnswerCount,
+    modeChangeCount,
+  }
+}
 
-//   {
-//     name: "法国",
-//     type: "national",
-//     searchKey: "France",
-//     alias: ["法国", "France"],
-//   },
-//   {
-//     name: "葡萄牙",
-//     type: "national",
-//     searchKey: "Portugal",
-//     alias: ["葡萄牙", "Portugal"],
-//   },
-//   {
-//     name: "荷兰",
-//     type: "national",
-//     searchKey: "Netherlands",
-//     alias: ["荷兰", "Netherlands"],
-//   },
-//   {
-//     name: "比利时",
-//     type: "national",
-//     searchKey: "Belgium",
-//     alias: ["比利时", "Belgium"],
-//   },
-//   {
-//     name: "英格兰",
-//     type: "national",
-//     searchKey: "England",
-//     alias: ["英格兰", "England"],
-//   },
-//   {
-//     name: "意大利",
-//     type: "national",
-//     searchKey: "Italy",
-//     alias: ["意大利", "Italy"],
-//   },
-// {
-//   name: "拜仁慕尼黑",
-//   originName: "FC Bayern München",
-//   url: "/team/21/fc-bayern-munchen/",
-// },
-// {
-//   name: "巴黎圣日耳曼",
-//   type: "club",
-//   searchKey: "paris saint",
-//   alias: ["巴黎圣日耳曼", "psg"],
-// },
-// {
-//   name: "曼城",
-//   originName: "Manchester City",
-//   url: "/team/10/manchester-city/",
-// },
-// { name: "阿森纳", originName: "Arsenal", url: "/team/1/arsenal/" },
-// { name: "利物浦", originName: "Liverpool", url: "/team/9/liverpool/" },
-// {
-//   name: "曼联",
-//   originName: "Manchester United",
-//   url: "/team/11/manchester-united/",
-// },
-// {
-//   name: "热刺",
-//   originName: "Tottenham Hotspur",
-//   url: "/team/18/tottenham-hotspur/",
-// },
-// {
-//   name: "多特蒙德",
-//   originName: "Borussia Dortmund",
-//   url: "/team/22/borussia-dortmund/",
-// },
-// {
-//   name: "皇家马德里",
-//   originName: "Real Madrid",
-//   url: "/team/243/real-madrid/",
-// },
-// {
-//   name: "巴塞罗那",
-//   originName: "FC Barcelona",
-//   url: "/team/241/fc-barcelona/",
-// },
-// {
-//   name: "马德里竞技",
-//   originName: "Atlético Madrid",
-//   url: "/team/240/atletico-madrid/",
-// },
-// { name: "埃因霍温", originName: "PSV", url: "/team/247/psv/" },
-// { name: "波尔图", originName: "Porto", url: "/team/236/porto/" },
-// { name: "国际米兰", originName: "Inter", url: "/team/44/inter/" },
-// { name: "ac米兰", originName: "Milan", url: "/team/47/milan/" },
-// { name: "尤文图斯", originName: "Juventus", url: "/team/45/juventus/" },
-// { name: "那不勒斯", originName: "Napoli", url: "/team/48/napoli/" },
-// ].map((item) => item.name)
-
-const whiteList = [...national, ...club].map((item) => item.name)
-
+const whiteList = [...national].map((item) => item.name)
 const isZh = window.location.search.indexOf("zh") !== -1
 const isDebug = window.location.search.indexOf("debug") !== -1
+const isLocal = window.location.search.indexOf("local") !== -1
 const isBili = window.location.search.indexOf("bili") !== -1
-const Constmode =
-  window.location.search.indexOf("competition") !== -1
-    ? Mode.competition
-    : Mode.entertainment
-// const questions = [...teams, ...clubs]
-
-// const host = "http://localhost"
-
-function getValueByKeyPath(data: any, keypath: string) {
-  const keys = keypath.split(".")
-  let result = data
-  keys.forEach((key) => {
-    try {
-      if (result.data) {
-        if (Array.isArray(result.data)) {
-          result = result.data[0].attributes[key]
-        } else {
-          result = result.data.attributes[key]
-        }
-      }
-      if (result.attributes) {
-        result = result.attributes[key]
-      }
-    } catch (e) {}
-  })
-  return result
-}
+let Constmode = getMode()
 
 const convertData = (data: any, players: any) => {
   console.log(`当前数据:`)
@@ -493,74 +133,75 @@ const convertData = (data: any, players: any) => {
   return res
 }
 
-export const useDouyin = (socketRef: any, socket: any, callback: any) => {
+export const useDouyin = (
+  socket: any,
+  callback: any,
+  res: any // 答案
+) => {
+  const answersRef = useRef<any>({})
+
   useEffect(() => {
-    if (!isBili) {
-      if (socket) {
-        socket.addEventListener("message", (event: any) => {
-          console.log("addEventlistener messgae")
-          const message = convertMessage(IFROM.douyin, event.data)
-          if (message) {
+    if (socket) {
+      const messageHandler = (event: any) => {
+        const message = convertMessage(IFROM.douyin, event.data)
+        if (message) {
+          if (message.type === "chat") {
+            const ans = message.content.toUpperCase()
+            if (
+              res &&
+              (ans === res.name.replace(/\s/g, "").toUpperCase() ||
+                ans === res.name.toUpperCase())
+            ) {
+              // 回答正确
+              if (answersRef.current[message.nickname]) {
+                if (
+                  answersRef.current[message.nickname].indexOf(res.name) === -1
+                ) {
+                  answersRef.current[message.nickname].push(res.name)
+                }
+              } else {
+                answersRef.current[message.nickname] = [res.name]
+              }
+            }
+          } else {
             callback({
               type: message.type,
               data: message,
             })
           }
-        })
+        }
+      }
+      socket.addEventListener("message", messageHandler)
+      return () => {
+        socket.removeEventListener("message", messageHandler)
       }
     }
-    // return () => {
-    //   window.removeEventListener(event, callback)
-    // }
-  }, [socket])
+  }, [socket, res?.name])
+
+  return answersRef
 }
 
-export const useBiliDanmu = (callback: any, data: any) => {
-  useEffect(() => {
-    const start = async () => {
-      startConnection({
-        roomId: "31904110",
-        key: "eUDhpCCmjM1V6hxljAYTomzr-HE27vY7smMyd1f7njknCItcS-46Ei9fWn1EbqoKyDV4PpiM-faGBPI9iMPOyWcnnnBhphE1ovdESmUS7n8c83_o2PIt1-IYxnbuuOJ-BOF2QwSp8Xp5ejjln0jstJRx0p5ne6zIkSAdfcMemqj_kSdbFQAMU1enfkg=",
-        uid: 413782120,
-        onMessage: async (msg) => {
-          const message = convertMessage(IFROM.bili, msg)
-          if (message && callback) {
-            callback({
-              type: "chat",
-              data: message,
-            })
-          }
-        },
-      })
-    }
-    if (isBili) {
-      start()
-    }
-  }, [data, callback])
-}
-
-const waitSuccess = isDebug ? 2 : 8
-const delayNetTime = 8
-
-let currentData: any = null
-let answer: string[] = []
 let lastMode: Mode = Mode.entertainment
+let nextMode: Mode = Mode.entertainment
+// 对战回合数
+let recordBattleModeStart = -1
+export const recordBattleModeEnd = 3
 
 function App() {
   const [loaded, setLoad] = useState(false)
   const [preloadSrcList, setPreloadSrcList] = useState([])
   const { imagesPreloaded, preloadProgress } = useImagePreloader(preloadSrcList)
   const [step, setStep] = useState(0)
-  const [bindMessage, setBindMessage] = useState(false)
   const [mode, setMode] = useState(Constmode)
-  const countValue = isDebug ? 2 : Mode.entertainment === mode ? 15 : 10
-  const { count, setCount } = useDjs(countValue, imagesPreloaded, loaded)
+  const { count, setCount } = useDjs(
+    getConfigCount(mode, isDebug).timerCount,
+    imagesPreloaded,
+    loaded
+  )
   const [data, setData] = useState<any>(null)
-  const [visible, setVisible] = useState(false)
   const [startIndex, setStartIndex] = useState(0)
-  const [questions, setQuestions] = useState({})
+  const [questions, setQuestions] = useState<any>({})
   const [reloadSocket, setReloadSocket] = useState(false)
-  const [messageApi] = message.useMessage()
   const socketRef = useRef<any>(null)
   const socket = useSocket(
     "ws://localhost:8080",
@@ -569,146 +210,136 @@ function App() {
     socketRef
   )
 
-  // useEffect(() => {
-  //   if (socket) {
-  //     socket.addEventListener("message", (event: any) => {
-  //       console.log("Message from server ", event.data)
-  //     })
-  //   }
-  // }, [socket])
-
+  // 预加载数据
   useLayoutEffect(() => {
     const fetch = async () => {
+      async function preload(questions: any) {
+        let assets: any[] = []
+        const count = await getCount()
+        const pages = Math.ceil(count / pageSize)
+        console.log("一共有", count, "球队  ", "共有", pages, "页")
+        // load assets
+        for (let i = 1; i <= pages; i++) {
+          let list = (await getList(i)) as any
+
+          // console.log(
+          //   ">> 原始",
+          //   list.map((item: any) => item.attributes.name)
+          // )
+
+          list = list.filter((item: any) => {
+            return whiteList.includes(item.attributes.name)
+          })
+          // console.log(
+          //   "过滤长度 >> ",
+          //   list.map((item: any) => item.attributes.name)
+          // )
+          if (list) {
+            for (let i = 0; i < list.length; i++) {
+              const team = list[i]
+              const pids = getValueByKeyPath(
+                team,
+                "formations.formation.pid"
+              ).map((player: any) => player.pid)
+              const players = await getPlayers(pids)
+              assets.push(getValueByKeyPath(team, "logo.url"))
+              if (players && players.length > 0) {
+                players.forEach((player: any) => {
+                  assets.push(getValueByKeyPath(player, "avatar.url"))
+                  const teams = getValueByKeyPath(player, "teams")
+                  teams.data.forEach((team: any) => {
+                    assets.push(getValueByKeyPath(team, "logo.url"))
+                  })
+                })
+              }
+
+              setQuestions((olddata: any) => {
+                return {
+                  ...olddata,
+                  [team.attributes.name]: convertData(team, players),
+                }
+              })
+            }
+          }
+        }
+        return assets
+      }
       const res: any = await preload(questions)
       setPreloadSrcList(res)
-      setLoad(true)
       return res
     }
-    setBindMessage(true)
     fetch()
   }, [])
 
-  async function preload(questions: any) {
-    let assets: any[] = []
-
-    const count = await getCount()
-
-    const pages = Math.ceil(count / pageSize)
-
-    console.log("一共有", count, "球队  ", "共有", pages, "页")
-    // load assets
-    for (let i = 1; i <= pages; i++) {
-      let list = (await getList(i)) as any
-
-      console.log(
-        ">> 原始",
-        list.map((item: any) => item.attributes.name)
-      )
-
-      list = list.filter((item: any) => {
-        return whiteList.includes(item.attributes.name)
-      })
-      console.log(
-        "过滤长度 >> ",
-        list.map((item: any) => item.attributes.name)
-      )
-      if (list) {
-        for (let i = 0; i < list.length; i++) {
-          const team = list[i]
-          const pids = getValueByKeyPath(team, "formations.formation.pid").map(
-            (player: any) => player.pid
-          )
-          const players = await getPlayers(pids)
-          assets.push(getValueByKeyPath(team, "logo.url"))
-          if (players && players.length > 0) {
-            players.forEach((player: any) => {
-              assets.push(getValueByKeyPath(player, "avatar.url"))
-              const teams = getValueByKeyPath(player, "teams")
-              teams.data.forEach((team: any) => {
-                assets.push(getValueByKeyPath(team, "logo.url"))
-              })
-            })
-          }
-
-          setQuestions((olddata) => {
-            return {
-              ...olddata,
-              [team.attributes.name]: convertData(team, players),
-            }
-          })
-        }
-      }
-    }
-
-    console.log(`当前加载的题目： [${Object.keys(questions)}]`)
-
-    return assets
-  }
-
   const receiveMessage = (event: any) => {
-    if (step === 1) return
     if (event) {
       const item = event.data
-      if (event.type === "chat") {
-        const ans = item.content.toUpperCase()
-        if (
-          currentData &&
-          (ans === currentData.name.replace(/\s/g, "").toUpperCase() ||
-            ans === currentData.name.toUpperCase())
-        ) {
-          // 回答正确
-          // setAnswer(Array.from(new Set([...answer, item.nickname])))
-          answer.push(item.nickname)
-
-          // setVisible(true)
-          // setCount(0)
-          // setTimeout(() => {
-          //   // const audio = document.querySelector("audio")
-          //   // ;(audio as any).pause()
-          //   // ;(audio as any).currentTime = 0
-          //   // ;(audio as any).src = ""
-
-          //   setVisible(false)
-          //   setAnswer("")
-          // }, 6000)
-        }
-      }
+      // if (event.type === "chat" && count !== 0) {
+      //   const ans = item.content.toUpperCase()
+      //   if (
+      //     data &&
+      //     (ans === data.name.replace(/\s/g, "").toUpperCase() ||
+      //       ans === data.name.toUpperCase())
+      //   ) {
+      //     // 回答正确
+      //     if (answer[item.nickname]) {
+      //       answer[item.nickname]++
+      //     } else {
+      //       answer[item.nickname] = 1
+      //     }
+      //   }
+      // }
       if (event.type === "gift") {
-        console.log("收到礼物", item.gift.name)
-        if (item.gift.name.indexOf("小心心") !== -1) {
-          setMode(Mode.entertainment)
+        // console.log("收到礼物", item.gift.name)
+        if (recordBattleModeStart === -1) {
+          if (item.gift.name.indexOf("小心心") !== -1) {
+            if (Mode.entertainment !== mode) {
+              nextMode = Mode.entertainment
+            }
+            recordBattleModeStart = -1
+          }
+          if (item.gift.name.indexOf("抖音") !== -1) {
+            if (Mode.competition !== mode) {
+              nextMode = Mode.competition
+            }
+            recordBattleModeStart = -1
+          }
         }
-        if (item.gift.name.indexOf("抖音") !== -1) {
-          setMode(Mode.competition)
+        if (item.gift.name.indexOf("棒棒糖") !== -1) {
+          if (Mode.battle !== mode) {
+            setMode(Mode.battle)
+          }
+          if (recordBattleModeStart === -1) {
+            recordBattleModeStart = 0
+          }
         }
       }
     }
   }
 
-  useDouyin(socketRef, socket, receiveMessage)
-  useBiliDanmu(receiveMessage, data)
+  const answersRef = useDouyin(socket, receiveMessage, data)
+  console.log(`当前回答对的人: `, answersRef.current)
+  // useBiliDanmu(receiveMessage, data)
 
+  // 开始的题
   useEffect(() => {
     const fetch = async () => {
-      // 随机排序
-      const arrQuestions = isDebug
-        ? Object.keys(questions)
-        : Object.keys(questions).sort(() => Math.random() - 0.5)
-      // @ts-ignore
+      const arrQuestions = Object.keys(questions)
+      console.log("当前所有题目：", arrQuestions)
       const question = questions[arrQuestions[startIndex]]
-      answer = []
       if (question) {
         setData(question)
-        setTimeout(() => {
-          currentData = question
-        }, delayNetTime * 1000)
       }
     }
 
     if (loaded) {
       fetch()
     }
-  }, [startIndex, loaded])
+    // 清空答对者
+    if (mode !== Mode.battle) {
+      answersRef.current = {}
+    }
+  }, [startIndex, loaded, questions])
 
   useEffect(() => {
     if (isDebug) {
@@ -721,57 +352,105 @@ function App() {
       setTimeout(() => {
         // 等一段时间下一题
         setStep(2)
-
         // 下一道题目
-        const nextStart = () => {
-          if (startIndex === Object.keys(questions).length) {
-            setStartIndex(1)
-          } else {
-            if (startIndex + 1 === Object.keys(questions).length) {
-              setStartIndex(0)
-            } else {
-              setStartIndex((startIndex) => startIndex + 1)
-            }
-          }
+        // const nextStart = () => {
+        //   if (startIndex === Object.keys(questions).length) {
+        //     setStartIndex(1)
+        //   } else {
+        //     if (startIndex + 1 === Object.keys(questions).length) {
+        //       setStartIndex(0)
+        //     } else {
+        //       setStartIndex((startIndex) => startIndex + 1)
+        //     }
+        //   }
 
-          setTimeout(() => {
-            setStep(0)
-            setTimeout(() => {
-              setCount(countValue)
-            }, 300)
-          }, 500)
-        }
+        //   setTimeout(() => {
+        //     // 开始出题
+        //     setStep(0)
+        //     setTimeout(() => {
+        //       setCount(getConfigCount(mode, isDebug).timerCount)
+        //     }, 300)
+        //   }, 500)
+        // }
 
-        // 切换模式tip
-        if (lastMode !== mode) {
-          lastMode = mode
-          // messageApi.open({
-          //   type: "success",
-          //   content: `当前切换模式为：
-          //       ${mode === Mode.competition ? "竞赛模式" : "娱乐模式"}`,
-          //   duration: 3,
-          // })
-          message.info(
-            `当前切换模式为：${
-              mode === Mode.competition ? "竞速模式" : "娱乐模式"
-            }`
-          )
-          setTimeout(() => {
-            nextStart()
-          }, 3000)
-        } else {
-          nextStart()
-        }
-      }, waitSuccess * 1000)
-      // ;(audio as any).pause()
+        // // 切换模式tip
+        // if (nextMode !== mode) {
+        //   setTimeout(() => {
+        //     setMode(Mode.competition)
+        //     // 切换模式需要暂定
+        //     setTimeout(
+        //       () => {
+        //         recordBattleModeStart++
+        //         nextStart()
+        //       },
+        //       mode === Mode.battle ? 8 * 1000 : 3 * 1000
+        //     )
+        //   }, 3 * 1000)
+
+        //   // if (mode === Mode.battle) {
+        //   //   recordBattleModeStart++
+        //   // }
+        // } else {
+        //   // if (mode === Mode.battle) {
+        //   //   if (recordBattleModeStart === recordBattleModeEnd) {
+        //   //     setMode(Mode.entertainment)
+        //   //     recordBattleModeStart = -1
+        //   //     lastMode = Mode.entertainment
+        //   //     message.info(`当前切换模式为：${modeMap[Mode.entertainment]}`)
+        //   //   } else {
+        //   //     recordBattleModeStart++
+        //   //     // nextStart()
+        //   //   }
+        //   // } else {
+        //   nextStart()
+        //   // }
+        // }
+      }, getConfigCount(mode, isDebug).waitSuccessCount * 1000)
     }
   }, [count])
 
   useEffect(() => {
-    if (imagesPreloaded && loaded) {
-      console.log("资源加载完成")
+    const nextStart = () => {
+      if (startIndex === Object.keys(questions).length) {
+        setStartIndex(1)
+      } else {
+        if (startIndex + 1 === Object.keys(questions).length) {
+          setStartIndex(0)
+        } else {
+          setStartIndex((startIndex) => startIndex + 1)
+        }
+      }
+      restart()
     }
-  }, [imagesPreloaded, loaded])
+
+    const restart = () => {
+      setStep(0)
+      setTimeout(() => {
+        setCount(getConfigCount(mode, isDebug).timerCount)
+      }, 300)
+    }
+
+    // 等待时间
+    if (step === 2) {
+      if (nextMode !== mode) {
+        setMode(nextMode)
+        message.info(`当前切换模式为：${modeMap[nextMode]}`)
+      }
+      setTimeout(() => {
+        nextStart()
+      }, getConfigCount(mode, isDebug).modeChangeCount * 1000) // Adjust the delay time as needed
+    }
+  }, [step, nextMode, mode, questions, startIndex, isDebug])
+
+  useEffect(() => {
+    if (imagesPreloaded) {
+      console.log("资源加载完成, 洗牌")
+      const randomQuestions = RandomQuestions(questions, isDebug)
+      console.log("洗牌后的题目：", randomQuestions)
+      setQuestions(randomQuestions)
+      setLoad(true)
+    }
+  }, [imagesPreloaded])
 
   if (!imagesPreloaded || !loaded) {
     return (
@@ -791,7 +470,7 @@ function App() {
     )
   }
 
-  let newAnswer = Array.from(new Set([...answer]))
+  let newAnswer = Array.from(new Set([...Object.keys(answersRef.current)]))
 
   return (
     data && (
@@ -855,7 +534,13 @@ function App() {
             setReloadSocket(true)
           }}
         >
-          <ModeComponent mode={lastMode} />
+          <ModeComponent mode={mode} />
+          {mode === Mode.battle && (
+            <TipComponent
+              mode={mode}
+              recordBattleModeStart={recordBattleModeStart}
+            />
+          )}
 
           <div className="bg"></div>
           <div className="block-two-third">
@@ -940,50 +625,49 @@ function App() {
           {/* <div className="title">
           <span style={{ fontSize: "20px" }}>(未成年禁止打赏)</span>
         </div> */}
-          {newAnswer.length > 0 && count === 0 && (
-            <Modal
-              visible={true}
-              footer={null}
-              closable={false}
-              centered={true}
-            >
-              <div
-                style={{
-                  width: "180px",
-                  height: "15px",
-                  background: "rgba(196, 247, 82)",
-                  position: "absolute",
-                  left: "0",
-                  top: "0",
-                }}
-              ></div>
-              <div className="modal-show">
-                <div>GOAL!</div>
-                <p className="congra">
-                  <p className="res">恭喜下面粉丝回答正确</p>
-                  <ol className="item">
-                    {newAnswer.map((item, index) => {
-                      if (index >= 5) return
-                      return (
-                        <li>
-                          <span className="name">
-                            {item && item.length > 15
-                              ? item.slice(0, 10) + "..."
-                              : item}
-                          </span>
-                        </li>
-                      )
-                    })}
-                  </ol>
-                  {newAnswer.length > 5 && (
-                    <div className="item">
-                      <span className="name">等{newAnswer.length - 5}名</span>
-                    </div>
-                  )}
-                </p>
-              </div>
-            </Modal>
-          )}
+          {newAnswer.length > 0 &&
+            count === 0 &&
+            step === 1 &&
+            (mode !== Mode.battle ||
+              (mode === Mode.battle &&
+                recordBattleModeStart === recordBattleModeEnd + 1)) && (
+              <SuccessModal answers={newAnswer} mode={mode} count={count} />
+            )}
+
+          {mode === Mode.battle &&
+            count === 0 &&
+            recordBattleModeStart === 0 && (
+              <Modal
+                visible={true}
+                footer={null}
+                closable={false}
+                centered={true}
+              >
+                <div
+                  style={{
+                    width: "180px",
+                    height: "15px",
+                    background: "rgba(196, 247, 82)",
+                    position: "absolute",
+                    left: "0",
+                    top: "0",
+                  }}
+                ></div>
+                <div className="modal-show">
+                  <div>赛局规则!</div>
+                  <div className="congra">
+                    <ul>
+                      <li>一局赛共有10题随机选出,每道题计时10s。</li>
+                      <li>每道题答对得1分，答错不得分。</li>
+                      <li>
+                        最终显示最终完整的前10排名及对应分数，切换为娱乐模式
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </Modal>
+            )}
+
           <span style={{ color: "white" }}>球队数据截止 2024.2.1</span>
           {/* <button onClick={() => setMode(Mode.competition)}>
             切换模式竞赛
@@ -993,20 +677,18 @@ function App() {
           </button> */}
           {/* <Demo answer={answer} /> */}
           {/* <button
-          onClick={() => {
-            receiveMessage({
-              data: [
-                {
+            onClick={() => {
+              receiveMessage({
+                data: {
                   content: "首尔 fc",
-                  method: "WebcastChatMessage",
+                  type: "chat",
                   nickname: "1111",
                 },
-              ],
-            })
-          }}
-        >
-          测试
-        </button> */}
+              })
+            }}
+          >
+            测试
+          </button> */}
         </div>
       </div>
     )

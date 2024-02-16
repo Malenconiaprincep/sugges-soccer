@@ -1,8 +1,12 @@
-import { modeMap } from "../config/mode"
-import { Mode } from "../team/App"
-import { GiftComponent } from "./gift"
+import { Mode, recordBattleModeEnd } from "../team/App"
 
-export const ModeComponent = ({ mode }: { mode: Mode }) => {
+export const TipComponent = ({
+  mode,
+  recordBattleModeStart,
+}: {
+  mode: Mode
+  recordBattleModeStart: number
+}) => {
   return (
     <div
       style={{
@@ -13,17 +17,19 @@ export const ModeComponent = ({ mode }: { mode: Mode }) => {
         padding: "10px 10px",
         position: "absolute",
         top: "140px",
-        left: "30px",
+        right: "0",
         // width: "100%",
         zIndex: "99",
         opacity: 0.8,
         textAlign: "left",
       }}
     >
-      <div>
-        <div>当前模式： {modeMap[mode]}</div>
-        <GiftComponent />
-      </div>
+      <p>
+        赛局题目{" "}
+        {`${
+          recordBattleModeStart < 0 ? 0 : recordBattleModeStart
+        }/${recordBattleModeEnd}`}
+      </p>
     </div>
   )
 }

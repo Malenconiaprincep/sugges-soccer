@@ -245,3 +245,7 @@ code {
 .congra ol li {
   list-style-position: inside;
 }
+
+.congra ul li {
+  list-style-position: inside;
+}
