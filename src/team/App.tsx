@@ -30,6 +30,7 @@ import { TipComponent } from "../components/tip"
 import { getValueByKeyPath } from "../lib/strapi-util"
 import { SuccessModal } from "../components/successModal"
 import { RandomQuestions } from "../utils/random"
+import { ModalRuleComponent } from "../components/modalRule"
 
 export enum Mode {
   // 娱乐
@@ -56,10 +57,14 @@ export function getConfigCount(
   mode: Mode = Mode.entertainment,
   isDebug: boolean = false
 ) {
+  // 游戏时间
   let timerCount
+  // 出答案后等待时间
   let waitSuccessCount
+  // 答案弹窗显示时间
   let modalAnswerCount = 3
-  let modeChangeCount = 1
+  // 模式切换等待时间，中间可能有说明
+  let modeChangeCount = 8
   if (isDebug) {
     timerCount = 2
     waitSuccessCount = 2
@@ -69,12 +74,18 @@ export function getConfigCount(
     } else {
       timerCount = 3
     }
+    if (Mode.battle === mode) {
+      modeChangeCount = 8
+    }
     waitSuccessCount = 4
   } else {
     if (Mode.entertainment === mode) {
       timerCount = 15
     } else {
       timerCount = 10
+    }
+    if (Mode.battle === mode) {
+      modeChangeCount = 8
     }
     waitSuccessCount = 8
   }
@@ -181,7 +192,6 @@ export const useDouyin = (
   return answersRef
 }
 
-let lastMode: Mode = Mode.entertainment
 let nextMode: Mode = Mode.entertainment
 // 对战回合数
 let recordBattleModeStart = -1
@@ -202,6 +212,7 @@ function App() {
   const [startIndex, setStartIndex] = useState(0)
   const [questions, setQuestions] = useState<any>({})
   const [reloadSocket, setReloadSocket] = useState(false)
+  const [modalRule, setModalRule] = useState(false)
   const socketRef = useRef<any>(null)
   const socket = useSocket(
     "ws://localhost:8080",
@@ -307,7 +318,7 @@ function App() {
         }
         if (item.gift.name.indexOf("棒棒糖") !== -1) {
           if (Mode.battle !== mode) {
-            setMode(Mode.battle)
+            nextMode = Mode.battle
           }
           if (recordBattleModeStart === -1) {
             recordBattleModeStart = 0
@@ -434,13 +445,17 @@ function App() {
     if (step === 2) {
       if (nextMode !== mode) {
         setMode(nextMode)
+        setModalRule(true)
         message.info(`当前切换模式为：${modeMap[nextMode]}`)
-      }
-      setTimeout(() => {
+        setTimeout(() => {
+          setModalRule(false)
+          nextStart()
+        }, getConfigCount(nextMode, isDebug).modeChangeCount * 1000) // Adjust the delay time as needed
+      } else {
         nextStart()
-      }, getConfigCount(mode, isDebug).modeChangeCount * 1000) // Adjust the delay time as needed
+      }
     }
-  }, [step, nextMode, mode, questions, startIndex, isDebug])
+  }, [step])
 
   useEffect(() => {
     if (imagesPreloaded) {
@@ -634,41 +649,13 @@ function App() {
               <SuccessModal answers={newAnswer} mode={mode} count={count} />
             )}
 
-          {mode === Mode.battle &&
-            count === 0 &&
-            recordBattleModeStart === 0 && (
-              <Modal
-                visible={true}
-                footer={null}
-                closable={false}
-                centered={true}
-              >
-                <div
-                  style={{
-                    width: "180px",
-                    height: "15px",
-                    background: "rgba(196, 247, 82)",
-                    position: "absolute",
-                    left: "0",
-                    top: "0",
-                  }}
-                ></div>
-                <div className="modal-show">
-                  <div>赛局规则!</div>
-                  <div className="congra">
-                    <ul>
-                      <li>一局赛共有10题随机选出,每道题计时10s。</li>
-                      <li>每道题答对得1分，答错不得分。</li>
-                      <li>
-                        最终显示最终完整的前10排名及对应分数，切换为娱乐模式
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </Modal>
-            )}
+          {modalRule && count === 0 && (
+            <ModalRuleComponent mode={mode} count={count} />
+          )}
 
-          <span style={{ color: "white" }}>球队数据截止 2024.2.1</span>
+          <span style={{ color: "white" }}>
+            球队数据截止 2024.2.1 {nextMode}
+          </span>
           {/* <button onClick={() => setMode(Mode.competition)}>
             切换模式竞赛
           </button>

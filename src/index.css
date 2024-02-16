@@ -233,7 +233,7 @@ code {
 }
 
 .congra {
-  font-size: 20px;
+  font-size: 20px !important;
   background: rgba(196, 247, 82);
 }
 
@@ -248,4 +248,6 @@ code {
 
 .congra ul li {
   list-style-position: inside;
+  list-style-type: decimal;
+  line-height: 40px;
 }

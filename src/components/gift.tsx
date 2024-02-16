@@ -15,7 +15,7 @@ export const GiftComponent = () => {
       subtitle: "小心心",
     },
     {
-      title: "竞速模式",
+      title: "竞赛模式",
       type: GiftType.bangbangtang,
       img: "/3.png",
       subtitle: "抖音",
