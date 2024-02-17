@@ -571,10 +571,10 @@ function App() {
 
           <div style={{ color: "white" }}>
             <p style={{ color: "white", fontSize: "20px" }}>
-              球队数据截止 2024.2.1
+              球队数据截止 2024.2.1 (未成年禁止打赏)
             </p>
             <p style={{ color: "white" }}>
-              <span>(未成年禁止打赏)</span>
+              <span>版本 1.0.1 </span>
             </p>
           </div>
           {/* <button onClick={() => setMode(Mode.competition)}>
