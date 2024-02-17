@@ -6,29 +6,29 @@ enum GiftType {
   battle = 3,
 }
 
-export const GiftComponent = () => {
-  const list = [
-    {
-      title: "娱乐模式",
-      type: GiftType.entertainment,
-      img: "/bangbangtang.png",
-      subtitle: "棒棒糖",
-    },
-    {
-      title: "竞赛模式",
-      type: GiftType.competition,
-      img: "/jiayouya.png",
-      subtitle: "加油鸭",
-    },
-    {
-      title: "赛局模式",
-      type: GiftType.battle,
-      img: "/love.png",
-      subimg: "/new.gif",
-      subtitle: "爱你哟",
-    },
-  ]
+export const list = [
+  {
+    title: "娱乐模式",
+    type: GiftType.entertainment,
+    img: "/bangbangtang.png",
+    subtitle: "棒棒糖",
+  },
+  {
+    title: "竞赛模式",
+    type: GiftType.competition,
+    img: "/jiayouya.png",
+    subtitle: "加油鸭",
+  },
+  {
+    title: "赛局模式",
+    type: GiftType.battle,
+    img: "/love.png",
+    subimg: "/new.gif",
+    subtitle: "爱你哟",
+  },
+]
 
+export const GiftComponent = () => {
   return (
     <div>
       <div>

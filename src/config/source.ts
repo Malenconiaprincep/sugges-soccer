@@ -110,12 +110,12 @@ export const national = [
   //   searchKey: "1749062",
   //   alias: ["斯洛文尼亚", "Slovenia"],
   // },
-  {
-    name: "罗马尼亚",
-    type: "national",
-    searchKey: "Romania",
-    alias: ["罗马尼亚", "Romania"],
-  },
+  // {
+  //   name: "罗马尼亚",
+  //   type: "national",
+  //   searchKey: "Romania",
+  //   alias: ["罗马尼亚", "Romania"],
+  // },
   // {
   //   name: "瑞士",
   //   type: "national",

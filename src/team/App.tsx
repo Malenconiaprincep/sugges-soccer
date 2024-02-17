@@ -32,6 +32,7 @@ import { SuccessModal } from "../components/successModal"
 import { RandomQuestions } from "../utils/random"
 import { ModalRuleComponent } from "../components/modalRule"
 import { Debug } from "../components/debug"
+import { list } from "../components/gift"
 
 export enum Mode {
   // 娱乐
@@ -101,7 +102,7 @@ export function getConfigCount(
   }
 }
 
-const whiteList = [...national].map((item) => item.name)
+const whiteList = [...national, ...club].map((item) => item.name)
 const isZh = window.location.search.indexOf("zh") !== -1
 const isDebug = window.location.search.indexOf("debug") !== -1
 const isLocal = window.location.search.indexOf("local") !== -1
@@ -196,7 +197,7 @@ export const useDouyin = (
 let nextMode: Mode = Mode.entertainment
 // 对战回合数
 let recordBattleModeStart = 0
-export const recordBattleModeEnd = 3
+export const recordBattleModeEnd = isLocal ? 3 : 10
 
 function App() {
   const [loaded, setLoad] = useState(false)
@@ -304,18 +305,18 @@ function App() {
       if (event.type === "gift") {
         // console.log("收到礼物", item.gift.name)
         if (recordBattleModeStart === 0) {
-          if (item.gift.name.indexOf("小心心") !== -1) {
+          if (item.gift.name.indexOf(list[0].subtitle) !== -1) {
             if (Mode.entertainment !== mode) {
               nextMode = Mode.entertainment
             }
           }
-          if (item.gift.name.indexOf("抖音") !== -1) {
+          if (item.gift.name.indexOf(list[1].subtitle) !== -1) {
             if (Mode.competition !== mode) {
               nextMode = Mode.competition
             }
           }
         }
-        if (item.gift.name.indexOf("棒棒糖") !== -1) {
+        if (item.gift.name.indexOf(list[2].subtitle) !== -1) {
           if (Mode.battle !== mode) {
             nextMode = Mode.battle
           }
