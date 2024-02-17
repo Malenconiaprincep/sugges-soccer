@@ -38,6 +38,13 @@ export const Debug = ({
                 )}
               </p>
               <p>当前第 {startIndex} 个</p>
+              {/* 输入框按回车后更新里面的数据 */}
+              <input
+                type="text"
+                onChange={(e) => {
+                  setStartIndex(Number(e.target.value))
+                }}
+              />
               <button
                 onClick={() => {
                   setStartIndex((startIndex: number) => startIndex - 1)
