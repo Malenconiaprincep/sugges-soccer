@@ -556,15 +556,18 @@ function App() {
             </div>
           </div>
 
-          {newAnswer.length > 0 && count === 0 && step === 1 && (
-            <SuccessModal
-              answers={newAnswer}
-              answersMap={answersRef.current}
-              mode={mode}
-              count={count}
-              index={recordBattleModeStart}
-            />
-          )}
+          {mode !== Mode.entertainment &&
+            newAnswer.length > 0 &&
+            count === 0 &&
+            step === 1 && (
+              <SuccessModal
+                answers={newAnswer}
+                answersMap={answersRef.current}
+                mode={mode}
+                count={count}
+                index={recordBattleModeStart}
+              />
+            )}
 
           {modalRule && count === 0 && (
             <ModalRuleComponent mode={mode} count={count} />
