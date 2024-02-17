@@ -31,6 +31,7 @@ import { getValueByKeyPath } from "../lib/strapi-util"
 import { SuccessModal } from "../components/successModal"
 import { RandomQuestions } from "../utils/random"
 import { ModalRuleComponent } from "../components/modalRule"
+import { Debug } from "../components/debug"
 
 export enum Mode {
   // 娱乐
@@ -74,10 +75,12 @@ export function getConfigCount(
     } else {
       timerCount = 3
     }
+
+    waitSuccessCount = 10
     if (Mode.battle === mode) {
       modeChangeCount = 4
+      waitSuccessCount = 10
     }
-    waitSuccessCount = 4
   } else {
     if (Mode.entertainment === mode) {
       timerCount = 15
@@ -87,7 +90,7 @@ export function getConfigCount(
     if (Mode.battle === mode) {
       modeChangeCount = 8
     }
-    waitSuccessCount = 8
+    waitSuccessCount = 10
   }
 
   return {
@@ -343,7 +346,7 @@ function App() {
       fetch()
     }
     // 清空答对者
-    if (mode !== Mode.battle) {
+    if (mode !== Mode.battle || recordBattleModeStart === 1) {
       answersRef.current = {}
     }
   }, [startIndex, loaded, questions])
@@ -359,59 +362,6 @@ function App() {
       setTimeout(() => {
         // 等一段时间下一题
         setStep(2)
-        // 下一道题目
-        // const nextStart = () => {
-        //   if (startIndex === Object.keys(questions).length) {
-        //     setStartIndex(1)
-        //   } else {
-        //     if (startIndex + 1 === Object.keys(questions).length) {
-        //       setStartIndex(0)
-        //     } else {
-        //       setStartIndex((startIndex) => startIndex + 1)
-        //     }
-        //   }
-
-        //   setTimeout(() => {
-        //     // 开始出题
-        //     setStep(0)
-        //     setTimeout(() => {
-        //       setCount(getConfigCount(mode, isDebug).timerCount)
-        //     }, 300)
-        //   }, 500)
-        // }
-
-        // // 切换模式tip
-        // if (nextMode !== mode) {
-        //   setTimeout(() => {
-        //     setMode(Mode.competition)
-        //     // 切换模式需要暂定
-        //     setTimeout(
-        //       () => {
-        //         recordBattleModeStart++
-        //         nextStart()
-        //       },
-        //       mode === Mode.battle ? 8 * 1000 : 3 * 1000
-        //     )
-        //   }, 3 * 1000)
-
-        //   // if (mode === Mode.battle) {
-        //   //   recordBattleModeStart++
-        //   // }
-        // } else {
-        //   // if (mode === Mode.battle) {
-        //   //   if (recordBattleModeStart === recordBattleModeEnd) {
-        //   //     setMode(Mode.entertainment)
-        //   //     recordBattleModeStart = -1
-        //   //     lastMode = Mode.entertainment
-        //   //     message.info(`当前切换模式为：${modeMap[Mode.entertainment]}`)
-        //   //   } else {
-        //   //     recordBattleModeStart++
-        //   //     // nextStart()
-        //   //   }
-        //   // } else {
-        //   nextStart()
-        //   // }
-        // }
       }, getConfigCount(mode, isDebug).waitSuccessCount * 1000)
     }
   }, [count])
@@ -504,58 +454,12 @@ function App() {
   return (
     data && (
       <div>
-        {isDebug && (
-          <div className="debug">
-            {isDebug && (
-              <div
-                style={{
-                  position: "absolute",
-                  background: "white;",
-                  width: "300px",
-                  height: "50vh",
-                  right: 0,
-                }}
-              >
-                <div>
-                  <p>
-                    球队地址：{" "}
-                    {Object.keys(questions).length > 0 && (
-                      <a
-                        target="_blank"
-                        href={`https://sofifa.com/${
-                          // @ts-ignore
-                          questions[Object.keys(questions)[startIndex]]
-                            .search_key
-                        }`}
-                      >
-                        球队地址
-                      </a>
-                    )}
-                  </p>
-                  <p>当前第 {startIndex} 个</p>
-                  <button
-                    onClick={() => {
-                      setStartIndex((startIndex) => startIndex - 1)
-                    }}
-                  >
-                    上一个
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (startIndex + 1 === Object.keys(questions).length) {
-                        setStartIndex(0)
-                      } else {
-                        setStartIndex((startIndex) => startIndex + 1)
-                      }
-                    }}
-                  >
-                    下一个
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
+        <Debug
+          isDebug={isDebug}
+          questions={questions}
+          startIndex={startIndex}
+          setStartIndex={setStartIndex}
+        />
 
         <div
           className="App"
@@ -651,25 +555,28 @@ function App() {
             </div>
           </div>
 
-          {/* <div className="title">
-          <span style={{ fontSize: "20px" }}>(未成年禁止打赏)</span>
-        </div> */}
-          {newAnswer.length > 0 &&
-            count === 0 &&
-            step === 1 &&
-            (mode !== Mode.battle ||
-              (mode === Mode.battle &&
-                recordBattleModeStart === recordBattleModeEnd + 1)) && (
-              <SuccessModal answers={newAnswer} mode={mode} count={count} />
-            )}
+          {newAnswer.length > 0 && count === 0 && step === 1 && (
+            <SuccessModal
+              answers={newAnswer}
+              answersMap={answersRef.current}
+              mode={mode}
+              count={count}
+              index={recordBattleModeStart}
+            />
+          )}
 
           {modalRule && count === 0 && (
             <ModalRuleComponent mode={mode} count={count} />
           )}
 
-          <span style={{ color: "white" }}>
-            球队数据截止 2024.2.1 {nextMode}
-          </span>
+          <div style={{ color: "white" }}>
+            <p style={{ color: "white", fontSize: "20px" }}>
+              球队数据截止 2024.2.1
+            </p>
+            <p style={{ color: "white" }}>
+              <span>(未成年禁止打赏)</span>
+            </p>
+          </div>
           {/* <button onClick={() => setMode(Mode.competition)}>
             切换模式竞赛
           </button>

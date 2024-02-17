@@ -235,6 +235,7 @@ code {
 .congra {
   font-size: 20px !important;
   background: rgba(196, 247, 82);
+  width: 80%;
 }
 
 .congra .item {
@@ -250,4 +251,20 @@ code {
   list-style-position: inside;
   list-style-type: decimal;
   line-height: 40px;
+}
+
+.red {
+  color: red;
+}
+
+.orange {
+  color: orange;
+}
+
+.white {
+  color: white;
+}
+
+.gray {
+  color: gray;
 }

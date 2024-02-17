@@ -87,10 +87,48 @@ wss.on("connection", function connection(ws) {
 
   setInterval(() => {
     webClient.send(
-      `{"id":7335727571088250000,"type":"chat","nickname":"makuta2","content":"德国","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+      `{"id":7335727571088250000,"type":"chat","nickname":"makuta1","content":"德国","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
     )
     webClient.send(
-      `{"id":7335727571088250000,"type":"chat","nickname":"makuta2","content":"西班牙","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+      `{"id":7335727571088250000,"type":"chat","nickname":"makuta33","content":"西班牙","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test","content":"德国","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test","content":"西班牙","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test2","content":"德国","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test3","content":"西班牙","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test4","content":"德国","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test5","content":"西班牙","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test6","content":"德国","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test7","content":"西班牙","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test8","content":"德国","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test9","content":"西班牙","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test10","content":"德国","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
+    )
+    webClient.send(
+      `{"id":7335727571088250000,"type":"chat","nickname":"test11","content":"西班牙","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"${"小心心"}","count":0,"url":"","desc":""}}`
     )
   }, 3000)
 
