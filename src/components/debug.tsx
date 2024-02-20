@@ -16,10 +16,11 @@ export const Debug = ({
           <div
             style={{
               position: "absolute",
-              background: "white;",
+              background: "white",
               width: "300px",
-              height: "50vh",
+              height: "30vh",
               right: 0,
+              zIndex: 999,
             }}
           >
             <div>
@@ -29,6 +30,20 @@ export const Debug = ({
                   <a
                     target="_blank"
                     href={`https://sofifa.com/${
+                      // @ts-ignore
+                      questions[Object.keys(questions)[startIndex]].search_key
+                    }`}
+                  >
+                    球队地址
+                  </a>
+                )}
+              </p>
+              <p>
+                自定义球队地址：{" "}
+                {Object.keys(questions).length > 0 && (
+                  <a
+                    target="_blank"
+                    href={`https://sofifa.com/squad/${
                       // @ts-ignore
                       questions[Object.keys(questions)[startIndex]].search_key
                     }`}

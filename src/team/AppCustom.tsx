@@ -102,7 +102,7 @@ export function getConfigCount(
   }
 }
 
-const whiteList = [...national, ...club].map((item) => item.name)
+const whiteList = [...national].map((item) => item.name)
 const isZh = window.location.search.indexOf("zh") !== -1
 const isDebug = window.location.search.indexOf("debug") !== -1
 const isLocal = window.location.search.indexOf("local") !== -1
@@ -232,60 +232,261 @@ function App() {
   // 预加载数据
   useLayoutEffect(() => {
     const fetch = async () => {
-      async function preload(questions: any) {
-        let assets: any[] = []
-        const count = await getCount()
-        const pages = Math.ceil(count / pageSize)
-        console.log("一共有", count, "球队  ", "共有", pages, "页")
-        // load assets
-        for (let i = 1; i <= pages; i++) {
-          let list = (await getList(i)) as any
-
-          console.log(
-            ">> 原始",
-            list.map((item: any) => item.attributes.name)
-          )
-
-          list = list.filter((item: any) => {
-            return whiteList.includes(item.attributes.name)
-          })
-          console.log(
-            "过滤长度 >> ",
-            list.map((item: any) => item.attributes.name)
-          )
-          if (list) {
-            for (let i = 0; i < list.length; i++) {
-              const team = list[i]
-              const pids = getValueByKeyPath(
-                team,
-                "formations.formation.pid"
-              ).map((player: any) => player.pid)
-              const players = await getPlayers(pids)
-              assets.push(getValueByKeyPath(team, "logo.url"))
-              if (players && players.length > 0) {
-                players.forEach((player: any) => {
-                  assets.push(getValueByKeyPath(player, "avatar.url"))
-                  const teams = getValueByKeyPath(player, "teams")
-                  teams.data.forEach((team: any) => {
-                    assets.push(getValueByKeyPath(team, "logo.url"))
-                  })
-                })
-              }
-
-              setQuestions((olddata: any) => {
-                return {
-                  ...olddata,
-                  [team.attributes.name]: convertData(team, players),
-                }
-              })
-            }
-          }
-        }
-        return assets
+      const questions = {
+        德国2002: {
+          name: "德国2002",
+          logo: "https://soccer.innoz.art/uploads/cb9f8a8199b79b5ad8eb36bd7d0ed841_05814160b9.png",
+          players: [
+            {
+              pid: "10684",
+              top: "-2%",
+              left: "23.66%",
+              name: "Oliver Neuville",
+              teamlogo:
+                "https://soccer.innoz.art/uploads/thumbnail_68d8ba67834ba710d63000bdbe352660_52b8eb19dc.png",
+              img: "/player/1.png",
+            },
+            {
+              pid: "11141",
+              top: "-2%",
+              left: "55.34%",
+              name: "Miroslav Klose",
+              teamlogo: "https://cdn.sofifa.net/meta/team/1638/60.png",
+              img: "https://soccer.innoz.art/uploads/679697a5ccee4e67316118da94783517_a8d98e0f91.png",
+            },
+            {
+              pid: "559",
+              top: "35%",
+              left: "2.54%",
+              name: "Jörg Böhme",
+              teamlogo:
+                "https://soccer.innoz.art/uploads/thumbnail_feb39149b254665b05b63a8e338062a4_66c332e806.png",
+              img: "/player/3.png",
+            },
+            {
+              pid: "3647",
+              top: "40%",
+              left: "26.3%",
+              name: "Michael Ballack",
+              teamlogo:
+                "https://soccer.innoz.art/uploads/thumbnail_f8b5f2c8bd6119dc04bc8e5983cfe4b4_4d858b964b.png",
+              img: "https://soccer.innoz.art/uploads/b1fd355dd0bbdaa12132e7f9467f7655_30c365e710.png",
+            },
+            {
+              pid: "5430",
+              top: "40%",
+              left: "52.7%",
+              name: "Torsten Frings",
+              teamlogo:
+                "https://soccer.innoz.art/uploads/thumbnail_3c2d0509ae8f2d99d14d874bd17c31a6_7cb028a781.png",
+              img: "https://soccer.innoz.art/uploads/a94cc44be7c18aa6ede9d6ace0b77370_83a6977c16.png",
+            },
+            {
+              pid: "3922",
+              top: "35%",
+              left: "76.46%",
+              name: "Bernd Schneider",
+              teamlogo:
+                "https://soccer.innoz.art/uploads/thumbnail_f8b5f2c8bd6119dc04bc8e5983cfe4b4_4d858b964b.png",
+              img: "/player/2.png",
+            },
+            {
+              pid: "3894",
+              top: "65%",
+              left: "4.3%",
+              name: "Carsten Ramelow",
+              teamlogo:
+                "https://soccer.innoz.art/uploads/thumbnail_f8b5f2c8bd6119dc04bc8e5983cfe4b4_4d858b964b.png",
+              img: "https://soccer.innoz.art/uploads/dcf5171f2f41e289a8ab042dff457306_100c2823b4.png",
+            },
+            {
+              pid: "808",
+              top: "70%",
+              left: "27.18%",
+              name: "Thomas Linke",
+              teamlogo: "https://soccer.innoz.artundefined",
+              img: "https://soccer.innoz.art/uploads/7e306ac006ca455cd61ba66535510872_a1e765e417.png",
+            },
+            {
+              pid: "30663",
+              top: "70%",
+              left: "51.82%",
+              name: "Christoph Metzelder",
+              teamlogo: "https://soccer.innoz.artundefined",
+              img: "https://soccer.innoz.art/uploads/837d716747c3dc31107eb95bc56d658d_8548bd7f64.png",
+            },
+            {
+              pid: "1000",
+              top: "65%",
+              left: "74.7%",
+              name: "Marko Rehmer",
+              teamlogo: "https://soccer.innoz.artundefined",
+              img: "https://soccer.innoz.art/uploads/799f9c408f13b0c98fedfac92877887b_47bb8cf03f.png",
+            },
+            {
+              pid: "488",
+              top: "85%",
+              left: "39.5%",
+              name: "Oliver Kahn",
+              teamlogo: "https://soccer.innoz.artundefined",
+              img: "https://soccer.innoz.art/uploads/e06927a22e162ae2b3d5277350a3abe3_065c2b2ca3.png",
+            },
+          ],
+          search_key: "1094443",
+        },
+        巴西2002: {
+          name: "巴西2002",
+          logo: "https://soccer.innoz.art/uploads/cb9f8a8199b79b5ad8eb36bd7d0ed841_05814160b9.png",
+          players: [
+            {
+              left: "23.66%",
+              top: "-2%",
+              pid: "37576",
+              name: "Ronaldo",
+              teamlogo: "",
+              img: "",
+            },
+            {
+              left: "54.46%",
+              top: "-2%",
+              pid: "4231",
+              name: "Rivaldo",
+              teamlogo: "",
+              img: "",
+            },
+            {
+              left: "39.5%",
+              top: "15%",
+              pid: "28130",
+              name: "Ronaldinho",
+              teamlogo: "",
+              img: "",
+            },
+            {
+              left: "2.54%",
+              top: "35%",
+              pid: "1040",
+              name: "Roberto Carlos",
+              teamlogo: "",
+              img: "",
+            },
+            {
+              left: "26.3%",
+              top: "42%",
+              pid: "23409",
+              name: "Kléberson",
+              teamlogo: "",
+              img: "",
+            },
+            {
+              left: "52.7%",
+              top: "42%",
+              pid: "47390",
+              name: "Gilberto Silva",
+              teamlogo: "",
+              img: "",
+            },
+            {
+              left: "76.46%",
+              top: "35%",
+              pid: "5003",
+              name: "Cafu",
+              teamlogo: "",
+              img: "",
+            },
+            {
+              left: "17.5%",
+              top: "70%",
+              pid: "11019",
+              name: "Roque Júnior",
+              teamlogo: "",
+              img: "",
+            },
+            {
+              left: "39.5%",
+              top: "70%",
+              pid: "40702",
+              name: "Edmilson",
+              teamlogo: "",
+              img: "",
+            },
+            {
+              left: "61.5%",
+              top: "70%",
+              pid: "107715",
+              name: "Lúcio",
+              teamlogo: "",
+              img: "",
+            },
+            {
+              left: "39.5%",
+              top: "85%",
+              pid: "137790",
+              name: "Marcos",
+              teamlogo: "",
+              img: "",
+            },
+          ],
+          search_key: "1094443",
+        },
       }
-      const res: any = await preload(questions)
-      setPreloadSrcList(res)
-      return res
+
+      setQuestions(questions)
+
+      // async function preload(questions: any) {
+      //   let assets: any[] = []
+      //   const count = await getCount()
+      //   const pages = Math.ceil(count / pageSize)
+      //   console.log("一共有", count, "球队  ", "共有", pages, "页")
+      //   // load assets
+      //   for (let i = 1; i <= pages; i++) {
+      //     let list = (await getList(i)) as any
+
+      //     console.log(
+      //       ">> 原始",
+      //       list.map((item: any) => item.attributes.name)
+      //     )
+
+      //     list = list.filter((item: any) => {
+      //       return whiteList.includes(item.attributes.name)
+      //     })
+      //     console.log(
+      //       "过滤长度 >> ",
+      //       list.map((item: any) => item.attributes.name)
+      //     )
+      //     if (list) {
+      //       for (let i = 0; i < list.length; i++) {
+      //         const team = list[i]
+      //         const pids = getValueByKeyPath(
+      //           team,
+      //           "formations.formation.pid"
+      //         ).map((player: any) => player.pid)
+      //         const players = await getPlayers(pids)
+      //         assets.push(getValueByKeyPath(team, "logo.url"))
+      //         if (players && players.length > 0) {
+      //           players.forEach((player: any) => {
+      //             assets.push(getValueByKeyPath(player, "avatar.url"))
+      //             const teams = getValueByKeyPath(player, "teams")
+      //             teams.data.forEach((team: any) => {
+      //               assets.push(getValueByKeyPath(team, "logo.url"))
+      //             })
+      //           })
+      //         }
+
+      //         setQuestions((olddata: any) => {
+      //           return {
+      //             ...olddata,
+      //             [team.attributes.name]: convertData(team, players),
+      //           }
+      //         })
+      //       }
+      //     }
+      //   }
+      //   return assets
+      // }
+      // const res: any = await preload(questions)
+      // setPreloadSrcList(res)
+      // return res
     }
     fetch()
   }, [])
@@ -430,16 +631,10 @@ function App() {
   }, [step])
 
   useEffect(() => {
-    if (imagesPreloaded) {
-      console.log("资源加载完成, 洗牌")
-      const randomQuestions = RandomQuestions(questions, isDebug)
-      console.log("洗牌后的题目：", randomQuestions)
-      setQuestions(randomQuestions)
-      setLoad(true)
-    }
-  }, [imagesPreloaded])
+    setLoad(true)
+  }, [])
 
-  if (!imagesPreloaded || !loaded) {
+  if (!loaded) {
     return (
       <div
         className="App"
@@ -580,14 +775,6 @@ function App() {
             <ModalRuleComponent mode={mode} count={count} />
           )}
 
-          <div style={{ color: "white" }}>
-            <p style={{ color: "white", fontSize: "20px" }}>
-              球队数据截止 2024.2.20 (未成年禁止打赏)
-            </p>
-            <p style={{ color: "white" }}>
-              <span>版本 1.0.1 </span>
-            </p>
-          </div>
           {/* <button onClick={() => setMode(Mode.competition)}>
             切换模式竞赛
           </button>
