@@ -1,14 +1,24 @@
+const electron = require('electron')
 const { app, BrowserWindow } = require("electron/main")
 const path = require("node:path")
 
+const Menu = electron.Menu
+// Menu.setApplicationMenu(null)
+
 function createWindow() {
   const win = new BrowserWindow({
-    width: 600,
-    height: 1060,
+    width: 645,
+    height: 1100,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
   })
+
+  win.webContents.executeJavaScript(`
+    let style = document.createElement('style');
+    style.innerHTML = '::-webkit-scrollbar { display: none; }';
+    document.head.appendChild(style);
+  `);
 
   win.loadFile("index.html")
 }
