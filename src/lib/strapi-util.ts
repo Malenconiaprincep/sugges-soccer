@@ -9,9 +9,12 @@ export function getValueByKeyPath(data: any, keypath: string) {
         } else {
           result = result.data.attributes[key]
         }
-      }
-      if (result.attributes) {
+      } else if (result.attributes) {
         result = result.attributes[key]
+      } else {
+        if (!result) {
+          return ""
+        }
       }
     } catch (e) {}
   })

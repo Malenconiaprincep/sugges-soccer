@@ -124,6 +124,7 @@ const convertData = (data: any, players: any) => {
           const findPlayer = players.find(
             (item: any) => item.attributes.pid === player.pid
           )
+
           return {
             ...player,
             teamlogo:
@@ -136,7 +137,10 @@ const convertData = (data: any, players: any) => {
                 )[0],
                 "logo.url"
               ),
-            img: host + getValueByKeyPath(findPlayer, "avatar.url"),
+            img:
+              typeof getValueByKeyPath(findPlayer, "avatar.url") === "string"
+                ? host + getValueByKeyPath(findPlayer, "avatar.url")
+                : "",
             name:
               getValueByKeyPath(findPlayer, "name") +
               " " +
@@ -517,7 +521,7 @@ function App() {
                     <div
                       className="field-player "
                       style={{ left: item.left, top: item.top }}
-                      key={`${item.img}`}
+                      key={`${item.pid}`}
                     >
                       {step === 1 && (
                         <>

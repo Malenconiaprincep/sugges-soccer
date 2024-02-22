@@ -704,11 +704,11 @@ export const club = [
   { name: "阿尔梅里亚", originName: "Almería", url: "/team/1861/almeria/" },
   { name: "卡迪斯", originName: "Cádiz", url: "/team/1968/cadiz/" },
   { name: "巴伦西亚", originName: "Valencia", url: "/team/461/valencia/" },
-  {
-    name: "拉斯帕尔马斯",
-    originName: "Las Palmas",
-    url: "/team/472/las-palmas/",
-  },
+  // {
+  //   name: "拉斯帕尔马斯",
+  //   originName: "Las Palmas",
+  //   url: "/team/472/las-palmas/",
+  // },
   { name: "格拉纳达", originName: "Granada", url: "/team/110832/granada/" },
   {
     name: "阿拉维斯",
