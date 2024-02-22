@@ -1,4 +1,4 @@
-const electron = require('electron')
+const electron = require("electron")
 const { app, BrowserWindow } = require("electron/main")
 const path = require("node:path")
 
@@ -18,9 +18,9 @@ function createWindow() {
     let style = document.createElement('style');
     style.innerHTML = '::-webkit-scrollbar { display: none; }';
     document.head.appendChild(style);
-  `);
+  `)
 
-  win.loadFile("index.html")
+  win.loadFile("build/index3.html")
 }
 
 app.whenReady().then(() => {

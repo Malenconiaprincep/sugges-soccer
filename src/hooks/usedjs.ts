@@ -2,27 +2,45 @@ import { useState, useEffect } from "react"
 
 function useDjs(init: number, imagesPreloaded?: boolean, loaded?: boolean) {
   const [count, setCount] = useState(init)
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
 
-  useEffect(() => {
+  const startTimer = () => {
     if (!imagesPreloaded || !loaded) {
       return
     }
-    let timer = setInterval(() => {
+    const newTimer = setInterval(() => {
       if (count - 1 < 0) {
-        setCount((count) => count)
+        if (count - 1 < 0) {
+          setCount(0)
+        } else {
+          setCount((count) => count)
+        }
       } else {
         setCount((count) => count - 1)
       }
     }, 1000)
+    setTimer(newTimer)
+  }
 
-    return () => {
+  const pauseTimer = () => {
+    if (timer) {
       clearInterval(timer)
+      setTimer(null)
     }
-  })
+  }
+
+  useEffect(() => {
+    return () => {
+      pauseTimer()
+    }
+  }, [])
 
   return {
     count,
     setCount,
+    startTimer,
+    pauseTimer,
+    timer,
   }
 }
 
