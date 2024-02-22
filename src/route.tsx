@@ -11,7 +11,7 @@ function RouteApp() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Native />} />
         <Route path="custom" element={<AppCustom />} />
         <Route path="native" element={<Native />} />
         <Route path="generate" element={<GenerateApp />} />
