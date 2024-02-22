@@ -1,8 +1,8 @@
 import { Modal } from "antd"
 import { useEffect, useState } from "react"
-import { Mode, getConfigCount } from "../team/App"
+import { Gifts, Mode, getConfigCount } from "../team/App"
 
-export const BattleRule = () => {
+export const BattleRule = ({ giftUserName }: { giftUserName: string[] }) => {
   return (
     <div>
       <div
@@ -17,6 +17,15 @@ export const BattleRule = () => {
       ></div>
       <div className="modal-show">
         <div>赛局模式规则</div>
+        {giftUserName.length > 0 && (
+          <div>
+            感谢来自（
+            <span className="orange">
+              {Array.from(new Set(giftUserName)).join(",")}
+            </span>
+            ）的礼物！
+          </div>
+        )}
         <div className="congra">
           <ul>
             <li>一局赛共有10题随机选出,每道题计时10s。</li>
@@ -30,7 +39,11 @@ export const BattleRule = () => {
   )
 }
 
-export const CompetitionRule = () => {
+export const CompetitionRule = ({
+  giftUserName,
+}: {
+  giftUserName: string[]
+}) => {
   return (
     <div>
       <div
@@ -45,10 +58,20 @@ export const CompetitionRule = () => {
       ></div>
       <div className="modal-show">
         <div>竞赛模式规则!</div>
+        {giftUserName.length > 0 && (
+          <div style={{ fontSize: "16px" }}>
+            感谢来自（
+            <span className="orange">
+              {Array.from(new Set(giftUserName)).join(",")}
+            </span>
+            ）的礼物！
+          </div>
+        )}
         <div className="congra">
           <ul>
             <li>每道题计时10s，时间到后显示答案。</li>
             <li>最终显示前5排名和若干人。</li>
+            <li>10题后自动切换为娱乐模式</li>
           </ul>
         </div>
       </div>
@@ -98,6 +121,7 @@ export const ModalRuleComponent = ({
       // 3s
       setTimeout(() => {
         setVisible(false)
+        Gifts.splice(0, Gifts.length)
       }, getConfigCount(mode, false).modeChangeCount * 1000)
     }
   }, [count])
@@ -105,9 +129,9 @@ export const ModalRuleComponent = ({
   if (mode === Mode.entertainment) {
     childComponent = <EntertainmentRule />
   } else if (mode === Mode.competition) {
-    childComponent = <CompetitionRule />
+    childComponent = <CompetitionRule giftUserName={Gifts} />
   } else if (mode === Mode.battle) {
-    childComponent = <BattleRule />
+    childComponent = <BattleRule giftUserName={Gifts} />
   }
 
   return (

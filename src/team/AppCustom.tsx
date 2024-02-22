@@ -789,9 +789,9 @@ function App() {
               />
             )}
 
-          {modalRule && count === 0 && (
+          {/* {modalRule && count === 0 && (
             <ModalRuleComponent mode={mode} count={count} />
-          )}
+          )} */}
 
           {/* <button onClick={() => setMode(Mode.competition)}>
             切换模式竞赛

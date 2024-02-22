@@ -108,6 +108,7 @@ const isDebug = window.location.search.indexOf("debug") !== -1
 const isLocal = window.location.search.indexOf("local") !== -1
 const isBili = window.location.search.indexOf("bili") !== -1
 let Constmode = getMode()
+export let Gifts: string[] = []
 
 console.log(whiteList, ">>whitelist")
 
@@ -186,6 +187,16 @@ export const useDouyin = (
                 answersRef.current[message.nickname] = [res.name]
               }
             }
+
+            if (message.nickname === "派西维尔") {
+              callback({
+                type: "gift",
+                data: {
+                  gift: { name: message.content, count: 0, url: "", desc: "" },
+                  nickname: `主播`,
+                },
+              })
+            }
           } else {
             callback({
               type: message.type,
@@ -238,7 +249,7 @@ function App() {
     const fetch = async () => {
       async function preload(questions: any) {
         let assets: any[] = []
-        const count = await getCount()
+        const count = isLocal ? 2 : await getCount()
         const pages = Math.ceil(count / pageSize)
         console.log("一共有", count, "球队  ", "共有", pages, "页")
         // load assets
@@ -297,41 +308,31 @@ function App() {
   const receiveMessage = (event: any) => {
     if (event) {
       const item = event.data
-      // if (event.type === "chat" && count !== 0) {
-      //   const ans = item.content.toUpperCase()
-      //   if (
-      //     data &&
-      //     (ans === data.name.replace(/\s/g, "").toUpperCase() ||
-      //       ans === data.name.toUpperCase())
-      //   ) {
-      //     // 回答正确
-      //     if (answer[item.nickname]) {
-      //       answer[item.nickname]++
-      //     } else {
-      //       answer[item.nickname] = 1
-      //     }
-      //   }
-      // }
       if (event.type === "gift") {
+        Gifts.push(item.nickname)
         // console.log("收到礼物", item.gift.name)
-        if (recordBattleModeStart === 0) {
-          if (item.gift.name.indexOf(list[0].subtitle) !== -1) {
-            if (Mode.entertainment !== mode) {
-              nextMode = Mode.entertainment
-            }
+        if (item.gift.name.indexOf(list[0].subtitle) !== -1) {
+          if (Mode.entertainment !== mode) {
+            nextMode = Mode.entertainment
           }
+        }
+        if (recordBattleModeStart === 0) {
           if (item.gift.name.indexOf(list[1].subtitle) !== -1) {
+            if (recordBattleModeStart === 0) {
+              recordBattleModeStart = 1
+              nextMode = Mode.competition
+            }
             if (Mode.competition !== mode) {
               nextMode = Mode.competition
             }
           }
-        }
-        if (item.gift.name.indexOf(list[2].subtitle) !== -1) {
-          if (Mode.battle !== mode) {
-            nextMode = Mode.battle
-          }
-          if (recordBattleModeStart === 0) {
-            recordBattleModeStart = 1
+          if (item.gift.name.indexOf(list[2].subtitle) !== -1) {
+            if (Mode.battle !== mode) {
+              nextMode = Mode.battle
+            }
+            if (recordBattleModeStart === 0) {
+              recordBattleModeStart = 1
+            }
           }
         }
       }
@@ -410,7 +411,7 @@ function App() {
           nextStart(nextMode)
         }, getConfigCount(nextMode, isDebug).modeChangeCount * 1000) // Adjust the delay time as needed
       } else {
-        if (nextMode === Mode.battle) {
+        if (nextMode === Mode.battle || nextMode === Mode.competition) {
           if (recordBattleModeStart === recordBattleModeEnd) {
             const resetMode = Mode.entertainment
             setMode(resetMode)
@@ -421,6 +422,11 @@ function App() {
             setTimeout(() => {
               setModalRule(false)
               nextStart(resetMode)
+              if (recordBattleModeStart !== 0) {
+                if (resetMode !== nextMode) {
+                  recordBattleModeStart = 1
+                }
+              }
             }, getConfigCount(resetMode, isDebug).modeChangeCount * 1000) // Adjust the delay time as needed
           } else {
             recordBattleModeStart++
@@ -480,7 +486,7 @@ function App() {
           }}
         >
           <ModeComponent mode={mode} />
-          {mode === Mode.battle && (
+          {(mode === Mode.battle || mode === Mode.competition) && (
             <TipComponent
               mode={mode}
               recordBattleModeStart={recordBattleModeStart}
