@@ -77,10 +77,10 @@ export function getConfigCount(
       timerCount = 3
     }
 
-    waitSuccessCount = 10
+    waitSuccessCount = 3
     if (Mode.battle === mode) {
       modeChangeCount = 4
-      waitSuccessCount = 10
+      waitSuccessCount = 3
     }
   } else {
     if (Mode.entertainment === mode) {
@@ -108,7 +108,17 @@ const isDebug = window.location.search.indexOf("debug") !== -1
 const isLocal = window.location.search.indexOf("local") !== -1
 const isBili = window.location.search.indexOf("bili") !== -1
 let Constmode = getMode()
-export let Gifts: string[] = []
+export let Gifts: Array<{
+  username: string
+  giftname: string
+}> = []
+export let currentGift: {
+  username: string
+  giftname: string
+} = {
+  username: "",
+  giftname: "",
+}
 
 console.log(whiteList, ">>whitelist")
 
@@ -143,8 +153,8 @@ const convertData = (data: any, players: any) => {
                 ? host + getValueByKeyPath(findPlayer, "avatar.url")
                 : "",
             name:
-              getValueByKeyPath(findPlayer, "name") +
-              " " +
+              // getValueByKeyPath(findPlayer, "name") +
+              // " " +
               getValueByKeyPath(findPlayer, "family_name"),
           }
         }
@@ -309,32 +319,10 @@ function App() {
     if (event) {
       const item = event.data
       if (event.type === "gift") {
-        Gifts.push(item.nickname)
-        // console.log("收到礼物", item.gift.name)
-        if (item.gift.name.indexOf(list[0].subtitle) !== -1) {
-          if (Mode.entertainment !== mode) {
-            nextMode = Mode.entertainment
-          }
-        }
-        if (recordBattleModeStart === 0) {
-          if (item.gift.name.indexOf(list[1].subtitle) !== -1) {
-            if (recordBattleModeStart === 0) {
-              recordBattleModeStart = 1
-              nextMode = Mode.competition
-            }
-            if (Mode.competition !== mode) {
-              nextMode = Mode.competition
-            }
-          }
-          if (item.gift.name.indexOf(list[2].subtitle) !== -1) {
-            if (Mode.battle !== mode) {
-              nextMode = Mode.battle
-            }
-            if (recordBattleModeStart === 0) {
-              recordBattleModeStart = 1
-            }
-          }
-        }
+        Gifts.push({
+          username: item.nickname,
+          giftname: item.gift.name,
+        })
       }
     }
   }
@@ -389,7 +377,6 @@ function App() {
           setStartIndex((startIndex) => startIndex + 1)
         }
       }
-
       restart(currentMode)
     }
 
@@ -400,8 +387,37 @@ function App() {
       }, 300)
     }
 
+    // 获取下一个模式和礼物有关系
+    const getNextMode = (mode: Mode) => {
+      if (recordBattleModeStart === 0) {
+        currentGift = Gifts.shift() || { username: "", giftname: "" }
+        if (currentGift) {
+          switch (currentGift.giftname) {
+            case list[1].subtitle:
+              recordBattleModeStart = 1
+              return Mode.competition
+            case list[2].subtitle:
+              recordBattleModeStart = 1
+              return Mode.battle
+            default:
+              recordBattleModeStart = 0
+              return Mode.entertainment
+          }
+        }
+      }
+
+      if (recordBattleModeStart > 0) {
+        return mode
+      } else {
+        return Mode.entertainment
+      }
+      // console.log("收到礼物", item.gift.name)
+    }
+
     // 等待时间
     if (step === 2) {
+      // 检测当前礼物池
+      let nextMode = getNextMode(mode)
       if (nextMode !== mode) {
         setMode(nextMode)
         setModalRule(true)
@@ -413,21 +429,14 @@ function App() {
       } else {
         if (nextMode === Mode.battle || nextMode === Mode.competition) {
           if (recordBattleModeStart === recordBattleModeEnd) {
-            const resetMode = Mode.entertainment
-            setMode(resetMode)
-            setModalRule(true)
             recordBattleModeStart = 0
-            nextMode = resetMode
-            message.info(`当前切换模式为：${modeMap[resetMode]}`)
+            nextMode = getNextMode(mode)
+            setMode(nextMode)
+            setModalRule(true)
             setTimeout(() => {
               setModalRule(false)
-              nextStart(resetMode)
-              if (recordBattleModeStart !== 0) {
-                if (resetMode !== nextMode) {
-                  recordBattleModeStart = 1
-                }
-              }
-            }, getConfigCount(resetMode, isDebug).modeChangeCount * 1000) // Adjust the delay time as needed
+              nextStart(nextMode)
+            }, getConfigCount(nextMode, isDebug).modeChangeCount * 1000) // Adjust the delay time as needed
           } else {
             recordBattleModeStart++
             nextStart(mode)
@@ -542,7 +551,7 @@ function App() {
                             {item.name.length > 12
                               ? item.name.substring(0, 10) + "..."
                               : item.name}
-                            {isDebug ? item.pid : ""}
+                            {/* {isDebug ? item.pid : ""} */}
                           </div>
                         </>
                       )}

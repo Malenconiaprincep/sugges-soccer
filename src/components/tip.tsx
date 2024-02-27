@@ -24,12 +24,14 @@ export const TipComponent = ({
         textAlign: "left",
       }}
     >
-      <p style={{ color: "white" }}>
-        赛局题目{" "}
-        {`${
-          recordBattleModeStart < 0 ? 0 : recordBattleModeStart
-        }/${recordBattleModeEnd}`}
-      </p>
+      <div style={{ color: "white" }}>
+        <p className="white">
+          题目
+          {`${
+            recordBattleModeStart < 0 ? 0 : recordBattleModeStart
+          }/${recordBattleModeEnd}`}{" "}
+        </p>
+      </div>
     </div>
   )
 }

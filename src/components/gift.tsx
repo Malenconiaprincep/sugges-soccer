@@ -32,7 +32,7 @@ export const GiftComponent = () => {
   return (
     <div>
       <div>
-        <div>模式切换（不予叠加）</div>
+        <div>模式切换（可以叠加）</div>
         <div
           style={{
             marginTop: "5px",

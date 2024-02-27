@@ -22,6 +22,11 @@ body {
   background: transparent !important;
 }
 
+p {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -105,7 +110,7 @@ code {
   background: rgba(0, 0, 0, 0.75) !important;
   color: white;
   line-height: 1.2rem;
-  width: 110px;
+  width: fit-content;
   border: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -114,7 +119,7 @@ code {
   text-align: center;
   display: flex;
   align-items: center;
-  padding: 0 20px 0 15px;
+  padding: 0 10px 0 13px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, PingFang SC,
     Hiragino Sans GB, Microsoft YaHei, "\5FAE\8F6F\96C5\9ED1", helvetica neue,
     helvetica, ubuntu, roboto, noto, segoe ui, Arial, sans-serif;

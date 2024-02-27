@@ -1,8 +1,15 @@
 import { Modal } from "antd"
 import { useEffect, useState } from "react"
-import { Gifts, Mode, getConfigCount } from "../team/App"
+import { currentGift, Mode, getConfigCount } from "../team/App"
 
-export const BattleRule = ({ giftUserName }: { giftUserName: string[] }) => {
+export const BattleRule = ({
+  gift,
+}: {
+  gift: {
+    username: string
+    giftname: string
+  }
+}) => {
   return (
     <div>
       <div
@@ -17,12 +24,10 @@ export const BattleRule = ({ giftUserName }: { giftUserName: string[] }) => {
       ></div>
       <div className="modal-show">
         <div>赛局模式规则</div>
-        {giftUserName.length > 0 && (
-          <div>
+        {gift.username && (
+          <div style={{ fontSize: "18px" }}>
             感谢来自（
-            <span className="orange">
-              {Array.from(new Set(giftUserName)).join(",")}
-            </span>
+            <span className="orange">{gift.username}</span>
             ）的礼物！
           </div>
         )}
@@ -40,9 +45,12 @@ export const BattleRule = ({ giftUserName }: { giftUserName: string[] }) => {
 }
 
 export const CompetitionRule = ({
-  giftUserName,
+  gift,
 }: {
-  giftUserName: string[]
+  gift: {
+    username: string
+    giftname: string
+  }
 }) => {
   return (
     <div>
@@ -58,12 +66,10 @@ export const CompetitionRule = ({
       ></div>
       <div className="modal-show">
         <div>竞赛模式规则!</div>
-        {giftUserName.length > 0 && (
-          <div style={{ fontSize: "16px" }}>
+        {gift.username && (
+          <div style={{ fontSize: "18px" }}>
             感谢来自（
-            <span className="orange">
-              {Array.from(new Set(giftUserName)).join(",")}
-            </span>
+            <span className="orange">{gift.username}</span>
             ）的礼物！
           </div>
         )}
@@ -121,7 +127,7 @@ export const ModalRuleComponent = ({
       // 3s
       setTimeout(() => {
         setVisible(false)
-        Gifts.splice(0, Gifts.length)
+        currentGift.username = ""
       }, getConfigCount(mode, false).modeChangeCount * 1000)
     }
   }, [count])
@@ -129,9 +135,9 @@ export const ModalRuleComponent = ({
   if (mode === Mode.entertainment) {
     childComponent = <EntertainmentRule />
   } else if (mode === Mode.competition) {
-    childComponent = <CompetitionRule giftUserName={Gifts} />
+    childComponent = <CompetitionRule gift={currentGift} />
   } else if (mode === Mode.battle) {
-    childComponent = <BattleRule giftUserName={Gifts} />
+    childComponent = <BattleRule gift={currentGift} />
   }
 
   return (
