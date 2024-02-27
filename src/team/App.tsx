@@ -33,6 +33,7 @@ import { RandomQuestions } from "../utils/random"
 import { ModalRuleComponent } from "../components/modalRule"
 import { Debug } from "../components/debug"
 import { list } from "../components/gift"
+import { ModalGiftComponent } from "../components/modalGift"
 
 export enum Mode {
   // 娱乐
@@ -67,6 +68,8 @@ export function getConfigCount(
   let modalAnswerCount = 3
   // 模式切换等待时间，中间可能有说明
   let modeChangeCount = 8
+  // 刷礼物提示
+  let modeGiftCount = 3
   if (isDebug) {
     timerCount = 2
     waitSuccessCount = 2
@@ -99,6 +102,7 @@ export function getConfigCount(
     waitSuccessCount,
     modalAnswerCount,
     modeChangeCount,
+    modeGiftCount,
   }
 }
 
@@ -246,6 +250,7 @@ function App() {
   const [questions, setQuestions] = useState<any>({})
   const [reloadSocket, setReloadSocket] = useState(false)
   const [modalRule, setModalRule] = useState(false)
+  const [modalGift, setModalGift] = useState(false)
   const socketRef = useRef<any>(null)
   const socket = useSocket(
     "ws://localhost:8080",
@@ -442,7 +447,15 @@ function App() {
             nextStart(mode)
           }
         } else {
-          nextStart(mode)
+          if (currentGift.username) {
+            setModalGift(true)
+            setTimeout(() => {
+              setModalGift(false)
+              nextStart(mode)
+            }, getConfigCount(mode, isDebug).modeGiftCount * 1000)
+          } else {
+            nextStart(mode)
+          }
         }
       }
     }
@@ -598,13 +611,16 @@ function App() {
           {modalRule && count === 0 && (
             <ModalRuleComponent mode={mode} count={count} />
           )}
+          {modalGift && mode === Mode.entertainment && count === 0 && (
+            <ModalGiftComponent username={currentGift.username} count={count} />
+          )}
 
           <div style={{ color: "white" }}>
             <p style={{ color: "white", fontSize: "20px" }}>
               球队数据截止 2024.2.20 (未成年禁止打赏)
             </p>
             <p style={{ color: "white" }}>
-              <span>版本 1.0.1 </span>
+              <span>版本 1.0.2 </span>
             </p>
           </div>
           {/* <button onClick={() => setMode(Mode.competition)}>
