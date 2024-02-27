@@ -51,21 +51,17 @@ wss.on("connection", function connection(ws) {
   }, 60000)
 
   // 福利
-  let i = 0
   setInterval(() => {
-    if (i < 2) {
-      webClient.send(
-        '{"id":7335727571088250000,"type":"gift","nickname":"派西维尔","content":"加油鸭","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"加油鸭","count":0,"url":"","desc":""}}'
-      )
-    }
-    i++
-  }, 5 * 1000)
+    webClient.send(
+      '{"id":7335727571088250000,"type":"gift","nickname":"派西维尔","content":"加油鸭","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"加油鸭","count":0,"url":"","desc":""}}'
+    )
+  }, 1500 * 1000)
 
   setInterval(() => {
     webClient.send(
       '{"id":7335727571088250000,"type":"gift","nickname":"派西维尔","content":"爱你哟","memberCount":0,"likeCount":0,"followCount":0,"totalUserCount":0,"rank":[],"gift":{"name":"爱你哟","count":0,"url":"","desc":""}}'
     )
-  }, 1800 * 1000)
+  }, 3800 * 1000)
 
   // setInterval(() => {
   //   webClient.send(
