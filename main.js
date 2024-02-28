@@ -1,9 +1,9 @@
 const electron = require('electron')
-const { app, BrowserWindow } = require("electron/main")
+const { app, BrowserWindow, globalShortcut } = require("electron/main")
 const path = require("node:path")
 
 const Menu = electron.Menu
-// Menu.setApplicationMenu(null)
+Menu.setApplicationMenu(null)
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -21,6 +21,11 @@ function createWindow() {
   `);
 
   win.loadFile("index.html")
+
+  globalShortcut.register('CommandOrControl+Shift+i', function() {
+    win.webContents.openDevTools()
+  })
+
 }
 
 app.whenReady().then(() => {
