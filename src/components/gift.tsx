@@ -17,7 +17,7 @@ export const list = [
     title: "竞赛模式",
     type: GiftType.competition,
     img: "/xiaoxinxin.png",
-    subtitle: "小星星",
+    subtitle: "小心心",
   },
   {
     title: "赛局模式",
