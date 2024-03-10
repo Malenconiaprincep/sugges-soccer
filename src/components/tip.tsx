@@ -17,7 +17,7 @@ export const TipComponent = ({
         padding: "10px 10px",
         position: "absolute",
         top: "140px",
-        right: "0",
+        right: "40px",
         // width: "100%",
         zIndex: "99",
         opacity: 0.8,
@@ -26,10 +26,13 @@ export const TipComponent = ({
     >
       <div style={{ color: "white" }}>
         <p className="white">
-          题目
-          {`${
+          <p className="white">当前题目</p>
+          <p className="white">
+          ({" "}{`${
             recordBattleModeStart < 0 ? 0 : recordBattleModeStart
-          }/${recordBattleModeEnd}`}{" "}
+          } / ${recordBattleModeEnd}`}{" "})
+          </p>
+          
         </p>
       </div>
     </div>

@@ -16,15 +16,15 @@ export const list = [
   {
     title: "竞赛模式",
     type: GiftType.competition,
-    img: "/jiayouya.png",
-    subtitle: "加油鸭",
+    img: "/xiaoxinxin.png",
+    subtitle: "小心心",
   },
   {
     title: "赛局模式",
     type: GiftType.battle,
-    img: "/love.png",
+    img: "/3.png",
     subimg: "/new.gif",
-    subtitle: "爱你哟",
+    subtitle: "抖音",
   },
 ]
 
@@ -43,6 +43,7 @@ export const GiftComponent = () => {
           }}
         >
           {list.map((item, index) => {
+            if(index === 0) return null
             return (
               <div key={index}>
                 <img
