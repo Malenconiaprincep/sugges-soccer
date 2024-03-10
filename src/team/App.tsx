@@ -67,7 +67,7 @@ export function getConfigCount(
   // 答案弹窗显示时间
   let modalAnswerCount = 3
   // 模式切换等待时间，中间可能有说明
-  let modeChangeCount = 3
+  let modeChangeCount = 2
   // 刷礼物提示
   let modeGiftCount = 3
   if (isDebug) {
@@ -92,7 +92,7 @@ export function getConfigCount(
       timerCount = 10
     }
     if (Mode.battle === mode) {
-      modeChangeCount = 3
+      modeChangeCount = 2
     }
     waitSuccessCount = 8
   }
