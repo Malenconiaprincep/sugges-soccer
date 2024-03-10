@@ -67,7 +67,7 @@ export function getConfigCount(
   // 答案弹窗显示时间
   let modalAnswerCount = 3
   // 模式切换等待时间，中间可能有说明
-  let modeChangeCount = 8
+  let modeChangeCount = 3
   // 刷礼物提示
   let modeGiftCount = 3
   if (isDebug) {
@@ -87,14 +87,14 @@ export function getConfigCount(
     }
   } else {
     if (Mode.entertainment === mode) {
-      timerCount = 15
+      timerCount = 10
     } else {
       timerCount = 10
     }
     if (Mode.battle === mode) {
-      modeChangeCount = 8
+      modeChangeCount = 3
     }
-    waitSuccessCount = 10
+    waitSuccessCount = 8
   }
 
   return {
@@ -106,6 +106,7 @@ export function getConfigCount(
   }
 }
 
+// const whiteList = [...club].map((item) => item.name)
 const whiteList = [...national, ...club].map((item) => item.name)
 const isZh = window.location.search.indexOf("zh") !== -1
 const isDebug = window.location.search.indexOf("debug") !== -1
@@ -232,7 +233,7 @@ export const useDouyin = (
 let nextMode: Mode = Mode.entertainment
 // 对战回合数
 let recordBattleModeStart = 0
-export const recordBattleModeEnd = isLocal ? 3 : 10
+export const recordBattleModeEnd = isLocal ? 3 : 5
 
 function App() {
   const [loaded, setLoad] = useState(false)
@@ -425,10 +426,10 @@ function App() {
       let nextMode = getNextMode(mode)
       if (nextMode !== mode) {
         setMode(nextMode)
-        setModalRule(true)
+        // setModalRule(true)
         message.info(`当前切换模式为：${modeMap[nextMode]}`)
         setTimeout(() => {
-          setModalRule(false)
+          // setModalRule(false)
           nextStart(nextMode)
         }, getConfigCount(nextMode, isDebug).modeChangeCount * 1000) // Adjust the delay time as needed
       } else {
@@ -437,9 +438,9 @@ function App() {
             recordBattleModeStart = 0
             nextMode = getNextMode(mode)
             setMode(nextMode)
-            setModalRule(true)
+            // setModalRule(true)
             setTimeout(() => {
-              setModalRule(false)
+              // setModalRule(false)
               nextStart(nextMode)
             }, getConfigCount(nextMode, isDebug).modeChangeCount * 1000) // Adjust the delay time as needed
           } else {
@@ -564,7 +565,16 @@ function App() {
                             {item.name.length > 12
                               ? item.name.substring(0, 10) + "..."
                               : item.name}
-                            {/* {isDebug ? item.pid : ""} */}
+                            {isDebug ? (
+                              <a
+                                href={`https://sofifa.com/player/${item.pid}`}
+                                target="_blank"
+                              >
+                                {item.pid}
+                              </a>
+                            ) : (
+                              ""
+                            )}
                           </div>
                         </>
                       )}
@@ -617,7 +627,7 @@ function App() {
 
           <div style={{ color: "white" }}>
             <p style={{ color: "white", fontSize: "20px" }}>
-              球队数据截止 2024.2.20 (未成年禁止打赏)
+              球队数据截止 2024.3.10 (未成年禁止打赏)
             </p>
             <p style={{ color: "white" }}>
               <span>版本 1.0.2 </span>
