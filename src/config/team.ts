@@ -30,6 +30,7 @@ export async function getCount() {
     const res = await strapi.find("teams")
     console.log("getCount response:", res)
     // 修复 Strapi 5.x 的响应结构
+    // @ts-ignore
     return res?.meta?.pagination?.total || res?.data?.length || 0
   } catch (e) {
     console.error("getCount error:", e)
