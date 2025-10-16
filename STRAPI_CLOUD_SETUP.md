@@ -1,60 +1,49 @@
-# Strapi Cloud 配置指南
+# Strapi Cloud 重新配置指南
 
 ## 概述
 
-此项目已配置为使用 Strapi Cloud 服务。以下是配置步骤：
+此项目已清理所有旧的 Strapi 相关代码，准备重新配置 Strapi Cloud 服务。
 
-## 1. 获取 Strapi Cloud 实例信息
+## 当前状态
+
+- ✅ 已删除所有旧的 Strapi 代码和配置
+- ✅ 已清理 package.json 中的 Strapi 依赖
+- ✅ 保留了 getValueByKeyPath 工具函数
+- ✅ 项目现在是一个干净的前端项目
+
+## 下一步操作
+
+### 1. 在 Strapi Cloud 中创建新项目
 
 1. 登录到 [Strapi Cloud](https://cloud.strapi.io/)
-2. 创建新项目或选择现有项目
-3. 获取您的项目 URL 和 API Token
+2. 创建新的 Strapi 项目
+3. 获取项目 URL 和 API Token
 
-## 2. 配置环境变量
+### 2. 重新添加 Strapi SDK
 
-创建 `.env` 文件（基于 `env.example`）：
+当您准备好连接 Strapi Cloud 时，可以运行：
 
 ```bash
-# 复制示例文件
-cp env.example .env
+npm install @strapi/strapi strapi-sdk-js
 ```
 
-编辑 `.env` 文件，填入您的 Strapi Cloud 信息：
+### 3. 配置环境变量
+
+创建 `.env` 文件：
 
 ```env
-# Strapi Cloud 实例 URL
-REACT_APP_STRAPI_URL=https://your-project-name.strapi.cloud
-
-# Strapi Cloud API Token
-REACT_APP_STRAPI_TOKEN=your-strapi-cloud-token-here
+REACT_APP_STRAPI_URL=https://your-project.strapi.cloud
+REACT_APP_STRAPI_TOKEN=your-api-token
 ```
 
-## 3. 获取 API Token
+### 4. 重新实现数据访问
 
-1. 在 Strapi Cloud 控制台中，进入您的项目
-2. 转到 "Settings" > "API Tokens"
-3. 创建新的 API Token，选择适当的权限
-4. 复制生成的 token 到您的 `.env` 文件
-
-## 4. 验证配置
-
-启动项目以验证配置：
-
-```bash
-npm start
-```
+- 创建新的 API 调用函数
+- 实现数据获取逻辑
+- 测试与 Strapi Cloud 的连接
 
 ## 注意事项
 
-- 确保您的 Strapi Cloud 实例已正确配置内容类型
-- 检查 API Token 的权限设置
-- 如果遇到 CORS 问题，请在 Strapi Cloud 设置中配置允许的域名
-
-## 故障排除
-
-如果遇到连接问题：
-
-1. 检查 URL 是否正确
-2. 验证 API Token 是否有效
-3. 确认 Strapi Cloud 实例是否正在运行
-4. 检查网络连接和防火墙设置
+- 项目现在是一个纯前端项目，没有 Strapi 依赖
+- 可以正常构建和运行
+- 准备好重新集成 Strapi Cloud 服务

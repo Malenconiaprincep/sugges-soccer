@@ -1,3 +1,4 @@
+// 简单的数据访问工具函数
 export function getValueByKeyPath(data: any, keypath: string) {
   const keys = keypath.split(".")
   let result = data
@@ -16,7 +17,7 @@ export function getValueByKeyPath(data: any, keypath: string) {
           return ""
         }
       }
-    } catch (e) {}
+    } catch (e) { }
   })
   return result
 }
