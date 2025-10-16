@@ -14,10 +14,13 @@ export async function getList(page: number = 1): Promise<any> {
         pageSize,
       },
     })
+    console.log("getList response:", res)
     if (res.data) {
       return res.data
     }
+    return []
   } catch (e) {
+    console.error("getList error:", e)
     return []
   }
 }
@@ -25,9 +28,11 @@ export async function getList(page: number = 1): Promise<any> {
 export async function getCount() {
   try {
     const res = await strapi.find("teams")
-    // @ts-ignore
-    return res?.meta?.pagination?.total || 0
+    console.log("getCount response:", res)
+    // strapi-sdk-js 3.0.0 可能改变了响应结构
+    return res?.meta?.pagination?.total || res?.data?.length || 0
   } catch (e) {
+    console.error("getCount error:", e)
     return null
   }
 }

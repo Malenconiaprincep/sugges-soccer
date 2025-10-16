@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react"
 import { Modal, message } from "antd"
-import "antd/dist/antd.css"
+import "antd/dist/reset.css"
 import "./App.css"
 import axios from "axios"
 // import ReactAudioPlayer from "react-audio-player"
