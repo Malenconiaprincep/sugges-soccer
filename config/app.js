@@ -7,9 +7,4 @@ module.exports = ({ env }) => ({
   webhooks: {
     populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
   },
-  // Strapi 5.x 配置
-  server: {
-    host: env('HOST', '0.0.0.0'),
-    port: env.int('PORT', 1337),
-  },
 });
